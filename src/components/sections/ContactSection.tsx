@@ -43,7 +43,7 @@ export default function ContactSection() {
           <div className="col-span-6 row-span-3">
             <div className="relative grid w-full grid-cols-1 gap-4 overflow-hidden rounded-md border border-red-300 bg-gradient-to-b from-red-700 to-red-900 p-6 md:grid-cols-[2.5fr_1fr]">
               {/* Background icon inside the box behind text */}
-              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-neutral-50/5">
+              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-zinc-50/5">
                 <SiGmail className="h-[275px] w-[275px] text-white/10" />
               </div>
 
@@ -72,7 +72,7 @@ export default function ContactSection() {
 
               {/* Gmail Icon (ด้านขวา) */}
               <div className="flex items-end justify-end">
-                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-neutral-50">
+                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-zinc-50">
                   <SiGmail className="h-10 w-10" />
                 </div>
               </div>
@@ -84,7 +84,7 @@ export default function ContactSection() {
           <div className="col-span-3 row-span-3 row-start-4">
             <div className="undefined relative grid w-full grid-cols-[2.5fr_1fr] overflow-hidden rounded-md border border-purple-200 bg-gradient-to-b from-purple-700 via-pink-500 to-orange-500 p-6">
               {/* Background icon inside the box behind text */}
-              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-neutral-50/5">
+              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-zinc-50/5">
                 <SiInstagram className="h-[275px] w-[275px] text-white/10" />
               </div>
 
@@ -115,7 +115,7 @@ export default function ContactSection() {
 
               {/* Instagram Icon (ด้านขวา) */}
               <div className="flex items-end justify-end">
-                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-neutral-50">
+                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-zinc-50">
                   <SiInstagram className="h-10 w-10" />
                 </div>
               </div>
@@ -127,7 +127,7 @@ export default function ContactSection() {
           <div className="col-span-3 col-start-4 row-span-3 row-start-4">
             <div className="undefined relative grid w-full grid-cols-[2.5fr_1fr] overflow-hidden rounded-md border border-sky-300 bg-gradient-to-b from-sky-700 to-sky-900 p-6">
               {/* Background icon inside the box behind text */}
-              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-neutral-50/5">
+              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-zinc-50/5">
                 <SiLinkedin className="h-[275px] w-[275px] text-white/10" />
               </div>
 
@@ -159,7 +159,7 @@ export default function ContactSection() {
 
               {/* LinkedIn Icon (ด้านขวา) */}
               <div className="flex items-end justify-end">
-                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-neutral-50">
+                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-zinc-50">
                   <SiLinkedin className="h-10 w-10" />
                 </div>
               </div>
@@ -169,23 +169,23 @@ export default function ContactSection() {
           {/* TikTok */}
           {/* <div className="col-span-3 row-span-3 row-start-7 flex items-center justify-center"> */}
           <div className="col-span-3 row-span-3 row-start-7">
-            <div className="undefined relative grid w-full grid-cols-[2.5fr_1fr] overflow-hidden rounded-md border border-neutral-400 bg-gradient-to-b from-neutral-700 to-neutral-900 p-6">
+            <div className="undefined relative grid w-full grid-cols-[2.5fr_1fr] overflow-hidden rounded-md border border-zinc-400 bg-gradient-to-b from-zinc-700 to-zinc-900 p-6">
               {/* Background icon inside the box behind text */}
-              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-neutral-50/5">
+              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-zinc-50/5">
                 <SiTiktok className="h-[275px] w-[275px] text-white/10" />
               </div>
 
               {/* Text Content */}
               <div className="z-10 flex flex-col justify-between gap-y-2 subpixel-antialiased">
-                <h4 className="text-lg font-semibold tracking-wide text-neutral-300">
+                <h4 className="text-lg font-semibold tracking-wide text-zinc-300">
                   Join the Fun
                 </h4>
-                <p className="pb-2 text-sm text-neutral-300">
+                <p className="pb-2 text-sm text-zinc-300">
                   Follow me on TikTok for entertaining and engaging content.
                 </p>
                 <Button
                   asChild
-                  className="hover:bg-opacity-100 rounded-md bg-neutral-300 px-4 py-2 transition duration-100 md:w-max"
+                  className="hover:bg-opacity-100 rounded-md bg-zinc-300 px-4 py-2 transition duration-100 md:w-max"
                 >
                   <Link
                     href="https://www.tiktok.com/@bbsphw_"
@@ -202,7 +202,7 @@ export default function ContactSection() {
 
               {/* TikTok Icon (ด้านขวา) */}
               <div className="flex items-end justify-end">
-                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-neutral-50">
+                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-zinc-50">
                   <SiTiktok className="h-10 w-10" />
                 </div>
               </div>
@@ -214,7 +214,7 @@ export default function ContactSection() {
           <div className="col-span-3 col-start-4 row-span-3 row-start-7">
             <div className="undefined relative grid w-full grid-cols-[2.5fr_1fr] overflow-hidden rounded-md border border-slate-400 bg-gradient-to-b from-slate-900 to-slate-950 p-6">
               {/* Background icon inside the box behind text */}
-              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-neutral-50/5">
+              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-zinc-50/5">
                 <SiGithub className="h-[275px] w-[275px] text-white/10" />
               </div>
 
@@ -244,7 +244,7 @@ export default function ContactSection() {
               </div>
               {/* GitHub Icon (ด้านขวา) */}
               <div className="flex items-end justify-end">
-                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-neutral-50">
+                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-zinc-50">
                   <SiGithub className="h-10 w-10" />
                 </div>
               </div>

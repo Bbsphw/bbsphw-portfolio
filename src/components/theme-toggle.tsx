@@ -4,26 +4,13 @@
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return (
-      <Button variant="outline" size="icon" className="rounded-md" disabled>
-        <div className="bg-muted-foreground/20 h-5 w-5 animate-pulse rounded" />
-      </Button>
-    );
-  }
+  const { setTheme, resolvedTheme } = useTheme();
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    // ใช้ resolvedTheme เพื่อให้แน่ใจว่าสลับจาก theme ปัจจุบันจริงๆ (รวมถึงกรณี system)
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -31,19 +18,35 @@ export default function ThemeToggle() {
       variant="outline"
       size="icon"
       onClick={toggleTheme}
-      className="hover:bg-accent rounded-md"
+      className="hover:bg-accent relative overflow-hidden rounded-md"
       aria-label="Toggle theme"
     >
-      <Image
-        src={
-          theme === "dark" ? "/icon/clouds-moon.png" : "/icon/clouds-sun.png"
-        }
-        alt={theme === "dark" ? "Moon" : "Sun"}
-        width={20}
-        height={20}
-        className="object-contain transition-all hover:scale-110"
-        priority
-      />
+      {/* รูปพระอาทิตย์ (แสดงตอน Light, ซ่อนตอน Dark) */}
+      <div className="absolute scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90 dark:opacity-0">
+        <Image
+          src="/icon/clouds-sun.png"
+          alt="Sun"
+          width={20}
+          height={20}
+          className="object-contain"
+          priority
+        />
+      </div>
+
+      {/* รูปพระจันทร์ (ซ่อนตอน Light, แสดงตอน Dark) */}
+      <div className="absolute scale-0 rotate-90 opacity-0 transition-all dark:scale-100 dark:rotate-0 dark:opacity-100">
+        <Image
+          src="/icon/clouds-moon.png"
+          alt="Moon"
+          width={20}
+          height={20}
+          className="object-contain"
+          priority
+        />
+      </div>
+
+      {/* Invisible placeholder เพื่อรักษาขนาดปุ่ม (ถ้าจำเป็น) */}
+      <span className="h-[20px] w-[20px] opacity-0" />
     </Button>
   );
 }

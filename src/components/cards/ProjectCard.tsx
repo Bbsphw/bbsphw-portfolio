@@ -1,9 +1,11 @@
+// src/components/cards/ProjectCard.tsx
+
 import Image from "next/image";
 // import Link from "next/link";
 
 import { TbPinnedFilled } from "react-icons/tb";
 import { LuArrowRightToLine } from "react-icons/lu";
-import { Project } from "@/components/sections/ProjectsSection";
+import { Project } from "@/types";
 
 export default function ProjectCard({
   title,

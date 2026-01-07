@@ -149,91 +149,73 @@
 //   );
 // }
 
+// src/components/sections/AchievementsSection.tsx
 "use client";
 
 import { FaSearch } from "react-icons/fa";
 import { AchievementCombobox } from "../comboboxs/AchievementsCombobox";
 import { AchievementSummary } from "../AchievementSummary";
-import { useState, useMemo } from "react";
+import { Suspense, useCallback, useMemo } from "react";
 import AchievementCard from "../cards/AchievementCard";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { achievements } from "@/data/achievements"; // Import data
 
-export type Achievement = {
-  type: "certification" | "badge" | "awards";
-  title: string;
-  organization: string;
-  image: string;
-  link?: string;
-  date?: string;
-};
+function AchievementsContent() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-const mockAchievements: Achievement[] = [
-  {
-    type: "certification",
-    title: "AWS Certified",
-    organization: "Amazon Web Services",
-    image: "/vercel.svg",
-    link: "https://example.com/certificate",
-    date: "2024-01-01",
-  },
-  {
-    type: "badge",
-    title: "Open Source Contributor",
-    organization: "GitHub",
-    image: "/vercel.svg",
-    link: "https://example.com/certificate",
-    date: "2024-01-01",
-  },
-  {
-    type: "awards",
-    title: "Best Dev 2024",
-    organization: "Tech Awards",
-    image: "/vercel.svg",
-    link: "https://example.com/certificate",
-    date: "2024-01-01",
-  },
-];
+  // 1. ดึงค่าจาก URL (ถ้าไม่มีให้เป็นค่าว่าง)
+  const currentType = searchParams.get("type") || "";
+  const currentSearch = searchParams.get("q") || "";
 
-export default function AchievementsSection() {
-  const [achievements] = useState<Achievement[]>(mockAchievements);
-  const [filters, setFilters] = useState<{
-    type: string;
-    searchQuery: string;
-  }>({ type: "", searchQuery: "" });
+  // 2. ฟังก์ชันสำหรับอัปเดต URL (Helper Function)
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (value) {
+        params.set(name, value);
+      } else {
+        params.delete(name);
+      }
+      return params.toString();
+    },
+    [searchParams],
+  );
 
-  // Memoize filtered achievements to avoid unnecessary re-computation
+  // 3. Logic การ Filter (ใช้ค่าจาก URL แทน State)
   const filteredAchievements = useMemo(() => {
     return achievements.filter((achievement) => {
-      const matchesType = filters.type
-        ? achievement.type === filters.type
-        : true;
-      const matchesSearch = filters.searchQuery
+      const matchesType = currentType ? achievement.type === currentType : true;
+      const matchesSearch = currentSearch
         ? achievement.title
             .toLowerCase()
-            .includes(filters.searchQuery.toLowerCase()) ||
+            .includes(currentSearch.toLowerCase()) ||
           achievement.organization
             .toLowerCase()
-            .includes(filters.searchQuery.toLowerCase())
+            .includes(currentSearch.toLowerCase())
         : true;
       return matchesType && matchesSearch;
     });
-  }, [achievements, filters]);
+  }, [currentType, currentSearch]);
 
-  // Handle search input changes with debouncing (optional, can be added later)
+  // 4. Handle Search Input (ใช้ replace เพื่ออัปเดต URL)
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters((prev) => ({ ...prev, searchQuery: e.target.value }));
+    const value = e.target.value;
+    router.replace(pathname + "?" + createQueryString("q", value), {
+      scroll: false, // ไม่ต้องเลื่อนหน้าจอขึ้นบนสุด
+    });
   };
 
-  // Handle type selection from combobox
+  // 5. Handle Type Select
   const handleTypeSelect = (type: string) => {
-    setFilters((prev) => ({ ...prev, type }));
+    router.replace(pathname + "?" + createQueryString("type", type), {
+      scroll: false,
+    });
   };
 
   return (
-    <section
-      id="achievements"
-      aria-labelledby="achievements-heading"
-      className="space-y-6"
-    >
+    <div className="space-y-6">
       <header>
         <h1
           id="achievements-heading"
@@ -260,7 +242,8 @@ export default function AchievementsSection() {
             <input
               type="text"
               placeholder="Search achievements..."
-              value={filters.searchQuery}
+              // ใช้ defaultValue เพื่อให้พิมพ์ได้ลื่นไหล (Uncontrolled Input with URL Sync)
+              defaultValue={currentSearch}
               onChange={handleSearchChange}
               className="w-full bg-transparent text-base text-neutral-900 placeholder:text-neutral-500 focus:outline-none dark:text-white dark:placeholder:text-neutral-400"
               aria-label="Search achievements"
@@ -270,7 +253,7 @@ export default function AchievementsSection() {
           {/* Filter Dropdown */}
           <div className="w-full md:w-[230px]">
             <AchievementCombobox
-              selectedType={filters.type}
+              selectedType={currentType}
               onSelect={handleTypeSelect}
             />
           </div>
@@ -297,6 +280,17 @@ export default function AchievementsSection() {
           </div>
         )}
       </section>
+    </div>
+  );
+}
+
+// Main Component ต้อง Wrap ด้วย Suspense เพราะมีการใช้ useSearchParams
+export default function AchievementsSection() {
+  return (
+    <section id="achievements" aria-labelledby="achievements-heading">
+      <Suspense fallback={<div>Loading achievements...</div>}>
+        <AchievementsContent />
+      </Suspense>
     </section>
   );
 }
