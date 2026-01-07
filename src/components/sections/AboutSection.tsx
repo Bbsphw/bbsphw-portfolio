@@ -1,7 +1,7 @@
 // src/components/sections/AboutSection.tsx
 "use client";
 
-export default function AchievementsSection() {
+export default function AboutSection() {
   return (
     <section id="about" aria-labelledby="about-heading" className="space-y-6">
       <header>
@@ -54,18 +54,16 @@ export default function AchievementsSection() {
           <h2>career</h2>
           <p>My professional career journey</p>
         </div>
-        
-        <div>
-          
-        </div>
+
+        <div></div>
       </section>
 
-      <section>
+      {/* <section>
         <div>
           <h2></h2>
           <p></p>
         </div>
-      </section>
+      </section> */}
     </section>
   );
 }

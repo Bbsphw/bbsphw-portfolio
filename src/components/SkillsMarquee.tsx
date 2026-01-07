@@ -1,3 +1,4 @@
+// src/components/SkillsMarquee.tsx
 "use client";
 
 import { Badge } from "@/components/ui/badge";

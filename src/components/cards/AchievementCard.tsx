@@ -50,9 +50,10 @@
 //   );
 // }
 
+// src/components/cards/AchievementCard.tsx
 import Image from "next/image";
 import { LuArrowRightToLine } from "react-icons/lu";
-import { Achievement } from "@/components/sections/AchievementsSection";
+import { Achievement } from "@/types";
 
 export default function AchievementCard({
   //   type,

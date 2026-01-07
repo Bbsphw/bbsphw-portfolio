@@ -42,6 +42,8 @@
 //     </section>
 //   );
 // }
+
+// src/components/sections/SkillsSection.tsx
 "use client";
 
 import {
@@ -53,26 +55,7 @@ import {
   SiTailwindcss,
 } from "react-icons/si";
 import SkillsMarquee from "../SkillsMarquee";
-
-export type Skill = {
-  name: string;
-  icon: React.ReactNode;
-};
-
-export const skills: Skill[] = [
-  {
-    name: "JavaScript",
-    icon: <SiJavascript className="text-yellow-400" />,
-  },
-  { name: "TypeScript", icon: <SiTypescript className="text-blue-500" /> },
-  { name: "React", icon: <SiReact className="text-cyan-400" /> },
-  { name: "Node.js", icon: <SiNodedotjs className="text-green-500" /> },
-  {
-    name: "Next.js",
-    icon: <SiNextdotjs className="text-black dark:text-white" />,
-  },
-  { name: "Tailwind CSS", icon: <SiTailwindcss className="text-sky-400" /> },
-];
+import { skills } from "@/data/skills"; // เรียกใช้ data จาก data/skills.ts
 
 export default function SkillsSection() {
   return (

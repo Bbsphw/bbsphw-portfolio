@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 import { HiCode } from "react-icons/hi";
-import { skills } from "./SkillsSection";
+import { skills } from "@/data/skills";
 import { RiServiceFill } from "react-icons/ri";
 import SkillsMarquee from "../SkillsMarquee";
 
@@ -27,15 +27,20 @@ export default function HeroSection(): React.JSX.Element {
         >
           Hi, I&apos;m Sophonwit Thapseng
         </h1>
+
         <div className="space-y-4">
-          <ul className="ml-5 flex list-disc flex-col gap-x-10 gap-y-2 md:flex-row">
-            <p className="text-zinc-700 dark:text-zinc-400">
+          <div className="ml-5 flex flex-col gap-y-2 text-zinc-700 md:flex-row md:gap-x-2 dark:text-zinc-400">
+            <div className="flex items-center gap-2">
+              <span>•</span>
               <span>Based in Bangkok, Thailand 🇹🇭</span>
-              {/* <span className="mx-2 hidden sm:inline">•</span> */}
+            </div>
+            <div className="flex items-center gap-2">
+              <span>•</span>
               <span>Hybrid work</span>
-            </p>
-          </ul>
+            </div>
+          </div>
         </div>
+
         <div className="mt-3 leading-loose">
           <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
             Passionate and seasoned Software Engineer with a strong focus on
