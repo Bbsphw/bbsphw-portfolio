@@ -1,52 +1,22 @@
-// src/components/theme-toggle.tsx
 "use client";
 
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
-import Image from "next/image";
+import { Moon, Sun } from "lucide-react"; // แนะนำให้ใช้ Icon จาก Lucide แทน Image เพื่อ performance และ consistency
 
 export default function ThemeToggle() {
-  const { setTheme, resolvedTheme } = useTheme();
-
-  const toggleTheme = () => {
-    // ใช้ resolvedTheme เพื่อให้แน่ใจว่าสลับจาก theme ปัจจุบันจริงๆ (รวมถึงกรณี system)
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
-  };
+  const { setTheme, theme } = useTheme();
 
   return (
     <Button
       variant="outline"
       size="icon"
-      onClick={toggleTheme}
-      className="hover:bg-accent relative overflow-hidden rounded-md"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className="h-9 w-9 rounded-md border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300 dark:hover:bg-zinc-900"
       aria-label="Toggle theme"
     >
-      {/* รูปพระอาทิตย์ (แสดงตอน Light, ซ่อนตอน Dark) */}
-      <div className="absolute scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90 dark:opacity-0">
-        <Image
-          src="/icon/clouds-sun.png"
-          alt="Sun"
-          width={20}
-          height={20}
-          className="object-contain"
-          priority
-        />
-      </div>
-
-      {/* รูปพระจันทร์ (ซ่อนตอน Light, แสดงตอน Dark) */}
-      <div className="absolute scale-0 rotate-90 opacity-0 transition-all dark:scale-100 dark:rotate-0 dark:opacity-100">
-        <Image
-          src="/icon/clouds-moon.png"
-          alt="Moon"
-          width={20}
-          height={20}
-          className="object-contain"
-          priority
-        />
-      </div>
-
-      {/* Invisible placeholder เพื่อรักษาขนาดปุ่ม (ถ้าจำเป็น) */}
-      <span className="h-[20px] w-[20px] opacity-0" />
+      <Sun className="h-4 w-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+      <Moon className="absolute h-4 w-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
     </Button>
   );
 }

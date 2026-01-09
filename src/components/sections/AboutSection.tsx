@@ -1,25 +1,122 @@
 // src/components/sections/AboutSection.tsx
+
 "use client";
 
+import { educationData, careerData } from "@/data/about";
+import { Button } from "@/components/ui/button";
+import { FileText, Backpack, GraduationCap, ExternalLink } from "lucide-react";
+import CareerCard from "@/components/cards/CareerCard";
+import EducationCard from "@/components/cards/EducationCard";
+import { motion, Variants } from "framer-motion";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
+// --- Animation Variants ---
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
 export default function AboutSection() {
+  // Path ของไฟล์ Resume
+  const resumeUrl = "/pdf/Sophonwit_Thapseng-SoftwareENG_Internship.pdf";
+
   return (
     <section id="about" aria-labelledby="about-heading" className="space-y-6">
-      <header>
+      {/* --- HEADER --- */}
+      <motion.header
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+        className="space-y-2"
+      >
         <h1
           id="about-heading"
-          className="text-2xl font-medium text-neutral-900 dark:text-neutral-50"
+          className="text-2xl font-medium text-zinc-900 dark:text-zinc-50"
         >
           About
         </h1>
-        <p className="mb-6 pt-2 text-neutral-600 dark:text-neutral-400">
-          A short story of me.
-        </p>
-      </header>
 
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-zinc-600 dark:text-zinc-400">
+            A short story of me.
+          </p>
+
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="group w-fit gap-2 rounded-full border-zinc-300 hover:border-zinc-400 hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
+              >
+                <FileText className="h-4 w-4 transition-transform group-hover:-translate-y-1" />
+                Preview Resume
+              </Button>
+            </DialogTrigger>
+
+            <DialogContent className="flex h-[95vh] max-w-4xl flex-col overflow-hidden p-0">
+              {/* Header ของ Modal */}
+              <DialogHeader className="flex-shrink-0 border-b border-zinc-200 bg-white px-6 py-4 dark:border-zinc-800 dark:bg-zinc-950">
+                <div className="flex items-center justify-between pr-8">
+                  <DialogTitle className="text-lg font-medium">
+                    Resume Preview
+                  </DialogTitle>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className="gap-2 text-zinc-500 hover:text-zinc-900"
+                  >
+                    <a
+                      href={resumeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      Open in New Tab
+                    </a>
+                  </Button>
+                </div>
+              </DialogHeader>
+
+              {/* PDF Viewer (Iframe) */}
+              <div className="relative h-full w-full flex-1 bg-zinc-100 dark:bg-zinc-900">
+                <iframe
+                  src={resumeUrl}
+                  className="h-full w-full border-none"
+                  title="Resume PDF"
+                />
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
+      </motion.header>
+
+      {/* --- ABOUT ME TEXT --- */}
       <hr className="my-6 border-zinc-200 dark:border-zinc-700" />
-
-      <section>
-        <div>
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+      >
+        <div className="space-y-4 leading-relaxed text-zinc-600 dark:text-zinc-300">
           <p>
             I&apos;m a final-year Computer and Information Engineering student
             at Kasetsart University, Sriracha Campus, with a strong passion for
@@ -46,24 +143,87 @@ export default function AboutSection() {
             a team that values innovation and impact.
           </p>
         </div>
-      </section>
+      </motion.section>
 
+      {/* --- CAREER SECTION --- */}
       <hr className="my-6 border-zinc-200 dark:border-zinc-700" />
-      <section>
-        <div>
-          <h2>career</h2>
-          <p>My professional career journey</p>
-        </div>
+      <motion.section
+        aria-labelledby="career-heading"
+        className="space-y-5"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={staggerContainer}
+      >
+        <motion.div variants={fadeInUp} className="space-y-1">
+          <div className="flex items-center gap-2">
+            <Backpack className="text-xl text-zinc-800 dark:text-zinc-200" />
+            <h2
+              id="career-heading"
+              className="text-xl font-medium text-zinc-800 capitalize dark:text-zinc-300"
+            >
+              Career
+            </h2>
+          </div>
+          <p className="text-zinc-600 dark:text-zinc-400">
+            My professional career journey
+          </p>
+        </motion.div>
 
-        <div></div>
-      </section>
-
-      {/* <section>
-        <div>
-          <h2></h2>
-          <p></p>
+        <div className="grid grid-cols-1 gap-4">
+          {careerData.length > 0 ? (
+            careerData.map((career, index) => (
+              <motion.div key={index} variants={fadeInUp}>
+                <CareerCard career={career} />
+              </motion.div>
+            ))
+          ) : (
+            <motion.p variants={fadeInUp} className="text-zinc-500">
+              No professional experience yet.
+            </motion.p>
+          )}
         </div>
-      </section> */}
+      </motion.section>
+
+      {/* --- EDUCATION SECTION --- */}
+      <hr className="my-6 border-zinc-200 dark:border-zinc-700" />
+      <motion.section
+        aria-labelledby="education-heading"
+        className="space-y-5"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={staggerContainer}
+      >
+        <motion.div variants={fadeInUp} className="space-y-1">
+          <div className="flex items-center gap-2">
+            <GraduationCap className="text-xl text-zinc-800 dark:text-zinc-200" />
+            <h2
+              id="education-heading"
+              className="text-xl font-medium text-zinc-800 capitalize dark:text-zinc-300"
+            >
+              Education
+            </h2>
+          </div>
+          <p className="text-zinc-600 dark:text-zinc-400">
+            My educational background
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 gap-4">
+          {educationData.length > 0 ? (
+            educationData.map((education, index) => (
+              <motion.div key={index} variants={fadeInUp}>
+                <EducationCard education={education} />
+              </motion.div>
+            ))
+          ) : (
+            <motion.p variants={fadeInUp} className="text-zinc-500">
+              No education data.
+            </motion.p>
+          )}
+        </div>
+      </motion.section>
     </section>
   );
 }

@@ -1,3 +1,5 @@
+// src/components/comboboxs/ProjectsCombobox.tsx
+
 "use client";
 
 import * as React from "react";
@@ -18,22 +20,17 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const achievementTypes = [
-  { value: "", label: "All Achievements" },
-  { value: "certification", label: "Certification" },
-  { value: "badge", label: "Badge" },
-  { value: "awards", label: "Awards" },
-];
-
-interface AchievementComboboxProps {
-  selectedType: string;
+interface ProjectsComboboxProps {
+  selectedTag: string;
   onSelect: (value: string) => void;
+  options: string[]; // ✅ รับรายการ Tags ทั้งหมดเข้ามา
 }
 
-export function AchievementCombobox({
-  selectedType,
+export function ProjectsCombobox({
+  selectedTag,
   onSelect,
-}: AchievementComboboxProps) {
+  options,
+}: ProjectsComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -43,11 +40,11 @@ export function AchievementCombobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          aria-label="Select achievement type"
+          aria-label="Select technology"
           className="w-full justify-between border-zinc-200 bg-zinc-50 text-zinc-900 hover:bg-zinc-100 md:w-[230px] dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100 dark:hover:bg-zinc-900"
         >
-          {achievementTypes.find((type) => type.value === selectedType)
-            ?.label || "All Achievements"}
+          {/* แสดง Tag ที่เลือก หรือแสดง Placeholder */}
+          {selectedTag || "All Technologies"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -56,28 +53,48 @@ export function AchievementCombobox({
         align="end"
       >
         <Command className="bg-white dark:bg-zinc-950">
-          <CommandInput placeholder="Search type..." className="h-9" />
+          <CommandInput placeholder="Search tech..." className="h-9" />
           <CommandList>
-            <CommandEmpty>No type found.</CommandEmpty>
+            <CommandEmpty>No technology found.</CommandEmpty>
             <CommandGroup>
-              {achievementTypes.map((type) => (
+              {/* ตัวเลือกสำหรับเคลียร์ Filter */}
+              <CommandItem
+                value="all"
+                onSelect={() => {
+                  onSelect("");
+                  setOpen(false);
+                }}
+                className="cursor-pointer font-medium text-zinc-500 aria-selected:bg-zinc-100 dark:aria-selected:bg-zinc-800"
+              >
+                All Technologies
+                <Check
+                  className={cn(
+                    "ml-auto h-4 w-4",
+                    selectedTag === "" ? "opacity-100" : "opacity-0",
+                  )}
+                />
+              </CommandItem>
+
+              {/* Loop สร้าง Options ตาม Data จริง */}
+              {options.map((tag) => (
                 <CommandItem
-                  key={type.value}
-                  value={type.value}
+                  key={tag}
+                  value={tag}
                   onSelect={(currentValue) => {
-                    // ถ้าเลือกซ้ำให้เป็นค่าว่าง (deselect) หรือใช้ค่าใหม่
-                    onSelect(currentValue === selectedType ? "" : currentValue);
+                    // ถ้าเลือกซ้ำให้เป็นค่าว่าง (toggle)
+                    onSelect(
+                      currentValue === selectedTag.toLowerCase() ? "" : tag,
+                    );
                     setOpen(false);
                   }}
                   className="cursor-pointer aria-selected:bg-zinc-100 dark:aria-selected:bg-zinc-800"
                 >
-                  {type.label}
+                  {tag}
                   <Check
                     className={cn(
                       "ml-auto h-4 w-4",
-                      selectedType === type.value ? "opacity-100" : "opacity-0",
+                      selectedTag === tag ? "opacity-100" : "opacity-0",
                     )}
-                    aria-hidden="true"
                   />
                 </CommandItem>
               ))}
