@@ -12,6 +12,7 @@ export const projects: Project[] = [
       "/tech/typescript-icon-svgrepo-com.svg",
       "/tech/react-svgrepo-com.svg",
     ],
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     link: "https://satriabahari.site",
     featured: true,
   },
@@ -20,9 +21,11 @@ export const projects: Project[] = [
     description: "A mini-website platform for online presence",
     technologies: [
       "/tech/next-js-svgrepo-com.svg",
-      "/tech/next-js-svgrepo-com.svg",
-      "/tech/next-js-svgrepo-com.svg",
+      "/tech/tailwind-css-svgrepo-com.svg",
+      "/tech/typescript-icon-svgrepo-com.svg",
+      "/tech/react-svgrepo-com.svg",
     ],
+    tags: ["Next.js", "Full Stack", "Prisma", "PostgreSQL"], 
     link: "https://berbagi.link",
   },
 ];

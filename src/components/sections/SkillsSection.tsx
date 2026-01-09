@@ -10,7 +10,7 @@
 //         <h1 id="skills-heading" className="text-2xl font-medium">
 //           Professional Skills & Expertise
 //         </h1>
-//         <p className="mb-6 pb-6 pt-2 text-neutral-600 dark:text-neutral-400">
+//         <p className="mb-6 pb-6 pt-2 text-zinc-600 dark:text-zinc-400">
 //           A comprehensive overview of my professional competencies, blending
 //           specialized technical proficiencies with essential interpersonal
 //           skills for effective collaboration and impactful results.
@@ -65,7 +65,7 @@ export default function SkillsSection() {
         <h1 id="skills-heading" className="text-2xl font-medium">
           Professional Skills & Expertise
         </h1>
-        <p className="mb-6 pt-2 pb-6 text-neutral-600 dark:text-neutral-400">
+        <p className="mb-6 pt-2 pb-6 text-zinc-600 dark:text-zinc-400">
           A comprehensive overview of my professional competencies, blending
           specialized technical proficiencies with essential interpersonal
           skills for effective collaboration and impactful results.

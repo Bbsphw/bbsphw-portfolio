@@ -1,175 +1,40 @@
-// //src/components/sections/AchievementsSection.tsx
-// "use client";
-
-// import { FaSearch } from "react-icons/fa";
-// import { AchievementCombobox } from "../comboboxs/AchievementsCombobox";
-// import { AchievementSummary } from "../AchievementSummary";
-// import { useMemo, useState } from "react";
-// import AchievementCard from "../cards/AchievementCard";
-
-// export type Achievement = {
-//   type: "certification" | "badge" | "awards";
-//   title: string;
-//   organization: string;
-//   image: string;
-//   link?: string;
-//   date?: string;
-// };
-
-// // ตัวอย่าง mock data
-// const mockAchievements: Achievement[] = [
-//   {
-//     type: "certification",
-//     title: "AWS Certified",
-//     organization: "Amazon Web Services",
-//     image: "/vercel.svg",
-//     link: "https://example.com/certificate",
-//     date: "2024-01-01",
-//   },
-//   {
-//     type: "badge",
-//     title: "Open Source Contributor",
-//     organization: "GitHub",
-//     image: "/vercel.svg",
-//     link: "https://example.com/certificate",
-//     date: "2024-01-01",
-//   },
-//   {
-//     type: "awards",
-//     title: "Best Dev 2024",
-//     organization: "Tech Awards",
-//     image: "/vercel.svg",
-//     link: "https://example.com/certificate",
-//     date: "2024-01-01",
-//   },
-// ];
-
-// export default function AchievementsSection() {
-//   // const [achievements] = useState(mockAchievements); // หรือใช้ fetch/props ได้
-//   const [achievements] = useState<Achievement[]>(mockAchievements);
-//   const [filters, setFilters] = useState<{
-//     type: string;
-//     searchQuery: string;
-//   }>({ type: "", searchQuery: "" });
-
-//   // Memoize filtered achievements to avoid unnecessary re-computation
-//   const filteredAchievements = useMemo(() => {
-//     return achievements.filter((achievement) => {
-//       const matchesType = filters.type
-//         ? achievement.type === filters.type
-//         : true;
-//       const matchesSearch = filters.searchQuery
-//         ? achievement.title
-//             .toLowerCase()
-//             .includes(filters.searchQuery.toLowerCase()) ||
-//           achievement.organization
-//             .toLowerCase()
-//             .includes(filters.searchQuery.toLowerCase())
-//         : true;
-//       return matchesType && matchesSearch;
-//     });
-//   }, [achievements, filters]);
-
-//   // Handle search input changes with debouncing (optional, can be added later)
-//   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setFilters((prev) => ({ ...prev, searchQuery: e.target.value }));
-//   };
-
-//   // Handle type selection from combobox
-//   const handleTypeSelect = (type: string) => {
-//     setFilters((prev) => ({ ...prev, type }));
-//   };
-
-//   return (
-//     <section id="achievements" aria-labelledby="achievements-heading">
-//       <header>
-//         <h1 className="text-2xl font-medium">Achievements</h1>
-//         <p className="mb-6 pb-6 pt-2 text-neutral-600 dark:text-neutral-400">
-//           A collection of certificates and badges that I have earned throughout
-//           my professional journey.
-//         </p>
-//       </header>
-
-//       {/* Separator */}
-//       <hr className="my-6 border-zinc-200 dark:border-zinc-700" />
-
-//       {/* Achievements List */}
-//       <section className="space-y-4">
-//         {/* Search and Filter */}
-//         <div className="flex flex-col space-y-4">
-//           <div className="flex w-full flex-col items-center justify-between space-y-4 md:flex-row">
-//             {/* Search Input */}
-//             <div className="flex w-full items-center gap-2 rounded-lg bg-neutral-50 p-2 outline outline-1 outline-neutral-300 focus-within:outline-neutral-400 dark:bg-neutral-900 dark:outline-neutral-700 md:w-1/2">
-//               <FaSearch
-//                 className="h-5 w-5 text-neutral-500 dark:text-neutral-400"
-//                 aria-hidden="true"
-//               />
-//               <input
-//                 type="text"
-//                 placeholder="Search achievements..."
-//                 value={filters.searchQuery}
-//                 onChange={handleSearchChange}
-//                 className="w-full bg-transparent text-base text-neutral-900 placeholder:text-neutral-500 focus:outline-none dark:text-white dark:placeholder:text-neutral-400"
-//                 aria-label="Search achievements"
-//               />
-//             </div>
-
-//             {/* Filter Dropdown */}
-//             <div className="relative justify-end w-full md:w-[230px]">
-//               <AchievementCombobox
-//                 selectedType={filters.type}
-//                 onSelect={handleTypeSelect}
-//               />
-//             </div>
-//           </div>
-//           {/* Total Achievements */}
-//           <div className="ml-1 text-sm text-neutral-500 dark:text-neutral-400">
-//             {/* <AchievementSummary total={achievements.length} /> */}
-//             <AchievementSummary total={filteredAchievements.length} />
-//           </div>
-//         </div>
-
-//         {/* Achievements Grid or Empty State */}
-//         {filteredAchievements.length > 0 ? (
-//           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-//             {filteredAchievements.map((achievement, index) => (
-//               <AchievementCard
-//                 key={`${achievement.type}-${achievement.title}-${index}`}
-//                 {...achievement}
-//               />
-//             ))}
-//           </div>
-//         ) : (
-//           <div className="text-center text-neutral-500 dark:text-neutral-400">
-//             No achievements found.
-//           </div>
-//         )}
-//       </section>
-//     </section>
-//   );
-// }
-
-// src/components/sections/AchievementsSection.tsx
 "use client";
 
-import { FaSearch } from "react-icons/fa";
+import { Search } from "lucide-react";
 import { AchievementCombobox } from "../comboboxs/AchievementsCombobox";
 import { AchievementSummary } from "../AchievementSummary";
 import { Suspense, useCallback, useMemo } from "react";
 import AchievementCard from "../cards/AchievementCard";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { achievements } from "@/data/achievements"; // Import data
+import { achievements } from "@/data/achievements";
+import { motion, Variants } from "framer-motion";
+
+// --- Animation Variants ---
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
 function AchievementsContent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // 1. ดึงค่าจาก URL (ถ้าไม่มีให้เป็นค่าว่าง)
+  // 1. ดึงค่าจาก URL
   const currentType = searchParams.get("type") || "";
   const currentSearch = searchParams.get("q") || "";
 
-  // 2. ฟังก์ชันสำหรับอัปเดต URL (Helper Function)
+  // 2. Helper Update URL
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -183,7 +48,7 @@ function AchievementsContent() {
     [searchParams],
   );
 
-  // 3. Logic การ Filter (ใช้ค่าจาก URL แทน State)
+  // 3. Logic Filter
   const filteredAchievements = useMemo(() => {
     return achievements.filter((achievement) => {
       const matchesType = currentType ? achievement.type === currentType : true;
@@ -199,15 +64,13 @@ function AchievementsContent() {
     });
   }, [currentType, currentSearch]);
 
-  // 4. Handle Search Input (ใช้ replace เพื่ออัปเดต URL)
+  // 4. Handlers
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    router.replace(pathname + "?" + createQueryString("q", value), {
-      scroll: false, // ไม่ต้องเลื่อนหน้าจอขึ้นบนสุด
+    router.replace(pathname + "?" + createQueryString("q", e.target.value), {
+      scroll: false,
     });
   };
 
-  // 5. Handle Type Select
   const handleTypeSelect = (type: string) => {
     router.replace(pathname + "?" + createQueryString("type", type), {
       scroll: false,
@@ -215,38 +78,54 @@ function AchievementsContent() {
   };
 
   return (
-    <div className="space-y-6">
-      <header>
-        <h1
-          id="achievements-heading"
-          className="text-2xl font-medium text-neutral-900 dark:text-neutral-50"
-        >
-          Achievements
-        </h1>
-        <p className="mb-6 pt-2 text-neutral-600 dark:text-neutral-400">
+    <section className="space-y-6">
+      {/* --- HEADER --- */}
+      <motion.header
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+        className="space-y-2"
+      >
+        <div className="flex items-center gap-2">
+          <h1
+            id="achievements-heading"
+            className="text-2xl font-medium text-zinc-900 dark:text-zinc-50"
+          >
+            Achievements
+          </h1>
+        </div>
+        <p className="text-zinc-600 dark:text-zinc-400">
           A collection of certificates and badges earned throughout my
           professional journey.
         </p>
-      </header>
+      </motion.header>
 
-      <hr className="my-6 border-zinc-200 dark:border-zinc-700" />
+      <hr className="border-zinc-200 dark:border-zinc-700" />
 
-      <section className="space-y-4">
-        <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
-          {/* Search Input */}
-          <div className="flex w-full items-center gap-2 rounded-lg bg-neutral-50 p-2 outline outline-1 outline-neutral-300 focus-within:outline-neutral-400 md:w-1/2 dark:bg-neutral-900 dark:outline-neutral-700">
-            <FaSearch
-              className="h-5 w-5 text-neutral-500 dark:text-neutral-400"
-              aria-hidden="true"
-            />
+      {/* --- FILTER BAR --- */}
+      <motion.div
+        className="space-y-4"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={staggerContainer}
+      >
+        <motion.div
+          variants={fadeInUp}
+          className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
+        >
+          {/* Search Input (Style ให้เหมือน Contact Form) */}
+          <div className="relative flex w-full items-center md:w-1/2">
+            <div className="pointer-events-none absolute left-3 flex items-center pl-1">
+              <Search className="h-4 w-4 text-zinc-500" />
+            </div>
             <input
               type="text"
               placeholder="Search achievements..."
-              // ใช้ defaultValue เพื่อให้พิมพ์ได้ลื่นไหล (Uncontrolled Input with URL Sync)
               defaultValue={currentSearch}
               onChange={handleSearchChange}
-              className="w-full bg-transparent text-base text-neutral-900 placeholder:text-neutral-500 focus:outline-none dark:text-white dark:placeholder:text-neutral-400"
-              aria-label="Search achievements"
+              className="w-full rounded-lg border border-zinc-200 bg-zinc-50 py-2 pr-4 pl-10 text-sm text-zinc-900 placeholder:text-zinc-500 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100 dark:placeholder:text-zinc-400 dark:focus:border-zinc-700"
             />
           </div>
 
@@ -257,38 +136,55 @@ function AchievementsContent() {
               onSelect={handleTypeSelect}
             />
           </div>
-        </div>
+        </motion.div>
 
         {/* Summary */}
-        <div className="ml-1 text-sm text-neutral-500 dark:text-neutral-400">
+        <motion.div
+          variants={fadeInUp}
+          className="ml-1 text-sm text-zinc-500 dark:text-zinc-400"
+        >
           <AchievementSummary total={filteredAchievements.length} />
-        </div>
+        </motion.div>
 
-        {/* Achievements Grid or Empty State */}
+        {/* --- GRID CONTENT --- */}
         {filteredAchievements.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <motion.div
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" // ใช้ gap-6 ให้เท่ากับ Projects
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
             {filteredAchievements.map((achievement, index) => (
-              <AchievementCard
+              <motion.div
                 key={`${achievement.type}-${achievement.title}-${index}`}
-                {...achievement}
-              />
+                variants={fadeInUp}
+              >
+                <AchievementCard {...achievement} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         ) : (
-          <div className="text-center text-neutral-500 dark:text-neutral-400">
-            No achievements found.
-          </div>
+          <motion.div
+            variants={fadeInUp}
+            className="py-10 text-center text-zinc-500 dark:text-zinc-400"
+          >
+            No achievements found matching your criteria.
+          </motion.div>
         )}
-      </section>
-    </div>
+      </motion.div>
+    </section>
   );
 }
 
-// Main Component ต้อง Wrap ด้วย Suspense เพราะมีการใช้ useSearchParams
+// Main Component
 export default function AchievementsSection() {
   return (
     <section id="achievements" aria-labelledby="achievements-heading">
-      <Suspense fallback={<div>Loading achievements...</div>}>
+      <Suspense
+        fallback={
+          <div className="py-20 text-center">Loading achievements...</div>
+        }
+      >
         <AchievementsContent />
       </Suspense>
     </section>

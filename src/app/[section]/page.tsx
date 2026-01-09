@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
-import { Metadata } from "next"; // เพิ่ม Import
+import { Metadata } from "next";
 
+// Import Components
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
 import SkillsSection from "@/components/sections/SkillsSection";
@@ -8,77 +9,68 @@ import AchievementsSection from "@/components/sections/AchievementsSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import ContactSection from "@/components/sections/ContactSection";
 
-// 1. Keys
-type SectionKey =
-  | "hero"
-  | "about"
-  | "skills"
-  | "achievements"
-  | "projects"
-  | "contact";
-
-// 2. Params Type
-interface SectionPageProps {
-  params: Promise<{ section: string }>;
-}
-
-const sectionComponents: Record<SectionKey, React.ReactNode> = {
+// 1. Define Valid Sections
+const SECTIONS = {
   hero: <HeroSection />,
   about: <AboutSection />,
   skills: <SkillsSection />,
   achievements: <AchievementsSection />,
   projects: <ProjectsSection />,
   contact: <ContactSection />,
-};
+} as const;
 
+type SectionKey = keyof typeof SECTIONS;
+
+interface SectionPageProps {
+  params: Promise<{ section: string }>;
+}
+
+// Helper function to check validity
 const isValidSection = (section: string): section is SectionKey => {
-  return Object.keys(sectionComponents).includes(section);
+  return section in SECTIONS;
 };
 
-// 3. Generate Static Params (SSG)
+// 2. SSG Params Generation
 export async function generateStaticParams() {
-  return Object.keys(sectionComponents).map((section) => ({
+  return Object.keys(SECTIONS).map((section) => ({
     section: section,
   }));
 }
 
-// 4. Dynamic Metadata
+// 3. Dynamic Metadata
 export async function generateMetadata({
   params,
 }: SectionPageProps): Promise<Metadata> {
   const { section } = await params;
 
   if (!isValidSection(section)) {
-    return {
-      title: "Page Not Found",
-    };
+    return { title: "Page Not Found" };
   }
 
-  // แปลงตัวอักษรแรกเป็นตัวพิมพ์ใหญ่ (เช่น "about" -> "About")
   const title = section.charAt(0).toUpperCase() + section.slice(1);
 
-  // Custom Description ตาม Section (Optional)
-  const descriptions: Record<string, string> = {
+  const descriptions: Record<SectionKey, string> = {
     hero: "Welcome to my portfolio. Discover my work and skills.",
-    about: "Learn more about my background and experience.",
-    skills: "Check out my technical skills and expertise.",
-    projects: "Explore the projects I have worked on.",
-    achievements: "See my certifications, awards, and badges.",
-    contact: "Get in touch with me for work or collaboration.",
+    about: "Get to know Sophonwit Thapseng, a dedicated Software Engineer.",
+    skills:
+      "Explore my technical stack including React, Next.js, and TypeScript.",
+    projects: "Showcase of my featured web development projects.",
+    achievements: "Certifications, Awards, and Badges I have earned.",
+    contact: "Let's work together. Get in touch with me.",
   };
 
   return {
-    title: `${title} | Sophonwit Thapseng`, // Title ที่จะโชว์บน Tab Browser
-    description: descriptions[section] || "Sophonwit Thapseng Portfolio Site",
+    title: `${title} | Sophonwit Thapseng`,
+    description: descriptions[section],
     openGraph: {
       title: `${title} | Sophonwit Thapseng`,
       description: descriptions[section],
-      // images: [`/og/${section}.png`], // ถ้ามีรูป OG แยกแต่ละหน้า
+      url: `/${section}`,
     },
   };
 }
 
-// 5. Page Component
+// 4. Page Component
 export default async function SectionPage({ params }: SectionPageProps) {
   const { section } = await params;
 
@@ -86,5 +78,10 @@ export default async function SectionPage({ params }: SectionPageProps) {
     notFound();
   }
 
-  return <main>{sectionComponents[section as SectionKey]}</main>;
+  return (
+    // เพิ่ม Fade-in animation เล็กน้อยตอนเปลี่ยนหน้า
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+      {SECTIONS[section]}
+    </div>
+  );
 }

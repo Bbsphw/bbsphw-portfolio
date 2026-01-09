@@ -1,268 +1,297 @@
 // src/components/sections/ContactSection.tsx
-import { MdArrowOutward } from "react-icons/md";
-import { SiGmail } from "react-icons/si";
-import { SiInstagram } from "react-icons/si";
-import { SiLinkedin } from "react-icons/si";
-import { SiTiktok } from "react-icons/si";
-import { SiGithub } from "react-icons/si";
 
-import { Button } from "@/components/ui/button";
+"use client";
+
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { ContactForm } from "../forms/ContactForm";
+import { Send, ArrowUpRight, MessageSquare } from "lucide-react"; // UI Icons
+import {
+  SiGmail,
+  SiInstagram,
+  SiLinkedin,
+  SiTiktok,
+  SiGithub,
+} from "react-icons/si"; // Brand Icons
+import { MdArrowOutward } from "react-icons/md";
+import { motion, Variants } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { ReactNode } from "react";
+
+// --- Animation Variants ---
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
 export default function ContactSection() {
   return (
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      // className="py-12 px-4 sm:px-6 lg:px-8"
+      className="space-y-6"
     >
-      <header className="mb-8">
-        <h1
-          id="contact-heading"
-          className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white"
-        >
-          Contact
-        </h1>
-        <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-          Have a question or looking for a developer ?
+      {/* --- HEADER --- */}
+      <motion.header
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+        className="space-y-2"
+      >
+        <div className="flex items-center gap-2">
+          <h1
+            id="contact-heading"
+            className="text-3xl font-medium text-zinc-900 dark:text-zinc-50"
+          >
+            Contact
+          </h1>
+        </div>
+        <p className="text-zinc-600 dark:text-zinc-400">
+          Have a question or looking for a developer?
         </p>
-      </header>
+      </motion.header>
 
-      {/* Separator */}
-      <hr className="col-span-6 my-6 border-zinc-200 dark:border-zinc-700" />
+      <hr className="border-zinc-200 dark:border-zinc-700" />
 
-      {/* Contact Cards */}
-      <div className="flex flex-col space-y-4">
-        <h4 className="mb-4 text-lg font-semibold text-zinc-800 dark:text-zinc-200">
+      {/* --- SOCIAL BENTO GRID --- */}
+      <motion.div
+        className="space-y-4"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={staggerContainer}
+      >
+        <motion.h4
+          variants={fadeInUp}
+          className="text-lg font-semibold text-zinc-800 dark:text-zinc-200"
+        >
           Find me on social media
-        </h4>
-        <div className="grid grid-cols-6 grid-rows-9 gap-6">
-          {/* Gmail */}
-          {/* <div className="col-span-6 row-span-3 flex items-center justify-center"> */}
-          <div className="col-span-6 row-span-3">
-            <div className="relative grid w-full grid-cols-1 gap-4 overflow-hidden rounded-md border border-red-300 bg-gradient-to-b from-red-700 to-red-900 p-6 md:grid-cols-[2.5fr_1fr]">
-              {/* Background icon inside the box behind text */}
-              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-zinc-50/5">
-                <SiGmail className="h-[275px] w-[275px] text-white/10" />
-              </div>
+        </motion.h4>
 
-              {/* Text Content */}
-              <div className="z-10 flex flex-col justify-between gap-y-2 subpixel-antialiased">
-                <h4 className="text-lg font-semibold tracking-wide text-red-300">
-                  Get in touch
-                </h4>
-                <p className="pb-2 text-sm text-red-300">
-                  For inquiries or collaborations, please contact us via email.
-                </p>
-                <Button
-                  asChild
-                  className="hover:bg-opacity-100 rounded-md bg-red-300 px-4 py-2 transition duration-100 md:w-max"
-                >
-                  <Link
-                    href="mailto:sophonwit.ts@gmail.com"
-                    aria-label="Send email"
-                    className="flex items-center justify-center gap-x-2 text-black"
-                  >
-                    <span className="text-sm font-medium">Go to Email</span>
-                    <MdArrowOutward className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
+        {/* Grid Layout แบบเดิม (Bento Grid) */}
+        {/* ปรับ Mobile เป็น 1 col, Desktop เป็น 6 cols เหมือนเดิม */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:grid-rows-9 md:gap-6">
+          {/* 1. GMAIL (Full Width Top) */}
+          <SocialCard
+            variant="red"
+            className="md:col-span-6 md:row-span-3"
+            icon={<SiGmail className="h-10 w-10" />}
+            bgIcon={<SiGmail className="h-[275px] w-[275px] text-white/10" />}
+            title="Get in touch"
+            description="For inquiries or collaborations, please contact us via email."
+            buttonText="Go to Email"
+            href="mailto:sophonwit.ts@gmail.com"
+          />
 
-              {/* Gmail Icon (ด้านขวา) */}
-              <div className="flex items-end justify-end">
-                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-zinc-50">
-                  <SiGmail className="h-10 w-10" />
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* 2. INSTAGRAM (Left Middle) */}
+          <SocialCard
+            variant="purple"
+            className="md:col-span-3 md:row-span-3"
+            icon={<SiInstagram className="h-10 w-10" />}
+            bgIcon={
+              <SiInstagram className="h-[275px] w-[275px] text-white/10" />
+            }
+            title="Follow My Journey"
+            description="Stay updated with my latest posts and stories on Instagram."
+            buttonText="Go to Instagram"
+            href="https://www.instagram.com/bbsphw_"
+          />
 
-          {/* Instagram */}
-          {/* <div className="col-span-3 row-span-3 row-start-4 flex items-center justify-center"> */}
-          <div className="col-span-3 row-span-3 row-start-4">
-            <div className="undefined relative grid w-full grid-cols-[2.5fr_1fr] overflow-hidden rounded-md border border-purple-200 bg-gradient-to-b from-purple-700 via-pink-500 to-orange-500 p-6">
-              {/* Background icon inside the box behind text */}
-              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-zinc-50/5">
-                <SiInstagram className="h-[275px] w-[275px] text-white/10" />
-              </div>
+          {/* 3. LINKEDIN (Right Middle) */}
+          <SocialCard
+            variant="sky"
+            className="md:col-span-3 md:row-span-3"
+            icon={<SiLinkedin className="h-10 w-10" />}
+            bgIcon={
+              <SiLinkedin className="h-[275px] w-[275px] text-white/10" />
+            }
+            title="Let's Connect"
+            description="Connect for collaboration or explore my professional experience."
+            buttonText="Go to LinkedIn"
+            href="https://linkedin.com/in/sophonwit-thapseng-1b1076330"
+          />
 
-              {/* Text Content */}
-              <div className="z-10 flex flex-col justify-between gap-y-2 subpixel-antialiased">
-                <h4 className="text-lg font-semibold tracking-wide text-purple-300">
-                  Follow My Journey
-                </h4>
-                <p className="pb-2 text-sm text-purple-300">
-                  Stay updated with my latest posts and stories on Instagram.
-                </p>
-                <Button
-                  asChild
-                  className="hover:bg-opacity-100 rounded-md bg-purple-300 px-4 py-2 transition duration-100 md:w-max"
-                >
-                  <Link
-                    href="https://www.instagram.com/bbsphw_"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Visit Instagram"
-                    className="flex items-center justify-center gap-x-2 text-black"
-                  >
-                    <span className="text-sm font-medium">Go to Instagram</span>
-                    <MdArrowOutward className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
+          {/* 4. TIKTOK (Left Bottom) */}
+          <SocialCard
+            variant="zinc"
+            className="md:col-span-3 md:row-span-3"
+            icon={<SiTiktok className="h-10 w-10" />}
+            bgIcon={<SiTiktok className="h-[275px] w-[275px] text-white/10" />}
+            title="Join the Fun"
+            description="Follow me on TikTok for entertaining and engaging content."
+            buttonText="Go to TikTok"
+            href="https://www.tiktok.com/@bbsphw_"
+          />
 
-              {/* Instagram Icon (ด้านขวา) */}
-              <div className="flex items-end justify-end">
-                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-zinc-50">
-                  <SiInstagram className="h-10 w-10" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* LinkedIn */}
-          {/* <div className="col-span-3 row-span-3 col-start-4 row-start-4 flex items-center justify-center"> */}
-          <div className="col-span-3 col-start-4 row-span-3 row-start-4">
-            <div className="undefined relative grid w-full grid-cols-[2.5fr_1fr] overflow-hidden rounded-md border border-sky-300 bg-gradient-to-b from-sky-700 to-sky-900 p-6">
-              {/* Background icon inside the box behind text */}
-              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-zinc-50/5">
-                <SiLinkedin className="h-[275px] w-[275px] text-white/10" />
-              </div>
-
-              {/* Text Content */}
-              <div className="z-10 flex flex-col justify-between gap-y-2 subpixel-antialiased">
-                <h4 className="text-lg font-semibold tracking-wide text-sky-300">
-                  Let&apos;s Connect
-                </h4>
-                <p className="pb-2 text-sm text-sky-300">
-                  Connect for collaboration or explore my professional
-                  experience.
-                </p>
-                <Button
-                  asChild
-                  className="hover:bg-opacity-100 rounded-md bg-sky-300 px-4 py-2 transition duration-100 md:w-max"
-                >
-                  <Link
-                    href="linkedin.com/in/sophonwit-thapseng-1b1076330"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Visit LinkedIn"
-                    className="flex items-center justify-center gap-x-2 text-black"
-                  >
-                    <span className="text-sm font-medium">Go to LinkedIn</span>
-                    <MdArrowOutward className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-
-              {/* LinkedIn Icon (ด้านขวา) */}
-              <div className="flex items-end justify-end">
-                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-zinc-50">
-                  <SiLinkedin className="h-10 w-10" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* TikTok */}
-          {/* <div className="col-span-3 row-span-3 row-start-7 flex items-center justify-center"> */}
-          <div className="col-span-3 row-span-3 row-start-7">
-            <div className="undefined relative grid w-full grid-cols-[2.5fr_1fr] overflow-hidden rounded-md border border-zinc-400 bg-gradient-to-b from-zinc-700 to-zinc-900 p-6">
-              {/* Background icon inside the box behind text */}
-              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-zinc-50/5">
-                <SiTiktok className="h-[275px] w-[275px] text-white/10" />
-              </div>
-
-              {/* Text Content */}
-              <div className="z-10 flex flex-col justify-between gap-y-2 subpixel-antialiased">
-                <h4 className="text-lg font-semibold tracking-wide text-zinc-300">
-                  Join the Fun
-                </h4>
-                <p className="pb-2 text-sm text-zinc-300">
-                  Follow me on TikTok for entertaining and engaging content.
-                </p>
-                <Button
-                  asChild
-                  className="hover:bg-opacity-100 rounded-md bg-zinc-300 px-4 py-2 transition duration-100 md:w-max"
-                >
-                  <Link
-                    href="https://www.tiktok.com/@bbsphw_"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Visit TikTok"
-                    className="flex items-center justify-center gap-x-2 text-black"
-                  >
-                    <span className="text-sm font-medium">Go to TikTok</span>
-                    <MdArrowOutward className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-
-              {/* TikTok Icon (ด้านขวา) */}
-              <div className="flex items-end justify-end">
-                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-zinc-50">
-                  <SiTiktok className="h-10 w-10" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* GitHub */}
-          {/* <div className="col-span-3 row-span-3 col-start-4 row-start-7 flex items-center justify-center"> */}
-          <div className="col-span-3 col-start-4 row-span-3 row-start-7">
-            <div className="undefined relative grid w-full grid-cols-[2.5fr_1fr] overflow-hidden rounded-md border border-slate-400 bg-gradient-to-b from-slate-900 to-slate-950 p-6">
-              {/* Background icon inside the box behind text */}
-              <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-zinc-50/5">
-                <SiGithub className="h-[275px] w-[275px] text-white/10" />
-              </div>
-
-              {/* Text Content */}
-              <div className="z-10 flex flex-col justify-between gap-y-2 subpixel-antialiased">
-                <h4 className="text-lg font-semibold tracking-wide text-slate-300">
-                  Explore the Code
-                </h4>
-                <p className="pb-2 text-sm text-slate-300">
-                  Explore the source code for all my projects on GitHub.
-                </p>
-                <Button
-                  asChild
-                  className="hover:bg-opacity-100 rounded-md bg-slate-300 px-4 py-2 transition duration-100 md:w-max"
-                >
-                  <Link
-                    href="https://github.com/Bbsphw"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Visit github"
-                    className="flex items-center justify-center gap-x-2 text-black"
-                  >
-                    <span className="text-sm font-medium">Go to Github</span>
-                    <MdArrowOutward className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-              {/* GitHub Icon (ด้านขวา) */}
-              <div className="flex items-end justify-end">
-                <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-zinc-50">
-                  <SiGithub className="h-10 w-10" />
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* 5. GITHUB (Right Bottom) */}
+          <SocialCard
+            variant="slate"
+            className="md:col-span-3 md:row-span-3"
+            icon={<SiGithub className="h-10 w-10" />}
+            bgIcon={<SiGithub className="h-[275px] w-[275px] text-white/10" />}
+            title="Explore the Code"
+            description="Explore the source code for all my projects on GitHub."
+            buttonText="Go to Github"
+            href="https://github.com/Bbsphw"
+          />
         </div>
-      </div>
+      </motion.div>
 
-      {/* Separator */}
-      <hr className="col-span-6 my-6 border-zinc-200 dark:border-zinc-700" />
+      <hr className="border-zinc-200 dark:border-zinc-700" />
 
-      {/* Send me a message */}
-      <div className="space-y-4">
-        <h2>Or Send Me a Message</h2>
-        <div className="grid w-full gap-2">
+      {/* --- CONTACT FORM --- */}
+      <motion.div
+        className="space-y-4"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={staggerContainer}
+      >
+        <motion.div variants={fadeInUp} className="space-y-2">
+          <div className="flex items-center gap-2">
+            <MessageSquare className="text-xl text-zinc-800 dark:text-zinc-200" />
+            <h2 className="text-lg font-medium text-zinc-800 dark:text-zinc-200">
+              Or Send Me a Message
+            </h2>
+          </div>
+        </motion.div>
+
+        <motion.div variants={fadeInUp}>
           <ContactForm />
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+// ----------------------------------------------------------------------
+// Reusable Social Card Component (Clean Code & DRY Principle)
+// ----------------------------------------------------------------------
+
+interface SocialCardProps {
+  variant: "red" | "purple" | "sky" | "zinc" | "slate";
+  className?: string;
+  icon: ReactNode;
+  bgIcon: ReactNode;
+  title: string;
+  description: string;
+  buttonText: string;
+  href: string;
+}
+
+function SocialCard({
+  variant,
+  className,
+  icon,
+  bgIcon,
+  title,
+  description,
+  buttonText,
+  href,
+}: SocialCardProps) {
+  // Define styles based on variant
+  const styles = {
+    red: {
+      bg: "bg-gradient-to-b from-red-700 to-red-900 border-red-300",
+      textTitle: "text-red-300",
+      textDesc: "text-red-300",
+      btn: "bg-red-300 text-black hover:bg-red-200",
+    },
+    purple: {
+      bg: "bg-gradient-to-b from-purple-700 via-pink-500 to-orange-500 border-purple-200",
+      textTitle: "text-purple-300",
+      textDesc: "text-purple-300",
+      btn: "bg-purple-300 text-black hover:bg-purple-200",
+    },
+    sky: {
+      bg: "bg-gradient-to-b from-sky-700 to-sky-900 border-sky-300",
+      textTitle: "text-sky-300",
+      textDesc: "text-sky-300",
+      btn: "bg-sky-300 text-black hover:bg-sky-200",
+    },
+    zinc: {
+      bg: "bg-gradient-to-b from-zinc-700 to-zinc-900 border-zinc-400",
+      textTitle: "text-zinc-300",
+      textDesc: "text-zinc-300",
+      btn: "bg-zinc-300 text-black hover:bg-zinc-200",
+    },
+    slate: {
+      bg: "bg-gradient-to-b from-slate-900 to-slate-950 border-slate-400",
+      textTitle: "text-slate-300",
+      textDesc: "text-slate-300",
+      btn: "bg-slate-300 text-black hover:bg-slate-200",
+    },
+  };
+
+  const currentStyle = styles[variant];
+
+  return (
+    <motion.div
+      variants={fadeInUp}
+      className={cn("group", className)} // รับ className เพื่อจัด grid (col-span, row-span)
+    >
+      <div
+        className={cn(
+          "relative grid h-full w-full grid-cols-1 gap-4 overflow-hidden rounded-md border p-6 md:grid-cols-[2.5fr_1fr]",
+          currentStyle.bg,
+        )}
+      >
+        {/* Background icon inside the box behind text */}
+        <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-zinc-50/5 transition-transform duration-500 group-hover:scale-110">
+          {bgIcon}
+        </div>
+
+        {/* Text Content */}
+        <div className="z-10 flex flex-col justify-between gap-y-2 subpixel-antialiased">
+          <h4
+            className={cn(
+              "text-lg font-semibold tracking-wide",
+              currentStyle.textTitle,
+            )}
+          >
+            {title}
+          </h4>
+          <p className={cn("pb-2 text-sm", currentStyle.textDesc)}>
+            {description}
+          </p>
+          <Button
+            asChild
+            className={cn(
+              "hover:bg-opacity-100 w-max rounded-md px-4 py-2 transition duration-100",
+              currentStyle.btn,
+            )}
+          >
+            <Link
+              href={href}
+              target={href.startsWith("mailto") ? undefined : "_blank"}
+              rel="noopener noreferrer"
+              aria-label={title}
+              className="flex items-center justify-center gap-x-2"
+            >
+              <span className="text-sm font-medium">{buttonText}</span>
+              <MdArrowOutward className="h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+
+        {/* Right Icon */}
+        <div className="flex items-end justify-end">
+          <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-zinc-50 backdrop-blur-sm">
+            {icon}
+          </div>
         </div>
       </div>
-    </section>
+    </motion.div>
   );
 }
