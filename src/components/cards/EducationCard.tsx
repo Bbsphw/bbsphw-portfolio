@@ -23,6 +23,7 @@ export default function EducationCard({ education }: EducationCardProps) {
                 alt={education.school}
                 fill
                 className="object-contain p-1"
+                sizes="(max-width: 768px) 100vw, 64px"
               />
             ) : (
               <Building2 className="text-zinc-400" />
