@@ -6,18 +6,27 @@ export type ProjectCategory =
   | "Web App"
   | "Mobile App"
   | "Embedded / IoT"
+  | "Enterprise"
   | "Others";
 
-export type Project = {
+export interface Project {
+  slug: string;
   title: string;
+  category: ProjectCategory;
   description: string;
-  technologies: ReactNode[];
-  tags: string[]; // Tech Stack (เอาไว้ Search)
-  category: ProjectCategory; // สำหรับ Filter
+  role: string;
+  date: string;
+  overview: string;
+  features: string[];
+  challenges: { problem: string; solution: string }[];
+  technologies: { name: string; icon: ReactNode }[];
+  tags: string[];
   link?: string;
+  githubUrl?: string;
   featured?: boolean;
   image?: string;
-};
+  gallery?: string[];
+}
 
 export type Skill = {
   name: string;

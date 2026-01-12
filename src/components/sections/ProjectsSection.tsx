@@ -17,10 +17,7 @@ const fadeInUp: Variants = {
 
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
 function ProjectsContent() {
@@ -28,7 +25,7 @@ function ProjectsContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // 1. Get URL Params (เปลี่ยนจาก tag เป็น category)
+  // 1. Get URL Params
   const currentCategory = searchParams.get("category") || "";
   const currentSearch = searchParams.get("q") || "";
 
@@ -38,34 +35,29 @@ function ProjectsContent() {
       const params = new URLSearchParams(searchParams.toString());
       if (value) params.set(key, value);
       else params.delete(key);
-
       router.replace(`${pathname}?${params.toString()}`, { scroll: false });
     },
     [searchParams, pathname, router],
   );
 
-  // 3. Filtering Logic (ไม่ต้องมี allTags แล้ว เพราะใช้ Static Category ใน Combobox)
+  // 3. Filtering Logic
   const filteredProjects = useMemo(() => {
     let result = [...projects];
 
-    // ✅ Filter 1: By Category (Web, Mobile, Embedded)
     if (currentCategory) {
       result = result.filter((p) => p.category === currentCategory);
     }
 
-    // ✅ Filter 2: By Search (Title OR Description OR Tags)
-    // ทำให้พิมพ์ "React" ในช่องค้นหาแล้วยังเจอ แม้จะไม่ได้ Filter ด้วย Category
     if (currentSearch) {
       const q = currentSearch.toLowerCase();
       result = result.filter(
         (p) =>
           p.title.toLowerCase().includes(q) ||
           p.description.toLowerCase().includes(q) ||
-          p.tags.some((tag) => tag.toLowerCase().includes(q)), // ค้นหาใน Tags ด้วย
+          p.tags.some((tag) => tag.toLowerCase().includes(q)),
       );
     }
 
-    // Sort: Featured First
     return result.sort(
       (a, b) => (Number(b.featured) || 0) - (Number(a.featured) || 0),
     );
@@ -86,7 +78,8 @@ function ProjectsContent() {
           </h1>
         </div>
         <p className="text-zinc-600 dark:text-zinc-400">
-          Showcase of my works in Web, Mobile, and Embedded Systems.
+          A curated collection of my work spanning modern Web Apps,
+          Cross-platform Mobile solutions, and Embedded Systems.
         </p>
       </motion.header>
 
@@ -110,14 +103,13 @@ function ProjectsContent() {
             </div>
             <input
               type="text"
-              placeholder="Search projects (e.g. React, IoT)..."
+              placeholder="Search projects..."
               defaultValue={currentSearch}
               onChange={(e) => updateUrl("q", e.target.value)}
-              className="w-full rounded-lg border border-zinc-200 bg-zinc-50 py-2 pr-4 pl-10 text-sm text-zinc-900 placeholder:text-zinc-500 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100 dark:placeholder:text-zinc-400 dark:focus:border-zinc-700"
+              className="w-full rounded-lg border border-zinc-200 bg-zinc-50 py-2 pr-4 pl-10 text-sm text-zinc-900 placeholder:text-zinc-500 focus:border-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100"
             />
           </div>
 
-          {/* Filter Combobox (เปลี่ยนเป็น Category) */}
           <div className="w-full md:w-[230px]">
             <ProjectsCombobox
               selectedCategory={currentCategory}
@@ -126,21 +118,16 @@ function ProjectsContent() {
           </div>
         </motion.div>
 
-        {/* Summary */}
         <motion.div
           variants={fadeInUp}
-          className="ml-1 flex items-center justify-between text-sm text-zinc-500 dark:text-zinc-400"
+          className="ml-1 text-sm text-zinc-500 dark:text-zinc-400"
         >
-          <p>
-            Showing {filteredProjects.length} project
-            {filteredProjects.length !== 1 ? "s" : ""}
-          </p>
+          <p>Showing {filteredProjects.length} project(s)</p>
         </motion.div>
 
-        {/* --- PROJECTS GRID --- */}
         {filteredProjects.length > 0 ? (
           <motion.div
-            key={`${currentCategory}-${currentSearch}`} // Key เปลี่ยน Animation เล่นใหม่
+            key={`${currentCategory}-${currentSearch}`}
             className="grid grid-cols-1 gap-6 md:grid-cols-2"
             variants={staggerContainer}
             initial="hidden"
@@ -163,12 +150,6 @@ function ProjectsContent() {
             className="py-20 text-center text-zinc-500 dark:text-zinc-400"
           >
             <p>No projects found matching your criteria.</p>
-            <button
-              onClick={() => router.replace(pathname, { scroll: false })}
-              className="mt-2 text-sm text-zinc-900 underline underline-offset-4 dark:text-zinc-50"
-            >
-              Clear all filters
-            </button>
           </motion.div>
         )}
       </motion.div>
@@ -179,9 +160,7 @@ function ProjectsContent() {
 export default function ProjectsSection() {
   return (
     <section id="projects" aria-labelledby="projects-heading">
-      <Suspense
-        fallback={<div className="py-20 text-center">Loading projects...</div>}
-      >
+      <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
         <ProjectsContent />
       </Suspense>
     </section>

@@ -35,7 +35,7 @@ const staggerContainer: Variants = {
 
 export default function HeroSection(): React.JSX.Element {
   return (
-    <section id="hero" aria-labelledby="hero-heading" className="space-y-8">
+    <section id="hero" aria-labelledby="hero-heading" className="space-y-6">
       {/* --- HERO INTRO --- */}
       <motion.header
         className="space-y-6"
