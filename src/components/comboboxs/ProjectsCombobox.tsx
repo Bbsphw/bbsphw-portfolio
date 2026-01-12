@@ -1,5 +1,3 @@
-// src/components/comboboxs/ProjectsCombobox.tsx
-
 "use client";
 
 import * as React from "react";
@@ -20,16 +18,23 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+// 1. กำหนดหมวดหมู่ที่ต้องการโชว์
+const projectCategories = [
+  { value: "", label: "All Categories" },
+  { value: "Web App", label: "Web Application" },
+  { value: "Mobile App", label: "Mobile Application" },
+  { value: "Embedded / IoT", label: "Embedded / IoT" },
+  { value: "Others", label: "Others" },
+];
+
 interface ProjectsComboboxProps {
-  selectedTag: string;
+  selectedCategory: string;
   onSelect: (value: string) => void;
-  options: string[]; // ✅ รับรายการ Tags ทั้งหมดเข้ามา
 }
 
 export function ProjectsCombobox({
-  selectedTag,
+  selectedCategory,
   onSelect,
-  options,
 }: ProjectsComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -40,11 +45,12 @@ export function ProjectsCombobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          aria-label="Select technology"
+          aria-label="Select category"
           className="w-full justify-between border-zinc-200 bg-zinc-50 text-zinc-900 hover:bg-zinc-100 md:w-[230px] dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100 dark:hover:bg-zinc-900"
         >
-          {/* แสดง Tag ที่เลือก หรือแสดง Placeholder */}
-          {selectedTag || "All Technologies"}
+          {/* แสดง Label ของหมวดหมู่ที่เลือก */}
+          {projectCategories.find((c) => c.value === selectedCategory)?.label ||
+            "All Categories"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -53,47 +59,31 @@ export function ProjectsCombobox({
         align="end"
       >
         <Command className="bg-white dark:bg-zinc-950">
-          <CommandInput placeholder="Search tech..." className="h-9" />
+          <CommandInput placeholder="Search category..." className="h-9" />
           <CommandList>
-            <CommandEmpty>No technology found.</CommandEmpty>
+            <CommandEmpty>No category found.</CommandEmpty>
             <CommandGroup>
-              {/* ตัวเลือกสำหรับเคลียร์ Filter */}
-              <CommandItem
-                value="all"
-                onSelect={() => {
-                  onSelect("");
-                  setOpen(false);
-                }}
-                className="cursor-pointer font-medium text-zinc-500 aria-selected:bg-zinc-100 dark:aria-selected:bg-zinc-800"
-              >
-                All Technologies
-                <Check
-                  className={cn(
-                    "ml-auto h-4 w-4",
-                    selectedTag === "" ? "opacity-100" : "opacity-0",
-                  )}
-                />
-              </CommandItem>
-
-              {/* Loop สร้าง Options ตาม Data จริง */}
-              {options.map((tag) => (
+              {projectCategories.map((category) => (
                 <CommandItem
-                  key={tag}
-                  value={tag}
+                  key={category.value}
+                  value={category.value} // ใช้ value เป็นตัวอ้างอิง
                   onSelect={(currentValue) => {
-                    // ถ้าเลือกซ้ำให้เป็นค่าว่าง (toggle)
-                    onSelect(
-                      currentValue === selectedTag.toLowerCase() ? "" : tag,
-                    );
+                    // Logic: ถ้าเลือกตัวเดิมให้เป็น "" (All), ถ้าเลือกใหม่ให้ส่งค่า category.value
+                    // หมายเหตุ: cmdk บางเวอร์ชัน currentValue จะถูกแปลงเป็น lowercase
+                    // ดังนั้นเราส่ง category.value ตรงๆ จะชัวร์กว่า
+                    const val = category.value;
+                    onSelect(val === selectedCategory ? "" : val);
                     setOpen(false);
                   }}
                   className="cursor-pointer aria-selected:bg-zinc-100 dark:aria-selected:bg-zinc-800"
                 >
-                  {tag}
+                  {category.label}
                   <Check
                     className={cn(
                       "ml-auto h-4 w-4",
-                      selectedTag === tag ? "opacity-100" : "opacity-0",
+                      selectedCategory === category.value
+                        ? "opacity-100"
+                        : "opacity-0",
                     )}
                   />
                 </CommandItem>

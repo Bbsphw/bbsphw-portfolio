@@ -1,3 +1,5 @@
+// src/components/sections/AchievementsSection.tsx
+
 "use client";
 
 import { Search } from "lucide-react";
@@ -7,7 +9,7 @@ import { Suspense, useCallback, useMemo } from "react";
 import AchievementCard from "../cards/AchievementCard";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { achievements } from "@/data/achievements";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 
 // --- Animation Variants ---
 const fadeInUp: Variants = {
@@ -115,7 +117,7 @@ function AchievementsContent() {
           variants={fadeInUp}
           className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
         >
-          {/* Search Input (Style ให้เหมือน Contact Form) */}
+          {/* Search Input */}
           <div className="relative flex w-full items-center md:w-1/2">
             <div className="pointer-events-none absolute left-3 flex items-center pl-1">
               <Search className="h-4 w-4 text-zinc-500" />
@@ -149,23 +151,33 @@ function AchievementsContent() {
         {/* --- GRID CONTENT --- */}
         {filteredAchievements.length > 0 ? (
           <motion.div
-            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" // ใช้ gap-6 ให้เท่ากับ Projects
+            // ✅ KEY FIX: ใส่ key ตรงนี้ครับ เมื่อ Filter เปลี่ยน key จะเปลี่ยน และบังคับ Animation ให้เริ่มใหม่
+            key={`${currentType}-${currentSearch}`}
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
           >
-            {filteredAchievements.map((achievement, index) => (
-              <motion.div
-                key={`${achievement.type}-${achievement.title}-${index}`}
-                variants={fadeInUp}
-              >
-                <AchievementCard {...achievement} />
-              </motion.div>
-            ))}
+            <AnimatePresence mode="popLayout">
+              {filteredAchievements.map((achievement, index) => (
+                <motion.div
+                  // ✅ Best Practice: ไม่ควรใช้ index เป็น key เวลาทำ Filter/Sort
+                  // ให้ใช้ unique id หรือ title แทนเพื่อให้ React รู้ว่าอันไหนคืออันไหน
+                  key={achievement.title}
+                  variants={fadeInUp}
+                  layout // เพิ่ม layout prop เพื่อให้การขยับตำแหน่งสมูทขึ้น
+                >
+                  <AchievementCard {...achievement} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </motion.div>
         ) : (
           <motion.div
+            key="empty"
             variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
             className="py-10 text-center text-zinc-500 dark:text-zinc-400"
           >
             No achievements found matching your criteria.

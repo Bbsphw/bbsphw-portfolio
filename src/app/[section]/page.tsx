@@ -1,19 +1,21 @@
+// src/app/[section]/page.tsx
+
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
 // Import Components
-import HeroSection from "@/components/sections/HeroSection";
+// import HeroSection from "@/components/sections/HeroSection"; // ❌ ลบหรือ Comment ออก
 import AboutSection from "@/components/sections/AboutSection";
-import SkillsSection from "@/components/sections/SkillsSection";
+// import SkillsSection from "@/components/sections/SkillsSection";
 import AchievementsSection from "@/components/sections/AchievementsSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import ContactSection from "@/components/sections/ContactSection";
 
 // 1. Define Valid Sections
 const SECTIONS = {
-  hero: <HeroSection />,
+  // hero: <HeroSection />, // ❌ ลบออก! เราจะไม่ให้เข้าผ่าน /hero แล้ว ให้เข้าผ่าน / แทน
   about: <AboutSection />,
-  skills: <SkillsSection />,
+  // skills: <SkillsSection />,
   achievements: <AchievementsSection />,
   projects: <ProjectsSection />,
   contact: <ContactSection />,
@@ -50,10 +52,10 @@ export async function generateMetadata({
   const title = section.charAt(0).toUpperCase() + section.slice(1);
 
   const descriptions: Record<SectionKey, string> = {
-    hero: "Welcome to my portfolio. Discover my work and skills.",
+    // hero: "Welcome to my portfolio...", // ❌ ลบออก
     about: "Get to know Sophonwit Thapseng, a dedicated Software Engineer.",
-    skills:
-      "Explore my technical stack including React, Next.js, and TypeScript.",
+    // skills:
+    //   "Explore my technical stack including React, Next.js, and TypeScript.",
     projects: "Showcase of my featured web development projects.",
     achievements: "Certifications, Awards, and Badges I have earned.",
     contact: "Let's work together. Get in touch with me.",
@@ -79,7 +81,6 @@ export default async function SectionPage({ params }: SectionPageProps) {
   }
 
   return (
-    // เพิ่ม Fade-in animation เล็กน้อยตอนเปลี่ยนหน้า
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       {SECTIONS[section]}
     </div>

@@ -13,7 +13,7 @@ import {
   Briefcase,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { skills } from "@/data/skills";
+import { skillsRow1, skillsRow2 } from "@/data/skills";
 import SkillsMarquee from "../SkillsMarquee";
 import { motion, Variants } from "framer-motion";
 
@@ -40,8 +40,7 @@ export default function HeroSection(): React.JSX.Element {
       <motion.header
         className="space-y-6"
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        animate="visible" // บังคับให้เล่น Animation ทันทีที่ Component ถูก Mount
         variants={fadeInUp}
       >
         <div className="space-y-2">
@@ -84,8 +83,7 @@ export default function HeroSection(): React.JSX.Element {
         aria-labelledby="skills-heading"
         className="space-y-6"
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
+        animate="visible"
         variants={staggerContainer}
       >
         <motion.div variants={fadeInUp} className="space-y-2">
@@ -105,8 +103,8 @@ export default function HeroSection(): React.JSX.Element {
 
         {/* Marquee Content */}
         <motion.div variants={fadeInUp} className="space-y-6 py-2">
-          <SkillsMarquee skills={skills} direction="left" speed={40} />
-          <SkillsMarquee skills={skills} direction="right" speed={40} />
+          <SkillsMarquee skills={skillsRow1} direction="left" speed={40} />
+          <SkillsMarquee skills={skillsRow2} direction="right" speed={40} />
         </motion.div>
       </motion.section>
 
@@ -117,8 +115,7 @@ export default function HeroSection(): React.JSX.Element {
         aria-labelledby="service-heading"
         className="space-y-6"
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
+        animate="visible"
         variants={staggerContainer}
       >
         <motion.div variants={fadeInUp} className="space-y-2">
@@ -143,8 +140,7 @@ export default function HeroSection(): React.JSX.Element {
       <motion.footer
         className="pt-2"
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        animate="visible"
         variants={fadeInUp}
       >
         <div className="w-full rounded-xl border-[1.5px] border-zinc-300 p-1 shadow-sm transition-all hover:border-zinc-400 dark:border-[#333333] dark:hover:border-zinc-600">

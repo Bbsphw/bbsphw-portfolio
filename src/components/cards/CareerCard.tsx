@@ -48,6 +48,7 @@ export default function CareerCard({ career }: CareerCardProps) {
                   alt={career.company}
                   fill
                   className="object-contain p-1"
+                  sizes="(max-width: 768px) 100vw, 64px"
                 />
               ) : (
                 <Building2 className="text-zinc-400" />

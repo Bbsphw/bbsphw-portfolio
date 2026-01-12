@@ -2,11 +2,18 @@
 
 import { ReactNode } from "react";
 
+export type ProjectCategory =
+  | "Web App"
+  | "Mobile App"
+  | "Embedded / IoT"
+  | "Others";
+
 export type Project = {
   title: string;
   description: string;
-  technologies: string[];
-  tags: string[];
+  technologies: ReactNode[];
+  tags: string[]; // Tech Stack (เอาไว้ Search)
+  category: ProjectCategory; // สำหรับ Filter
   link?: string;
   featured?: boolean;
   image?: string;

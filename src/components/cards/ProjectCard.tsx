@@ -15,20 +15,20 @@ export default function ProjectCard({
   image,
 }: Project) {
   return (
-    <div className="transform-none opacity-100 will-change-auto">
-      <div className="w-full rounded-xl border-[1.5px] border-zinc-300 p-1 shadow-sm transition-all duration-300 hover:border-zinc-400 dark:border-[#333333] dark:hover:border-zinc-600">
+    <div className="h-full transform-none opacity-100 will-change-auto">
+      <div className="h-full w-full rounded-xl border-[1.5px] border-zinc-300 p-1 shadow-sm transition-all duration-300 hover:border-zinc-400 dark:border-[#333333] dark:hover:border-zinc-600">
         <Link
           href={link || "#"}
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
-            "group relative block h-full cursor-pointer overflow-hidden rounded-lg",
+            "group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-lg",
             "bg-gradient-to-b from-zinc-200 to-zinc-100",
             "transition-all duration-300 hover:to-[#ffffff]",
             "dark:from-[#242424] dark:to-zinc-900 dark:hover:to-zinc-950",
           )}
         >
-          {/* Featured Badge */}
+          {/* ... (Featured Badge & Image Section เหมือนเดิม ไม่ต้องแก้) ... */}
           {featured && (
             <div
               className={cn(
@@ -43,15 +43,13 @@ export default function ProjectCard({
             </div>
           )}
 
-          {/* Project Image */}
-          <div className="relative h-48 w-full overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
+          <div className="relative h-48 w-full shrink-0 overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
             <Image
               src={image || "/images/project-placeholder.svg"}
               alt={title}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            {/* Overlay View Project */}
             <div
               className={cn(
                 "absolute inset-0 flex items-center justify-center gap-2",
@@ -65,8 +63,8 @@ export default function ProjectCard({
           </div>
 
           {/* Content */}
-          <div className="flex flex-col space-y-3 p-5">
-            <h3 className="text-lg font-bold text-zinc-800 transition-colors duration-300 group-hover:text-teal-600 dark:text-zinc-200 dark:group-hover:text-teal-400">
+          <div className="flex flex-1 flex-col space-y-3 p-5">
+            <h3 className="line-clamp-1 text-lg font-bold text-zinc-800 transition-colors duration-300 group-hover:text-teal-600 dark:text-zinc-200 dark:group-hover:text-teal-400">
               {title}
             </h3>
 
@@ -75,23 +73,18 @@ export default function ProjectCard({
             </p>
 
             {/* Tech Stack Icons */}
-            <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
-              {technologies.map((tech, index) => (
+            <div className="mt-auto flex flex-wrap items-center gap-2 pt-4">
+              {technologies.map((Icon, index) => (
                 <div
                   key={index}
                   className={cn(
                     "inline-flex h-8 w-8 items-center justify-center rounded-md bg-white p-1.5 shadow-sm",
                     "ring-1 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-700",
+                    "text-zinc-600 dark:text-zinc-400", // สี Default ของ Icon
                   )}
                   title={`Tech ${index + 1}`}
                 >
-                  <Image
-                    src={tech}
-                    alt="Tech Icon"
-                    width={20}
-                    height={20}
-                    className="h-full w-full object-contain"
-                  />
+                  {Icon}
                 </div>
               ))}
             </div>

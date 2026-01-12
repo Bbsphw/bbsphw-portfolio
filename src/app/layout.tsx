@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import AppSidebar from "@/components/app-sidebar";
 import { ThemeProvider } from "next-themes";
+import { LanguageProvider } from "@/providers/language-provider";
 import {
   Sheet,
   SheetTitle,
@@ -34,15 +35,6 @@ export const metadata: Metadata = {
   },
   description:
     "Sophonwit Thapseng - Software Engineer & Frontend Developer Portfolio",
-  keywords: [
-    "Software Engineer",
-    "Frontend Developer",
-    "React",
-    "Next.js",
-    "Portfolio",
-    "Thailand",
-  ],
-  authors: [{ name: "Sophonwit Thapseng" }],
   openGraph: {
     title: "Sophonwit Thapseng | Portfolio",
     description:
@@ -51,12 +43,6 @@ export const metadata: Metadata = {
     siteName: "Sophonwit Portfolio",
     locale: "en_US",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Sophonwit Thapseng | Portfolio",
-    description:
-      "Passionate Software Engineer specializing in Frontend Development.",
   },
 };
 
@@ -76,49 +62,51 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* Main Layout Grid */}
-          <div className="mx-auto grid min-h-screen max-w-7xl grid-cols-1 lg:grid-cols-[17rem_1fr] lg:px-8 xl:px-12">
-            {/* Desktop Sidebar (Sticky) */}
-            <aside className="sticky top-0 hidden h-screen overflow-y-auto border-r border-zinc-200 lg:block dark:border-zinc-800">
-              <AppSidebar />
-            </aside>
+          <LanguageProvider>
+            {/* Main Layout Grid */}
+            <div className="mx-auto grid min-h-screen max-w-7xl grid-cols-1 lg:grid-cols-[17rem_1fr] lg:px-8 xl:px-12">
+              {/* Desktop Sidebar */}
+              <aside className="sticky top-0 hidden h-screen overflow-y-auto border-r border-zinc-200 lg:block dark:border-zinc-800">
+                <AppSidebar />
+              </aside>
 
-            {/* Main Content Area */}
-            <main className="flex min-h-screen flex-col">
-              {/* Mobile Header (Sticky & Blurry) */}
-              <div className="sticky top-0 z-50 flex items-center justify-between border-b border-zinc-200 bg-white/80 p-4 backdrop-blur-md lg:hidden dark:border-zinc-800 dark:bg-zinc-950/80">
-                <div className="flex items-center gap-3">
-                  <Sheet>
-                    <SheetTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="-ml-2 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              {/* Main Content */}
+              <main className="flex min-h-screen flex-col">
+                {/* Mobile Header (Sticky) */}
+                <div className="sticky top-0 z-50 flex items-center justify-between border-b border-zinc-200 bg-white/80 p-4 backdrop-blur-md lg:hidden dark:border-zinc-800 dark:bg-zinc-950/80">
+                  <div className="flex items-center gap-3">
+                    <Sheet>
+                      <SheetTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="-ml-2 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                        >
+                          <Menu className="h-5 w-5" />
+                          <span className="sr-only">Toggle menu</span>
+                        </Button>
+                      </SheetTrigger>
+                      <SheetContent
+                        side="left"
+                        className="w-72 border-r-zinc-200 p-0 dark:border-r-zinc-800"
                       >
-                        <Menu className="h-5 w-5" />
-                        <span className="sr-only">Toggle menu</span>
-                      </Button>
-                    </SheetTrigger>
-                    <SheetContent
-                      side="left"
-                      className="w-72 border-r-zinc-200 p-0 dark:border-r-zinc-800"
-                    >
-                      <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
-                      <AppSidebar />
-                    </SheetContent>
-                  </Sheet>
-                  <span className="text-lg font-semibold tracking-tight">
-                    Sophonwit.T
-                  </span>
+                        <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                        <AppSidebar />
+                      </SheetContent>
+                    </Sheet>
+                    <span className="text-lg font-semibold tracking-tight">
+                      Sophonwit.T
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Page Content */}
-              <div className="mx-auto w-full max-w-5xl flex-1 p-6 md:p-8 lg:mt-0 lg:p-10">
-                {children}
-              </div>
-            </main>
-          </div>
+                {/* Page Content */}
+                <div className="mx-auto w-full max-w-5xl flex-1 p-6 md:p-8 lg:mt-0 lg:p-10">
+                  {children}
+                </div>
+              </main>
+            </div>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>
