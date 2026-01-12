@@ -24,6 +24,7 @@ const projectCategories = [
   { value: "Web App", label: "Web Application" },
   { value: "Mobile App", label: "Mobile Application" },
   { value: "Embedded / IoT", label: "Embedded / IoT" },
+  { value: "Enterprise", label: "Enterprise" },
   { value: "Others", label: "Others" },
 ];
 

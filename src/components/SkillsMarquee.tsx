@@ -39,7 +39,7 @@ export default function SkillsMarquee({
       {/* Wrapper 1 */}
       <div
         className={cn(
-          "flex min-w-full shrink-0 items-center justify-around gap-4 px-2",
+          "flex w-max shrink-0 items-center gap-4 px-2",
           marqueeClass,
         )}
         style={{ animationDuration: `${speed}s` }}
@@ -52,7 +52,7 @@ export default function SkillsMarquee({
       {/* Wrapper 2 (Duplicate for Infinite Loop) */}
       <div
         className={cn(
-          "absolute top-0 flex min-w-full shrink-0 items-center justify-around gap-4 px-2 py-2",
+          "absolute top-0 flex w-max shrink-0 items-center gap-4 px-2 py-2",
           marquee2Class,
         )}
         style={{ animationDuration: `${speed}s` }}

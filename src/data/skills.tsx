@@ -1,5 +1,3 @@
-// src/data/skills.tsx
-
 import { Skill } from "@/types";
 import {
   // Languages
@@ -9,12 +7,14 @@ import {
   SiCplusplus,
   SiHtml5,
   SiCss3,
+  SiPhp,
   // Frontend
   SiReact,
   SiNextdotjs,
   SiTailwindcss,
   SiFramer,
   SiFigma,
+  SiExpo,
   // Backend & DB
   SiNodedotjs,
   SiExpress,
@@ -25,6 +25,8 @@ import {
   SiMongodb,
   SiFirebase,
   SiMysql,
+  SiOracle,
+  SiLaravel,
   // Tools & DevOps
   SiGit,
   SiGithub,
@@ -43,13 +45,25 @@ import {
 
 import { FaJava } from "react-icons/fa";
 
-// แถวที่ 1: เน้น Frontend & Languages
-export const skillsRow1: Skill[] = [
+// ---------------------------------------------------------
+// 1. Full List (เอาไว้ใช้ในหน้า Skills รวม หรือ About)
+// ---------------------------------------------------------
+export const allSkills: Skill[] = [
+  // =======================================================
+  // 1. Languages
+  // =======================================================
   { name: "HTML5", icon: <SiHtml5 className="text-orange-500" /> },
   { name: "CSS3", icon: <SiCss3 className="text-blue-500" /> },
   { name: "JavaScript", icon: <SiJavascript className="text-yellow-400" /> },
   { name: "TypeScript", icon: <SiTypescript className="text-blue-600" /> },
   { name: "Java", icon: <FaJava className="text-red-500" /> },
+  { name: "Python", icon: <SiPython className="text-yellow-500" /> },
+  { name: "C++", icon: <SiCplusplus className="text-blue-700" /> },
+  { name: "PHP", icon: <SiPhp className="text-indigo-400" /> },
+
+  // =======================================================
+  // 2. Frontend & Mobile
+  // =======================================================
   { name: "React", icon: <SiReact className="text-cyan-400" /> },
   {
     name: "Next.js",
@@ -61,41 +75,85 @@ export const skillsRow1: Skill[] = [
     icon: <SiFramer className="text-black dark:text-white" />,
   },
   { name: "Figma", icon: <SiFigma className="text-pink-500" /> },
-  { name: "C++", icon: <SiCplusplus className="text-blue-700" /> },
-  { name: "Python", icon: <SiPython className="text-yellow-500" /> },
-  { name: "GitHub", icon: <SiGithub className="text-black dark:text-white" /> },
-];
+  { name: "Expo", icon: <SiExpo className="text-black dark:text-white" /> },
 
-// แถวที่ 2: เน้น Backend, Database, Tools & IoT
-export const skillsRow2: Skill[] = [
+  // =======================================================
+  // 3. Backend & Frameworks
+  // =======================================================
   { name: "Node.js", icon: <SiNodedotjs className="text-green-500" /> },
   { name: "NestJS", icon: <SiNestjs className="text-red-600" /> },
   {
     name: "Express",
     icon: <SiExpress className="text-black dark:text-white" />,
   },
+  { name: "Laravel", icon: <SiLaravel className="text-red-600" /> },
   {
     name: "Prisma",
     icon: <SiPrisma className="text-teal-900 dark:text-white" />,
   },
+
+  // =======================================================
+  // 4. Databases
+  // =======================================================
   { name: "Supabase", icon: <SiSupabase className="text-green-600" /> },
   { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-400" /> },
-  { name: "MySQL", icon: <SiMysql className="text-blue-500" /> },
   { name: "MongoDB", icon: <SiMongodb className="text-green-600" /> },
+  { name: "MySQL", icon: <SiMysql className="text-blue-500" /> },
+  { name: "Oracle DB", icon: <SiOracle className="text-red-600" /> },
   { name: "Firebase", icon: <SiFirebase className="text-orange-500" /> },
+
+  // =======================================================
+  // 5. Tools, Cloud & DevOps
+  // =======================================================
   { name: "Docker", icon: <SiDocker className="text-blue-500" /> },
-  {
-    name: "Shell / Bash",
-    icon: <SiGnubash className="text-zinc-600 dark:text-zinc-400" />,
-  },
-  { name: "Node-RED", icon: <SiNodered className="text-red-700" /> },
+  { name: "Git", icon: <SiGit className="text-orange-600" /> },
+  { name: "GitHub", icon: <SiGithub className="text-black dark:text-white" /> },
+  { name: "AWS", icon: <SiAmazonwebservices className="text-orange-500" /> },
+  { name: "Vercel", icon: <SiVercel className="text-black dark:text-white" /> },
+  { name: "Bash", icon: <SiGnubash className="text-yellow-600" /> },
+
+  // =======================================================
+  // 6. IoT & Electronics
+  // =======================================================
   { name: "Arduino", icon: <SiArduino className="text-teal-500" /> },
   { name: "ESP32", icon: <SiEspressif className="text-red-600" /> },
   { name: "Raspberry Pi", icon: <SiRaspberrypi className="text-pink-600" /> },
-  { name: "EasyEDA", icon: <SiEasyeda className="text-blue-600" /> },
   { name: "MQTT", icon: <SiMqtt className="text-red-600" /> },
-  { name: "Vercel", icon: <SiVercel className="text-black dark:text-white" /> },
+  { name: "Node-RED", icon: <SiNodered className="text-red-700" /> },
+  { name: "EasyEDA", icon: <SiEasyeda className="text-blue-600" /> },
 ];
 
-// รวมทั้งหมด
-export const allSkills = [...skillsRow1, ...skillsRow2];
+// ---------------------------------------------------------
+// 2. Marquee Highlights (คัดเฉพาะตัวโหดๆ เอาไปโชว์หน้าแรก)
+// ---------------------------------------------------------
+
+// แถวที่ 1: Modern Web Stack (Frontend + Core Backend)
+export const skillsRow1: Skill[] = [
+  {
+    name: "Next.js",
+    icon: <SiNextdotjs className="text-black dark:text-white" />,
+  },
+  { name: "React", icon: <SiReact className="text-cyan-400" /> },
+  { name: "TypeScript", icon: <SiTypescript className="text-blue-600" /> },
+  { name: "Tailwind", icon: <SiTailwindcss className="text-cyan-500" /> },
+  { name: "Node.js", icon: <SiNodedotjs className="text-green-500" /> },
+  { name: "NestJS", icon: <SiNestjs className="text-red-600" /> },
+  { name: "Laravel", icon: <SiLaravel className="text-red-600" /> },
+  {
+    name: "Prisma",
+    icon: <SiPrisma className="text-teal-900 dark:text-white" />,
+  },
+];
+
+// แถวที่ 2: Specialized & Infrastructure (Database, Cloud, IoT)
+export const skillsRow2: Skill[] = [
+  { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-400" /> },
+  { name: "MongoDB", icon: <SiMongodb className="text-green-600" /> },
+  { name: "Oracle DB", icon: <SiOracle className="text-red-600" /> },
+  { name: "Docker", icon: <SiDocker className="text-blue-500" /> },
+  { name: "AWS", icon: <SiAmazonwebservices className="text-orange-500" /> },
+  { name: "Supabase", icon: <SiSupabase className="text-green-600" /> },
+  { name: "Expo", icon: <SiExpo className="text-black dark:text-white" /> },
+  { name: "Arduino", icon: <SiArduino className="text-teal-500" /> },
+  { name: "ESP32", icon: <SiEspressif className="text-red-600" /> },
+];

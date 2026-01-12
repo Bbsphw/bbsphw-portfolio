@@ -71,7 +71,7 @@ export default function RootLayout({
               </aside>
 
               {/* Main Content */}
-              <main className="flex min-h-screen flex-col">
+              <main className="flex min-h-screen min-w-0 flex-col">
                 {/* Mobile Header (Sticky) */}
                 <div className="sticky top-0 z-50 flex items-center justify-between border-b border-zinc-200 bg-white/80 p-4 backdrop-blur-md lg:hidden dark:border-zinc-800 dark:bg-zinc-950/80">
                   <div className="flex items-center gap-3">
@@ -101,7 +101,7 @@ export default function RootLayout({
                 </div>
 
                 {/* Page Content */}
-                <div className="mx-auto w-full max-w-5xl flex-1 p-6 md:p-8 lg:mt-0 lg:p-10">
+                <div className="mx-auto w-full max-w-5xl min-w-0 flex-1 p-6 md:p-8 lg:mt-0 lg:p-10">
                   {children}
                 </div>
               </main>
