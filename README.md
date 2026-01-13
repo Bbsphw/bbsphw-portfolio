@@ -116,10 +116,17 @@ Open http://localhost:3000 to view the project.
 ## 📜 Scripts
 Script	Description
 ```bash
-npm run dev	Runs the app in development mode with Turbopack.
-npm run build	Builds the app for production.
-npm start	Runs the built app in production mode.
-npm run lint	Runs ESLint to check for code quality issues.
+npm run dev
+Runs the app in development mode with Turbopack.
+
+npm run build
+Builds the app for production.
+
+npm start
+Runs the built app in production mode.
+
+npm run lint
+Runs ESLint to check for code quality issues.
 ```
 
 ## 🚀 Deployment
@@ -132,7 +139,7 @@ The easiest way to deploy your Next.js app is to use the Vercel Platform.
 ## 👤 Author
 Sophonwit Thapseng
   🌐 Portfolio: https://bbsphw-portfolio.vercel.app
-  🐙 GitHub: @Bbsphw
+  🐙 GitHub: [@Bbsphw](https://github.com/Bbsphw)
 
 ## 📄 License
 This project is open source and available under the MIT License.
