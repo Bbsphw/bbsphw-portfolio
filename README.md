@@ -124,10 +124,10 @@ npm run lint	Runs ESLint to check for code quality issues.
 
 ## 🚀 Deployment
 The easiest way to deploy your Next.js app is to use the Vercel Platform.
-1.Push your code to a GitHub repository.
-2.Import the project into Vercel.
-3.Add the Environment Variables (RESEND_API_KEY, etc.) in Vercel settings.
-4.Deploy! 🚀
+  1. Push your code to a GitHub repository.
+  2. Import the project into Vercel.
+  3. Add the Environment Variables (RESEND_API_KEY, etc.) in Vercel settings.
+  4. Deploy! 🚀
 
 ## 👤 Author
 Sophonwit Thapseng
