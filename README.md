@@ -131,7 +131,7 @@ The easiest way to deploy your Next.js app is to use the Vercel Platform.
 
 ## 👤 Author
 Sophonwit Thapseng
-  🌐 Portfolio: sophonwit.site
+  🌐 Portfolio: https://bbsphw-portfolio.vercel.app
   🐙 GitHub: @Bbsphw
 
 ## 📄 License
