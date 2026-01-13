@@ -22,6 +22,8 @@ import {
   Twitter,
   X,
   Maximize2,
+  Check,
+  Smartphone,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -29,7 +31,7 @@ import { Badge } from "@/components/ui/badge";
 import { Project } from "@/types";
 import { toast } from "sonner";
 
-// ✅ 1. Define types for Nav Props
+// ✅ Define types for Nav Props
 interface ProjectNode {
   slug: string;
   title: string;
@@ -48,6 +50,8 @@ export default function ProjectDetail({
 }: ProjectDetailProps) {
   // --- STATE & REFS ---
   const [currentUrl, setCurrentUrl] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
+  const [canShare, setCanShare] = useState(false);
   const [selectedImage, setSelectedImage] = useState<{
     url: string;
     id: string;
@@ -56,12 +60,17 @@ export default function ProjectDetail({
 
   // --- EFFECTS ---
 
-  // Fix Hydration Mismatch for URL
   useEffect(() => {
-    setCurrentUrl(window.location.href);
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+
+      // ✅ FIX: ใช้ typeof เพื่อแก้ TypeScript Error (ts(2774))
+      if (typeof navigator.share === "function") {
+        setCanShare(true);
+      }
+    }
   }, []);
 
-  // Handle Escape Key for Lightbox
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSelectedImage(null);
@@ -71,10 +80,64 @@ export default function ProjectDetail({
   }, []);
 
   // --- HANDLERS ---
-  const handleCopyLink = () => {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url);
-    toast.success("Link copied to clipboard!");
+
+  // 🛠️ ฟังก์ชัน Fallback สำหรับ Copy (ใช้เมื่อ Browser บล็อก API หลัก)
+  const fallbackCopyTextToClipboard = (text: string) => {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+
+    // ซ่อน TextArea ไม่ให้เห็น
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      document.execCommand("copy");
+      setIsCopied(true);
+      toast.success("Link copied to clipboard!");
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      toast.error("Failed to copy link");
+    }
+
+    document.body.removeChild(textArea);
+  };
+
+  // ✅ 1. Copy Link (Robust Version)
+  const handleCopyLink = async () => {
+    // ถ้าไม่มี API Clipboard หรืออยู่ในสภาพแวดล้อมที่ไม่ปลอดภัย (HTTP)
+    if (!navigator.clipboard) {
+      fallbackCopyTextToClipboard(currentUrl);
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(currentUrl);
+      setIsCopied(true);
+      toast.success("Link copied to clipboard!");
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      // ถ้า Error (เช่น Permission Denied) ให้ลองใช้ Fallback
+      fallbackCopyTextToClipboard(currentUrl);
+    }
+  };
+
+  // ✅ 2. Native Share
+  const handleNativeShare = async () => {
+    // ✅ FIX: ใช้ typeof เช็คอีกครั้งเพื่อความชัวร์และแก้ Error
+    if (typeof navigator.share === "function") {
+      try {
+        await navigator.share({
+          title: project.title,
+          text: `Check out this project: ${project.title}`,
+          url: currentUrl,
+        });
+      } catch (err) {
+        console.log("Share canceled");
+      }
+    }
   };
 
   const scrollGallery = (direction: "left" | "right") => {
@@ -234,7 +297,7 @@ export default function ProjectDetail({
 
         {/* ================= MAIN CONTENT GRID ================= */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[2fr_1fr]">
-          {/* ✅ Left Column: Added min-w-0 to fix layout overflow */}
+          {/* Left Column */}
           <div className="min-w-0 space-y-12">
             {/* Overview */}
             {project.overview && (
@@ -304,7 +367,7 @@ export default function ProjectDetail({
               </section>
             )}
 
-            {/* ✅ Gallery Section: Horizontal Slider */}
+            {/* Gallery Section */}
             {project.gallery && project.gallery.length > 0 && (
               <section className="w-full space-y-4 pt-4">
                 <div className="flex items-center justify-between">
@@ -369,7 +432,7 @@ export default function ProjectDetail({
             )}
           </div>
 
-          {/* ✅ Right Column (Sidebar) */}
+          {/* Right Column (Sidebar) */}
           <div className="h-fit min-w-[250px] space-y-8 lg:sticky lg:top-24">
             {/* Tags */}
             <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
@@ -389,49 +452,84 @@ export default function ProjectDetail({
               </div>
             </div>
 
-            {/* Share */}
+            {/* Share Project */}
             <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
               <h3 className="mb-4 flex items-center gap-2 font-semibold text-zinc-900 dark:text-zinc-50">
                 <Share2 className="h-4 w-4" />
                 Share Project
               </h3>
-              <div className="flex gap-2">
+
+              <div className="flex w-full gap-2">
+                {/* 1. Copy Link */}
                 <Button
                   variant="outline"
                   size="icon"
                   onClick={handleCopyLink}
                   title="Copy Link"
+                  className={`flex-1 transition-all duration-300 ${
+                    isCopied
+                      ? "border-green-500 bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400"
+                      : "hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                  }`}
                 >
-                  <Copy className="h-4 w-4" />
+                  {isCopied ? (
+                    <Check className="h-4 w-4" />
+                  ) : (
+                    <Copy className="h-4 w-4" />
+                  )}
                 </Button>
+
+                {/* 2. LinkedIn */}
                 <Button
                   variant="outline"
                   size="icon"
                   asChild
                   title="Share on LinkedIn"
+                  className="flex-1 text-[#0077b5] hover:bg-[#0077b5]/10 hover:text-[#0077b5] dark:text-[#0a66c2] dark:hover:bg-[#0a66c2]/20"
                 >
                   <a
-                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`}
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                      currentUrl,
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <Linkedin className="h-4 w-4" />
                   </a>
                 </Button>
+
+                {/* 3. X (Twitter) */}
                 <Button
                   variant="outline"
                   size="icon"
                   asChild
-                  title="Share on Twitter"
+                  title="Share on X (Twitter)"
+                  className="flex-1 text-black hover:bg-zinc-100 dark:text-white dark:hover:bg-zinc-800"
                 >
                   <a
-                    href={`https://twitter.com/intent/tweet?text=Check out this project by Sophonwit!&url=${currentUrl}`}
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                      `Check out ${project.title} by Sophonwit!`,
+                    )}&url=${encodeURIComponent(currentUrl)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <Twitter className="h-4 w-4" />
                   </a>
                 </Button>
+
+                {/* 4. Native Share (Mobile) */}
+                {/* ✅ เพิ่ม md:hidden เพื่อซ่อนบน Desktop ตามที่ต้องการ */}
+                {canShare && (
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={handleNativeShare}
+                    title="Share via..."
+                    className="flex-1 text-purple-600 hover:bg-purple-50 md:hidden dark:text-purple-400 dark:hover:bg-purple-900/20"
+                  >
+                    <Smartphone className="h-4 w-4" />
+                  </Button>
+                )}
               </div>
             </div>
 
@@ -451,7 +549,7 @@ export default function ProjectDetail({
           </div>
         </div>
 
-        {/* ================= FOOTER NAV (Smart Navigation) ================= */}
+        {/* ================= FOOTER NAV ================= */}
         <hr className="my-10 border-zinc-200 dark:border-zinc-800" />
 
         <div className="flex items-center justify-between">
@@ -472,7 +570,7 @@ export default function ProjectDetail({
               </Link>
             </Button>
           ) : (
-            <div /> /* Spacer to keep "Next" on the right */
+            <div />
           )}
 
           {nextProject ? (
@@ -497,7 +595,7 @@ export default function ProjectDetail({
         </div>
       </motion.div>
 
-      {/* ================= LIGHTBOX OVERLAY ================= */}
+      {/* ================= LIGHTBOX ================= */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div

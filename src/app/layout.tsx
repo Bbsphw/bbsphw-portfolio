@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -95,7 +96,7 @@ export default function RootLayout({
                       </SheetContent>
                     </Sheet>
                     <span className="text-lg font-semibold tracking-tight">
-                      Sophonwit.T
+                      @Bbsphw_
                     </span>
                   </div>
                 </div>
@@ -106,6 +107,7 @@ export default function RootLayout({
                 </div>
               </main>
             </div>
+            <Toaster />
           </LanguageProvider>
         </ThemeProvider>
       </body>
