@@ -172,8 +172,9 @@ export default function AboutSection() {
 
         <div className="grid grid-cols-1 gap-4">
           {careerData.length > 0 ? (
-            careerData.map((career, index) => (
-              <motion.div key={index} variants={fadeInUp}>
+            careerData.map((career) => (
+              <motion.div key={career.id} variants={fadeInUp}>
+                {" "}
                 <CareerCard career={career} />
               </motion.div>
             ))
@@ -212,8 +213,9 @@ export default function AboutSection() {
 
         <div className="grid grid-cols-1 gap-4">
           {educationData.length > 0 ? (
-            educationData.map((education, index) => (
-              <motion.div key={index} variants={fadeInUp}>
+            educationData.map((education) => (
+              <motion.div key={education.id} variants={fadeInUp}>
+                {" "}
                 <EducationCard education={education} />
               </motion.div>
             ))

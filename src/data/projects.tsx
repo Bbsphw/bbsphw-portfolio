@@ -20,9 +20,10 @@ import { FaMobileAlt, FaServer, FaDatabase } from "react-icons/fa";
 
 export const projects: Project[] = [
   // ----------------------------------------------------------------
-  // PROJECT 1: Personal Portfolio (Web App)
+  // PROJECT 1: Personal Portfolio
   // ----------------------------------------------------------------
   {
+    id: "proj-portfolio",
     slug: "sophonwit-portfolio",
     title: "Sophonwit Portfolio",
     category: "Web App",
@@ -52,7 +53,6 @@ export const projects: Project[] = [
           "Moved state management to the URL using Next.js `useSearchParams`. This allows users to bookmark or share specific filtered views of the portfolio.",
       },
     ],
-
     technologies: [
       {
         name: "Next.js",
@@ -65,7 +65,6 @@ export const projects: Project[] = [
         icon: <SiTailwindcss className="text-cyan-500" />,
       },
     ],
-
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
     link: "https://sophonwit.site",
     githubUrl: "https://github.com/Bbsphw/portfolio",
@@ -79,9 +78,10 @@ export const projects: Project[] = [
   },
 
   // ----------------------------------------------------------------
-  // PROJECT 2: WarehouseFlow ERP (Enterprise / Backend)
+  // PROJECT 2: WarehouseFlow ERP
   // ----------------------------------------------------------------
   {
+    id: "proj-warehouse-erp",
     slug: "warehouse-erp-system",
     title: "WarehouseFlow ERP",
     category: "Enterprise",
@@ -111,7 +111,6 @@ export const projects: Project[] = [
           "Leveraged Laravel Livewire to create reactive, dynamic forms that allow users to add/remove rows and calculate totals instantly without full page reloads.",
       },
     ],
-
     technologies: [
       { name: "Laravel", icon: <SiLaravel className="text-red-600" /> },
       { name: "PHP", icon: <SiPhp className="text-indigo-400" /> },
@@ -119,7 +118,6 @@ export const projects: Project[] = [
       { name: "Oracle DB", icon: <SiOracle className="text-red-500" /> },
       { name: "Docker", icon: <SiDocker className="text-blue-500" /> },
     ],
-
     tags: ["Laravel", "Livewire", "PHP", "Oracle DB", "Tailwind CSS"],
     githubUrl: "https://github.com/Bbsphw/warehouse-erp",
     featured: true,
@@ -134,9 +132,10 @@ export const projects: Project[] = [
   },
 
   // ----------------------------------------------------------------
-  // PROJECT 3: BunLux Nail (Mobile App)
+  // PROJECT 3: BunLux Nail
   // ----------------------------------------------------------------
   {
+    id: "proj-bunlux-mobile",
     slug: "bunlux-nail-mobile",
     title: "BunLux Nail Booking",
     category: "Mobile App",
@@ -166,7 +165,6 @@ export const projects: Project[] = [
           "Implemented `Expo Router` (file-based routing) to manage nested navigation structures intuitively, similar to Next.js routing.",
       },
     ],
-
     technologies: [
       { name: "React Native", icon: <SiReact className="text-cyan-400" /> },
       { name: "Expo", icon: <SiExpo className="text-black dark:text-white" /> },
@@ -174,7 +172,6 @@ export const projects: Project[] = [
       { name: "TypeScript", icon: <SiTypescript className="text-blue-600" /> },
       { name: "Mobile", icon: <FaMobileAlt className="text-purple-500" /> },
     ],
-
     tags: ["React Native", "Expo", "NativeWind", "Mobile", "TypeScript"],
     link: "https://expo.dev/@bbsphw/bunlux-nail",
     githubUrl: "https://github.com/Bbsphw/bunluxnail-mobile",

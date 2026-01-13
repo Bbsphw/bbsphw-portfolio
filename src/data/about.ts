@@ -4,6 +4,7 @@ import { Career, Education } from "@/types";
 
 export const careerData: Career[] = [
   {
+    id: "career-thai-summit", 
     role: "Full Stack Developer",
     company: "Thai Summit Harness Public Company Limited",
     logo: "/images/LOGO-TSH-SVG.svg",
@@ -25,6 +26,7 @@ export const careerData: Career[] = [
 
 export const educationData: Education[] = [
   {
+    id: "edu-kasetsart", 
     school: "Kasetsart University, Sriracha Campus",
     degree: "Bachelor of Engineering in Computer and Information Engineering",
     year: "May 2022 - Present",
@@ -34,6 +36,7 @@ export const educationData: Education[] = [
     logo: "/images/kusrc-logo.png",
   },
   {
+    id: "edu-prakhanong", 
     school: "Prakhanongpittayalai School",
     degree: "High School Diploma (Science-Mathematics Program)",
     year: "May 2019 - Mar 2022",
@@ -43,6 +46,7 @@ export const educationData: Education[] = [
     logo: "/images/pk-logo.png",
   },
   {
+    id: "edu-phramae", 
     school: "Phramae Maree Phrakhanong School",
     degree: "Primary & Junior High School Diploma",
     year: "May 2008 - Mar 2019",

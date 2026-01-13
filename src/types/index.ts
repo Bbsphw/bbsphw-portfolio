@@ -10,16 +10,23 @@ export type ProjectCategory =
   | "Others";
 
 export interface Project {
+  id: string; 
   slug: string;
   title: string;
   category: ProjectCategory;
   description: string;
-  role: string;
-  date: string;
-  overview: string;
-  features: string[];
-  challenges: { problem: string; solution: string }[];
+
+  // Meta Info
+  role?: string;
+  date?: string;
+
+  // Deep Dive
+  overview?: string;
+  features?: string[];
+  challenges?: { problem: string; solution: string }[];
+
   technologies: { name: string; icon: ReactNode }[];
+
   tags: string[];
   link?: string;
   githubUrl?: string;
@@ -29,20 +36,25 @@ export interface Project {
 }
 
 export type Skill = {
+  id: string; 
   name: string;
   icon: ReactNode;
 };
 
 export type Achievement = {
+  id: string; 
   type: "certification" | "badge" | "awards";
   title: string;
   organization: string;
   image: string;
   link?: string;
-  date?: string;
+  date: string;
+  description?: string;
+  skills?: string[];
 };
 
 export type Education = {
+  id: string; 
   school: string;
   degree: string;
   year: string;
@@ -52,15 +64,16 @@ export type Education = {
 };
 
 export type Career = {
-  role: string; // เช่น Full Stack Developer
-  company: string; // ชื่อบริษัท
-  logo?: string; // โลโก้บริษัท (icon ซ้ายมือ)
-  location: string; // สถานที่ตั้ง
-  start: string; // วันเริ่ม (เช่น "Jan 2023")
-  end: string; // วันสิ้นสุด (เช่น "May 2023" หรือ "Present")
-  duration?: string; // ระยะเวลา (เช่น "5 mos")
-  type: string; // ประเภทงาน (เช่น "Internship", "Full-time")
-  mode: string; // รูปแบบการทำงาน (เช่น "Onsite", "Remote", "Hybrid")
-  description: string[]; // เป็น Array เพื่อทำ Bullet Point
-  current?: boolean; // ทำงานอยู่ที่นี่หรือไม่
+  id: string; 
+  role: string;
+  company: string;
+  logo?: string;
+  location: string;
+  start: string;
+  end: string;
+  duration?: string;
+  type: string;
+  mode: string;
+  description: string[];
+  current?: boolean;
 };

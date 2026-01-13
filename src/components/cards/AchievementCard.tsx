@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { ArrowUpRight, Calendar, Building2 } from "lucide-react";
 import { Achievement } from "@/types";
-import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge"; // ✅ เพิ่ม Import Badge
 
 export default function AchievementCard({
   title,
@@ -11,6 +11,7 @@ export default function AchievementCard({
   image,
   link,
   date,
+  type, // ✅ รับ type มาแสดงใน Badge
 }: Achievement) {
   return (
     <div className="h-full transform-none opacity-100 will-change-auto">
@@ -18,17 +19,23 @@ export default function AchievementCard({
         {/* Card Container */}
         <div className="group relative flex h-full flex-col overflow-hidden rounded-lg bg-white transition-all duration-300 hover:bg-zinc-50 dark:bg-[#1e1e1e] dark:hover:bg-[#242424]">
           {/* Image Section */}
-          {/* ปรับ background ให้รูปภาพหน่อยเวลารูปโหลดไม่ติดหรือเป็น png พื้นใสจะได้ไม่จม */}
           <div className="relative h-48 w-full shrink-0 overflow-hidden border-b border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
             <Image
               src={image || "/images/project-placeholder.svg"}
               alt={`${title} from ${organization}`}
               fill
-              // ✅ เปลี่ยนจาก object-cover เป็น object-contain
-              // เพื่อให้เห็นใบ Certificate เต็มใบไม่โดนตัด (หรือใช้ object-cover ถ้าอยากให้เต็มกรอบจริงๆ)
-              // เพิ่ม p-4 เพื่อให้รูปไม่ชิดขอบเกินไปเหมือนในรูปตัวอย่าง
               className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
             />
+
+            {/* ✅ แสดง Badge ตรงมุมขวาบนของรูป */}
+            <div className="absolute top-2 right-2">
+              <Badge
+                variant="secondary"
+                className="bg-white/90 capitalize shadow-sm backdrop-blur-sm dark:bg-black/50"
+              >
+                {type}
+              </Badge>
+            </div>
 
             {/* Link Overlay */}
             {link && (
@@ -47,10 +54,6 @@ export default function AchievementCard({
 
           {/* Content Section */}
           <div className="flex flex-1 flex-col p-4">
-            {" "}
-            {/* ลด padding เหลือ p-4 ให้ดูกระชับ */}
-            {/* Header Group */}
-            {/* ✅ ใช้ flex-col gap-1 แทน space-y-4 เพื่อให้ชื่อกับองค์กรอยู่ใกล้กันมากขึ้น */}
             <div className="flex flex-col gap-1.5">
               <h3
                 className="line-clamp-2 text-base font-bold text-zinc-900 transition-colors group-hover:text-teal-600 dark:text-zinc-100 dark:group-hover:text-teal-400"
@@ -65,7 +68,6 @@ export default function AchievementCard({
               </div>
             </div>
             {/* Date Footer */}
-            {/* ใช้ mt-auto ดันวันที่ลงล่างสุด + เพิ่มเส้นขีดคั่นจางๆ */}
             {date && (
               <div className="mt-auto pt-4">
                 <div className="flex items-center gap-2 border-t border-zinc-200 pt-3 text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-500">
