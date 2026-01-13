@@ -113,7 +113,7 @@ pnpm dev
 ```
 Open http://localhost:3000 to view the project.
 
-📜 Scripts
+## 📜 Scripts
 Script	Description
 ```bash
 npm run dev	Runs the app in development mode with Turbopack.
@@ -122,17 +122,17 @@ npm start	Runs the built app in production mode.
 npm run lint	Runs ESLint to check for code quality issues.
 ```
 
-🚀 Deployment
+## 🚀 Deployment
 The easiest way to deploy your Next.js app is to use the Vercel Platform.
 1.Push your code to a GitHub repository.
 2.Import the project into Vercel.
 3.Add the Environment Variables (RESEND_API_KEY, etc.) in Vercel settings.
 4.Deploy! 🚀
 
-👤 Author
+## 👤 Author
 Sophonwit Thapseng
 🌐 Portfolio: sophonwit.site
 🐙 GitHub: @Bbsphw
 
-📄 License
+## 📄 License
 This project is open source and available under the MIT License.
