@@ -9,17 +9,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
   // 1. หน้าหลัก (Static Routes)
-  const routes = [
-    "",
-    "/projects",
-    "/about", // (ถ้ามี)
-    "/contact", // (ถ้ามี)
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 1,
-  }));
+  const routes = ["", "/about", "/achievements", "/projects", "/contact"].map(
+    (route) => ({
+      url: `${baseUrl}${route}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 1,
+    }),
+  );
 
   // 2. หน้าโปรเจกต์ทั้งหมด (Dynamic Routes from Data)
   const projectRoutes = projects.map((project) => ({
