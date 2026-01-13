@@ -59,10 +59,12 @@ export default function ProjectCard({
               {technologies.map((tech, index) => (
                 <div
                   key={index}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-white p-1.5 text-zinc-600 shadow-sm ring-1 ring-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:ring-zinc-700"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-white p-1.5 shadow-sm ring-1 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-700"
                   title={tech.name}
                 >
-                  {tech.icon}
+                  <div className="text-zinc-600 dark:text-zinc-400">
+                    {tech.icon}
+                  </div>{" "}
                 </div>
               ))}
             </div>

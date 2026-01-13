@@ -4,6 +4,7 @@ import { Achievement } from "@/types";
 
 export const achievements: Achievement[] = [
   {
+    id: "aws-cert-2024", 
     type: "certification",
     title: "AWS Certified",
     organization: "Amazon Web Services",
@@ -12,6 +13,7 @@ export const achievements: Achievement[] = [
     date: "2024-01-01",
   },
   {
+    id: "badge-opensource-2024", 
     type: "badge",
     title: "Open Source Contributor",
     organization: "GitHub",
@@ -20,6 +22,7 @@ export const achievements: Achievement[] = [
     date: "2024-01-01",
   },
   {
+    id: "award-bestdev-2024", 
     type: "awards",
     title: "Best Dev 2024",
     organization: "Tech Awards",

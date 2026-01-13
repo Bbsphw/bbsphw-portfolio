@@ -132,6 +132,7 @@ export default function ProjectDetail({
 
         {/* ================= ACTION BAR ================= */}
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
+          {/* Tech Stack */}
           <div className="space-y-2">
             <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
               Technologies Used

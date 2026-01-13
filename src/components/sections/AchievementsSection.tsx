@@ -151,7 +151,6 @@ function AchievementsContent() {
         {/* --- GRID CONTENT --- */}
         {filteredAchievements.length > 0 ? (
           <motion.div
-            // ✅ KEY FIX: ใส่ key ตรงนี้ครับ เมื่อ Filter เปลี่ยน key จะเปลี่ยน และบังคับ Animation ให้เริ่มใหม่
             key={`${currentType}-${currentSearch}`}
             className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
             variants={staggerContainer}
@@ -159,13 +158,12 @@ function AchievementsContent() {
             animate="visible"
           >
             <AnimatePresence mode="popLayout">
-              {filteredAchievements.map((achievement, index) => (
+              {filteredAchievements.map((achievement) => (
                 <motion.div
-                  // ✅ Best Practice: ไม่ควรใช้ index เป็น key เวลาทำ Filter/Sort
-                  // ให้ใช้ unique id หรือ title แทนเพื่อให้ React รู้ว่าอันไหนคืออันไหน
-                  key={achievement.title}
+                  // ✅ KEY FIX: ใช้ id เป็น key
+                  key={achievement.id}
                   variants={fadeInUp}
-                  layout // เพิ่ม layout prop เพื่อให้การขยับตำแหน่งสมูทขึ้น
+                  layout
                 >
                   <AchievementCard {...achievement} />
                 </motion.div>

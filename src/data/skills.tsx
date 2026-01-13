@@ -1,3 +1,5 @@
+// src/data/skills.tsx
+
 import { Skill } from "@/types";
 import {
   // Languages
@@ -52,42 +54,98 @@ export const allSkills: Skill[] = [
   // =======================================================
   // 1. Languages
   // =======================================================
-  { name: "HTML5", icon: <SiHtml5 className="text-orange-500" /> },
-  { name: "CSS3", icon: <SiCss3 className="text-blue-500" /> },
-  { name: "JavaScript", icon: <SiJavascript className="text-yellow-400" /> },
-  { name: "TypeScript", icon: <SiTypescript className="text-blue-600" /> },
-  { name: "Java", icon: <FaJava className="text-red-500" /> },
-  { name: "Python", icon: <SiPython className="text-yellow-500" /> },
-  { name: "C++", icon: <SiCplusplus className="text-blue-700" /> },
-  { name: "PHP", icon: <SiPhp className="text-indigo-400" /> },
+  {
+    id: "skill-html5",
+    name: "HTML5",
+    icon: <SiHtml5 className="text-orange-500" />,
+  },
+  {
+    id: "skill-css3",
+    name: "CSS3",
+    icon: <SiCss3 className="text-blue-500" />,
+  },
+  {
+    id: "skill-js",
+    name: "JavaScript",
+    icon: <SiJavascript className="text-yellow-400" />,
+  },
+  {
+    id: "skill-ts",
+    name: "TypeScript",
+    icon: <SiTypescript className="text-blue-600" />,
+  },
+  { id: "skill-java", name: "Java", icon: <FaJava className="text-red-500" /> },
+  {
+    id: "skill-python",
+    name: "Python",
+    icon: <SiPython className="text-yellow-500" />,
+  },
+  {
+    id: "skill-cpp",
+    name: "C++",
+    icon: <SiCplusplus className="text-blue-700" />,
+  },
+  { id: "skill-php", name: "PHP", icon: <SiPhp className="text-indigo-400" /> },
 
   // =======================================================
   // 2. Frontend & Mobile
   // =======================================================
-  { name: "React", icon: <SiReact className="text-cyan-400" /> },
   {
+    id: "skill-react",
+    name: "React",
+    icon: <SiReact className="text-cyan-400" />,
+  },
+  {
+    id: "skill-nextjs",
     name: "Next.js",
     icon: <SiNextdotjs className="text-black dark:text-white" />,
   },
-  { name: "Tailwind CSS", icon: <SiTailwindcss className="text-cyan-500" /> },
   {
+    id: "skill-tailwind",
+    name: "Tailwind CSS",
+    icon: <SiTailwindcss className="text-cyan-500" />,
+  },
+  {
+    id: "skill-framer",
     name: "Framer Motion",
     icon: <SiFramer className="text-black dark:text-white" />,
   },
-  { name: "Figma", icon: <SiFigma className="text-pink-500" /> },
-  { name: "Expo", icon: <SiExpo className="text-black dark:text-white" /> },
+  {
+    id: "skill-figma",
+    name: "Figma",
+    icon: <SiFigma className="text-pink-500" />,
+  },
+  {
+    id: "skill-expo",
+    name: "Expo",
+    icon: <SiExpo className="text-black dark:text-white" />,
+  },
 
   // =======================================================
   // 3. Backend & Frameworks
   // =======================================================
-  { name: "Node.js", icon: <SiNodedotjs className="text-green-500" /> },
-  { name: "NestJS", icon: <SiNestjs className="text-red-600" /> },
   {
+    id: "skill-nodejs",
+    name: "Node.js",
+    icon: <SiNodedotjs className="text-green-500" />,
+  },
+  {
+    id: "skill-nestjs",
+    name: "NestJS",
+    icon: <SiNestjs className="text-red-600" />,
+  },
+  {
+    id: "skill-express",
     name: "Express",
     icon: <SiExpress className="text-black dark:text-white" />,
   },
-  { name: "Laravel", icon: <SiLaravel className="text-red-600" /> },
   {
+    id: "skill-laravel",
+    name: "Laravel",
+    icon: <SiLaravel className="text-red-600" />,
+  },
+  {
+    id: "skill-prisma",
     name: "Prisma",
     icon: <SiPrisma className="text-teal-900 dark:text-white" />,
   },
@@ -95,32 +153,96 @@ export const allSkills: Skill[] = [
   // =======================================================
   // 4. Databases
   // =======================================================
-  { name: "Supabase", icon: <SiSupabase className="text-green-600" /> },
-  { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-400" /> },
-  { name: "MongoDB", icon: <SiMongodb className="text-green-600" /> },
-  { name: "MySQL", icon: <SiMysql className="text-blue-500" /> },
-  { name: "Oracle DB", icon: <SiOracle className="text-red-600" /> },
-  { name: "Firebase", icon: <SiFirebase className="text-orange-500" /> },
+  {
+    id: "skill-supabase",
+    name: "Supabase",
+    icon: <SiSupabase className="text-green-600" />,
+  },
+  {
+    id: "skill-postgres",
+    name: "PostgreSQL",
+    icon: <SiPostgresql className="text-blue-400" />,
+  },
+  {
+    id: "skill-mongodb",
+    name: "MongoDB",
+    icon: <SiMongodb className="text-green-600" />,
+  },
+  {
+    id: "skill-mysql",
+    name: "MySQL",
+    icon: <SiMysql className="text-blue-500" />,
+  },
+  {
+    id: "skill-oracle",
+    name: "Oracle DB",
+    icon: <SiOracle className="text-red-600" />,
+  },
+  {
+    id: "skill-firebase",
+    name: "Firebase",
+    icon: <SiFirebase className="text-orange-500" />,
+  },
 
   // =======================================================
   // 5. Tools, Cloud & DevOps
   // =======================================================
-  { name: "Docker", icon: <SiDocker className="text-blue-500" /> },
-  { name: "Git", icon: <SiGit className="text-orange-600" /> },
-  { name: "GitHub", icon: <SiGithub className="text-black dark:text-white" /> },
-  { name: "AWS", icon: <SiAmazonwebservices className="text-orange-500" /> },
-  { name: "Vercel", icon: <SiVercel className="text-black dark:text-white" /> },
-  { name: "Bash", icon: <SiGnubash className="text-yellow-600" /> },
+  {
+    id: "skill-docker",
+    name: "Docker",
+    icon: <SiDocker className="text-blue-500" />,
+  },
+  { id: "skill-git", name: "Git", icon: <SiGit className="text-orange-600" /> },
+  {
+    id: "skill-github",
+    name: "GitHub",
+    icon: <SiGithub className="text-black dark:text-white" />,
+  },
+  {
+    id: "skill-aws",
+    name: "AWS",
+    icon: <SiAmazonwebservices className="text-orange-500" />,
+  },
+  {
+    id: "skill-vercel",
+    name: "Vercel",
+    icon: <SiVercel className="text-black dark:text-white" />,
+  },
+  {
+    id: "skill-bash",
+    name: "Bash",
+    icon: <SiGnubash className="text-yellow-600" />,
+  },
 
   // =======================================================
   // 6. IoT & Electronics
   // =======================================================
-  { name: "Arduino", icon: <SiArduino className="text-teal-500" /> },
-  { name: "ESP32", icon: <SiEspressif className="text-red-600" /> },
-  { name: "Raspberry Pi", icon: <SiRaspberrypi className="text-pink-600" /> },
-  { name: "MQTT", icon: <SiMqtt className="text-red-600" /> },
-  { name: "Node-RED", icon: <SiNodered className="text-red-700" /> },
-  { name: "EasyEDA", icon: <SiEasyeda className="text-blue-600" /> },
+  {
+    id: "skill-arduino",
+    name: "Arduino",
+    icon: <SiArduino className="text-teal-500" />,
+  },
+  {
+    id: "skill-esp32",
+    name: "ESP32",
+    icon: <SiEspressif className="text-red-600" />,
+  },
+  {
+    id: "skill-rpi",
+    name: "Raspberry Pi",
+    icon: <SiRaspberrypi className="text-pink-600" />,
+  },
+  { id: "skill-mqtt", name: "MQTT", icon: <SiMqtt className="text-red-600" /> },
+  {
+    id: "skill-nodered",
+    name: "Node-RED",
+    icon: <SiNodered className="text-red-700" />,
+  },
+  {
+    id: "skill-easyeda",
+    name: "EasyEDA",
+    icon: <SiEasyeda className="text-blue-600" />,
+  },
 ];
 
 // ---------------------------------------------------------
@@ -130,16 +252,42 @@ export const allSkills: Skill[] = [
 // แถวที่ 1: Modern Web Stack (Frontend + Core Backend)
 export const skillsRow1: Skill[] = [
   {
+    id: "hl-nextjs",
     name: "Next.js",
     icon: <SiNextdotjs className="text-black dark:text-white" />,
   },
-  { name: "React", icon: <SiReact className="text-cyan-400" /> },
-  { name: "TypeScript", icon: <SiTypescript className="text-blue-600" /> },
-  { name: "Tailwind", icon: <SiTailwindcss className="text-cyan-500" /> },
-  { name: "Node.js", icon: <SiNodedotjs className="text-green-500" /> },
-  { name: "NestJS", icon: <SiNestjs className="text-red-600" /> },
-  { name: "Laravel", icon: <SiLaravel className="text-red-600" /> },
   {
+    id: "hl-react",
+    name: "React",
+    icon: <SiReact className="text-cyan-400" />,
+  },
+  {
+    id: "hl-ts",
+    name: "TypeScript",
+    icon: <SiTypescript className="text-blue-600" />,
+  },
+  {
+    id: "hl-tailwind",
+    name: "Tailwind",
+    icon: <SiTailwindcss className="text-cyan-500" />,
+  },
+  {
+    id: "hl-nodejs",
+    name: "Node.js",
+    icon: <SiNodedotjs className="text-green-500" />,
+  },
+  {
+    id: "hl-nestjs",
+    name: "NestJS",
+    icon: <SiNestjs className="text-red-600" />,
+  },
+  {
+    id: "hl-laravel",
+    name: "Laravel",
+    icon: <SiLaravel className="text-red-600" />,
+  },
+  {
+    id: "hl-prisma",
     name: "Prisma",
     icon: <SiPrisma className="text-teal-900 dark:text-white" />,
   },
@@ -147,13 +295,49 @@ export const skillsRow1: Skill[] = [
 
 // แถวที่ 2: Specialized & Infrastructure (Database, Cloud, IoT)
 export const skillsRow2: Skill[] = [
-  { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-400" /> },
-  { name: "MongoDB", icon: <SiMongodb className="text-green-600" /> },
-  { name: "Oracle DB", icon: <SiOracle className="text-red-600" /> },
-  { name: "Docker", icon: <SiDocker className="text-blue-500" /> },
-  { name: "AWS", icon: <SiAmazonwebservices className="text-orange-500" /> },
-  { name: "Supabase", icon: <SiSupabase className="text-green-600" /> },
-  { name: "Expo", icon: <SiExpo className="text-black dark:text-white" /> },
-  { name: "Arduino", icon: <SiArduino className="text-teal-500" /> },
-  { name: "ESP32", icon: <SiEspressif className="text-red-600" /> },
+  {
+    id: "hl-postgres",
+    name: "PostgreSQL",
+    icon: <SiPostgresql className="text-blue-400" />,
+  },
+  {
+    id: "hl-mongodb",
+    name: "MongoDB",
+    icon: <SiMongodb className="text-green-600" />,
+  },
+  {
+    id: "hl-oracle",
+    name: "Oracle DB",
+    icon: <SiOracle className="text-red-600" />,
+  },
+  {
+    id: "hl-docker",
+    name: "Docker",
+    icon: <SiDocker className="text-blue-500" />,
+  },
+  {
+    id: "hl-aws",
+    name: "AWS",
+    icon: <SiAmazonwebservices className="text-orange-500" />,
+  },
+  {
+    id: "hl-supabase",
+    name: "Supabase",
+    icon: <SiSupabase className="text-green-600" />,
+  },
+  {
+    id: "hl-expo",
+    name: "Expo",
+    icon: <SiExpo className="text-black dark:text-white" />,
+  },
+  {
+    id: "hl-arduino",
+    name: "Arduino",
+    icon: <SiArduino className="text-teal-500" />,
+  },
+  {
+    id: "hl-esp32",
+    name: "ESP32",
+    icon: <SiEspressif className="text-red-600" />,
+  },
 ];
