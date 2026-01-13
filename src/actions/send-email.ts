@@ -1,9 +1,10 @@
-// src/actions/send-email.ts
-
 "use server";
 
 import { Resend } from "resend";
 import { z } from "zod";
+import { headers } from "next/headers";
+import { env } from "@/env";
+import { rateLimit } from "@/lib/rate-limit";
 
 const ContactSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -13,9 +14,25 @@ const ContactSchema = z.object({
 
 type ContactFormValues = z.infer<typeof ContactSchema>;
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// ใช้ API Key จาก env ที่ validate แล้ว
+const resend = new Resend(env.RESEND_API_KEY);
 
 export async function sendEmail(data: ContactFormValues) {
+  // 1. 🛡️ Security: Rate Limiting
+  const headersList = await headers();
+  const ip = headersList.get("x-forwarded-for") || "unknown";
+
+  // อนุญาตให้ส่งได้ 3 ครั้ง ต่อ 1 ชั่วโมง ต่อ 1 IP
+  const isAllowed = rateLimit(ip, 3, 60 * 60 * 1000);
+
+  if (!isAllowed) {
+    return {
+      success: false,
+      error: "Too many requests. Please try again in an hour.",
+    };
+  }
+
+  // 2. ✅ Validation
   const result = ContactSchema.safeParse(data);
 
   if (!result.success) {
@@ -23,19 +40,12 @@ export async function sendEmail(data: ContactFormValues) {
   }
 
   const { name, email, message } = result.data;
-  const receiverEmail = process.env.RECEIVER_EMAIL;
-
-  if (!receiverEmail) {
-    return {
-      success: false,
-      error: "Server configuration error (Missing Email)",
-    };
-  }
 
   try {
+    // 3. 📧 Sending Email
     await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
-      to: receiverEmail,
+      to: env.RECEIVER_EMAIL, // Type-safe environment variable
       subject: `New Message from ${name} (Portfolio)`,
       replyTo: email,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,

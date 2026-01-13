@@ -13,6 +13,7 @@ import {
   FormItem,
   FormControl,
   FormMessage,
+  FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -69,6 +70,7 @@ export function ContactForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
+                <FormLabel className="sr-only">Name</FormLabel>
                 <FormControl>
                   {/* Style Input ให้เข้ากับ Theme Zinc */}
                   <Input
@@ -87,6 +89,7 @@ export function ContactForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
+                <FormLabel className="sr-only">Email</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Email"
@@ -101,12 +104,12 @@ export function ContactForm() {
             )}
           />
         </div>
-
         <FormField
           control={form.control}
           name="message"
           render={({ field }) => (
             <FormItem>
+              <FormLabel className="sr-only">Message</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Enter your message here..."
