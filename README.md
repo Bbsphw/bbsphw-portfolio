@@ -60,3 +60,87 @@ bbsphw-portfolio/
 ├── next.config.ts       # Next.js configuration
 ├── tailwind.config.ts   # Tailwind configuration
 └── package.json         # Project dependencies
+🏁 Getting Started
+Follow these steps to set up the project locally.
+
+Prerequisites
+Node.js (v18.17 or later)
+
+npm, yarn, pnpm, or bun
+
+1. Clone the repository
+Bash
+
+git clone [https://github.com/your-username/bbsphw-portfolio.git](https://github.com/your-username/bbsphw-portfolio.git)
+cd bbsphw-portfolio
+2. Install dependencies
+Bash
+
+npm install
+# or
+yarn install
+# or
+pnpm install
+3. Configure Environment Variables
+Create a .env file in the root directory and add the following variables (based on src/env.ts):
+
+ข้อมูลโค้ด
+
+# Server-side Environment Variables (Required for Contact Form)
+RESEND_API_KEY=re_123456789
+RECEIVER_EMAIL=your-email@example.com
+NODE_ENV=development
+
+# Public Environment Variables (Optional)
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+Note: You can get your API Key from Resend.
+
+4. Run the development server
+Bash
+
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+Open http://localhost:3000 with your browser to see the result.
+
+📜 Scripts
+npm run dev: Runs the app in development mode with Turbopack.
+
+npm run build: Builds the app for production.
+
+npm start: Runs the built app in production mode.
+
+npm run lint: Runs ESLint to check for code quality issues.
+
+🚀 Deployment
+The easiest way to deploy your Next.js app is to use the Vercel Platform.
+
+Push your code to a GitHub repository.
+
+Import the project into Vercel.
+
+Add the Environment Variables (RESEND_API_KEY, etc.) in the Vercel project settings.
+
+Deploy! 🚀
+
+👤 Author
+Sophonwit Thapseng
+
+Portfolio: sophonwit.site
+
+GitHub: @Bbsphw
+
+📄 License
+This project is open source and available under the MIT License.
+
+
+### สิ่งที่เพิ่มเข้ามาเพื่อให้เป็น Best Practice:
+1.  **Badges:** เพิ่มโลโก้เทคโนโลยีเพื่อให้ดูน่าสนใจและเห็นภาพรวม Tech Stack ได้ทันที
+2.  **Introduction ที่ชัดเจน:** สรุปจุดเด่นของโปรเจกต์ (Lighthouse Score, SEO, Clean Code)
+3.  **Detailed Tech Stack:** แบ่งหมวดหมู่เครื่องมือที่ใช้ (UI, Forms, Core) ให้คนอ่านเข้าใจง่าย
+4.  **Project Structure:** แสดงโครงสร้างไฟล์เพื่อให้ Developer คนอื่น (หรือตัวคุณเองในอนาคต) เข้าใจที่เก็บไฟล์ต่างๆ ได้เร็วขึ้น
+5.  **Environment Variables:** ระบุตัวแปรที่ **จำเป็น** ต้องใช้ (ดึงมาจากไฟล์ `src/env.ts` ของคุณ) ซึ่งสำคัญมากสำหรับคนที่เอาไปรันต่อ
+6.  **Getting Started:** ขั้นตอนการติดตั้งที่ชัดเจน
+7.  **Scripts:** อธิบายคำสั่งที่มีให้ใช้
