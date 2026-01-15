@@ -10,6 +10,7 @@ import AchievementCard from "../cards/AchievementCard";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { achievements } from "@/data/achievements";
 import { motion, Variants, AnimatePresence } from "framer-motion";
+import { useDebouncedCallback } from "use-debounce";
 
 // --- Animation Variants ---
 const fadeInUp: Variants = {
@@ -67,11 +68,11 @@ function AchievementsContent() {
   }, [currentType, currentSearch]);
 
   // 4. Handlers
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    router.replace(pathname + "?" + createQueryString("q", e.target.value), {
+  const handleSearchChange = useDebouncedCallback((value: string) => {
+    router.replace(pathname + "?" + createQueryString("q", value), {
       scroll: false,
     });
-  };
+  }, 300);
 
   const handleTypeSelect = (type: string) => {
     router.replace(pathname + "?" + createQueryString("type", type), {
@@ -126,7 +127,7 @@ function AchievementsContent() {
               type="text"
               placeholder="Search achievements..."
               defaultValue={currentSearch}
-              onChange={handleSearchChange}
+              onChange={(e) => handleSearchChange(e.target.value)}
               className="w-full rounded-lg border border-zinc-200 bg-zinc-50 py-2 pr-4 pl-10 text-sm text-zinc-900 placeholder:text-zinc-500 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100 dark:placeholder:text-zinc-400 dark:focus:border-zinc-700"
             />
           </div>
@@ -159,12 +160,7 @@ function AchievementsContent() {
           >
             <AnimatePresence mode="popLayout">
               {filteredAchievements.map((achievement) => (
-                <motion.div
-                  // ✅ KEY FIX: ใช้ id เป็น key
-                  key={achievement.id}
-                  variants={fadeInUp}
-                  layout
-                >
+                <motion.div key={achievement.id} variants={fadeInUp} layout>
                   <AchievementCard {...achievement} />
                 </motion.div>
               ))}
