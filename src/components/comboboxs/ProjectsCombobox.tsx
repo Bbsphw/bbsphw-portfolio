@@ -17,16 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
-// 1. กำหนดหมวดหมู่ที่ต้องการโชว์
-const projectCategories = [
-  { value: "", label: "All Categories" },
-  { value: "Web App", label: "Web Application" },
-  { value: "Mobile App", label: "Mobile Application" },
-  { value: "Embedded / IoT", label: "Embedded / IoT" },
-  { value: "Enterprise", label: "Enterprise" },
-  { value: "Others", label: "Others" },
-];
+import { PROJECT_CATEGORIES } from "@/types";
 
 interface ProjectsComboboxProps {
   selectedCategory: string;
@@ -39,6 +30,12 @@ export function ProjectsCombobox({
 }: ProjectsComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
+  // ✅ สร้าง Options จาก Constant
+  const categories = [
+    { value: "", label: "All Categories" },
+    ...PROJECT_CATEGORIES.map((cat) => ({ value: cat, label: cat })),
+  ];
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -49,8 +46,7 @@ export function ProjectsCombobox({
           aria-label="Select category"
           className="w-full justify-between border-zinc-200 bg-zinc-50 text-zinc-900 hover:bg-zinc-100 md:w-[230px] dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100 dark:hover:bg-zinc-900"
         >
-          {/* แสดง Label ของหมวดหมู่ที่เลือก */}
-          {projectCategories.find((c) => c.value === selectedCategory)?.label ||
+          {categories.find((c) => c.value === selectedCategory)?.label ||
             "All Categories"}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -64,14 +60,11 @@ export function ProjectsCombobox({
           <CommandList>
             <CommandEmpty>No category found.</CommandEmpty>
             <CommandGroup>
-              {projectCategories.map((category) => (
+              {categories.map((category) => (
                 <CommandItem
                   key={category.value}
-                  value={category.value} // ใช้ value เป็นตัวอ้างอิง
+                  value={category.value}
                   onSelect={(currentValue) => {
-                    // Logic: ถ้าเลือกตัวเดิมให้เป็น "" (All), ถ้าเลือกใหม่ให้ส่งค่า category.value
-                    // หมายเหตุ: cmdk บางเวอร์ชัน currentValue จะถูกแปลงเป็น lowercase
-                    // ดังนั้นเราส่ง category.value ตรงๆ จะชัวร์กว่า
                     const val = category.value;
                     onSelect(val === selectedCategory ? "" : val);
                     setOpen(false);
