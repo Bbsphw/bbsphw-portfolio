@@ -81,7 +81,7 @@ export const projects: Project[] = [
       },
     ],
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    link: "https://sophonwit.site",
+    link: "https://bbsphw-portfolio.vercel.app/",
     githubUrl: "https://github.com/Bbsphw/bbsphw-portfolio",
     featured: true,
     image:
@@ -96,69 +96,69 @@ export const projects: Project[] = [
     ],
   },
 
-  // ----------------------------------------------------------------
-  // PROJECT 2: WarehouseFlow ERP
-  // ----------------------------------------------------------------
-  {
-    id: "proj-warehouse-erp",
-    slug: "warehouse-erp-system",
-    title: "WarehouseFlow ERP",
-    category: "Enterprise",
-    description:
-      "A comprehensive Invoice & Warehouse management system integrating with Oracle ERP for real-time stock tracking.",
-    role: "Full Stack Developer",
-    date: "Nov 2024 - Dec 2024",
-    overview:
-      "WarehouseFlow is a bespoke internal tool designed to streamline the 'Invoice-packing_list' generation and warehouse stock management. It bridges the gap between the physical warehouse operations and the central Oracle ERP system. The system handles Debit/Credit note reporting, picking lists generation, and real-time inventory synchronization.",
-    features: [
-      "Automated Invoice E (Export) & P (Picking) generation",
-      "Real-time integration with Oracle ERP database",
-      "Debit/Credit Note (CN/DN) Report Management",
-      "Role-based Access Control (RBAC) for staff and managers",
-      "PDF Export functionality for official documents",
-    ],
-    challenges: [
-      {
-        problem:
-          "Syncing massive datasets from the legacy Oracle database caused timeouts.",
-        solution:
-          "Implemented database chunking and optimized SQL queries. Used Laravel Queues to handle heavy synchronization tasks in the background without blocking the UI.",
-      },
-      {
-        problem: "Complex dynamic forms for invoice line items.",
-        solution:
-          "Leveraged Laravel Livewire to create reactive, dynamic forms that allow users to add/remove rows and calculate totals instantly without full page reloads.",
-      },
-    ],
-    technologies: [
-      { name: "Laravel", icon: <SiLaravel className="text-red-600" /> },
-      { name: "PHP", icon: <SiPhp className="text-indigo-400" /> },
-      { name: "Livewire", icon: <FaServer className="text-pink-500" /> },
-      { name: "Oracle DB", icon: <SiOracle className="text-red-500" /> },
-      { name: "Docker", icon: <SiDocker className="text-blue-500" /> },
-    ],
-    tags: ["Laravel", "Livewire", "PHP", "Oracle DB", "Tailwind CSS"],
-    githubUrl: "https://github.com/Bbsphw/iwms-system",
-    featured: true,
-    image:
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376571/dashboard-overview-analytics_noy0kq.png",
-    gallery: [
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376573/login-screen_joxbhj.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376572/register-screen_e4gg04.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376569/forget-screen_bltqrn.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376566/invoice-e-screen_ay9kf7.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376565/invoice-e-add_txxpib.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376567/invoice-p-screen_vtqezn.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376572/invoice-p-create_d6cdws.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376565/invoice-p-import_tdb2gn.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376567/invoice-p-search_y9lv8h.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376580/report-dncn-screen_st08zn.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376568/acc-manage_a7wbdv.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376575/master-com_hybzm9.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376570/master-cus_tsrcqq.png",
-      "https://res.cloudinary.com/bbsphw/image/upload/v1768376571/master-product_qyrok0.png",
-    ],
-  },
+  // // ----------------------------------------------------------------
+  // // PROJECT 2: WarehouseFlow ERP
+  // // ----------------------------------------------------------------
+  // {
+  //   id: "proj-warehouse-erp",
+  //   slug: "warehouse-erp-system",
+  //   title: "WarehouseFlow ERP",
+  //   category: "Enterprise",
+  //   description:
+  //     "A comprehensive Invoice & Warehouse management system integrating with Oracle ERP for real-time stock tracking.",
+  //   role: "Full Stack Developer",
+  //   date: "Nov 2024 - Dec 2024",
+  //   overview:
+  //     "WarehouseFlow is a bespoke internal tool designed to streamline the 'Invoice-packing_list' generation and warehouse stock management. It bridges the gap between the physical warehouse operations and the central Oracle ERP system. The system handles Debit/Credit note reporting, picking lists generation, and real-time inventory synchronization.",
+  //   features: [
+  //     "Automated Invoice E (Export) & P (Picking) generation",
+  //     "Real-time integration with Oracle ERP database",
+  //     "Debit/Credit Note (CN/DN) Report Management",
+  //     "Role-based Access Control (RBAC) for staff and managers",
+  //     "PDF Export functionality for official documents",
+  //   ],
+  //   challenges: [
+  //     {
+  //       problem:
+  //         "Syncing massive datasets from the legacy Oracle database caused timeouts.",
+  //       solution:
+  //         "Implemented database chunking and optimized SQL queries. Used Laravel Queues to handle heavy synchronization tasks in the background without blocking the UI.",
+  //     },
+  //     {
+  //       problem: "Complex dynamic forms for invoice line items.",
+  //       solution:
+  //         "Leveraged Laravel Livewire to create reactive, dynamic forms that allow users to add/remove rows and calculate totals instantly without full page reloads.",
+  //     },
+  //   ],
+  //   technologies: [
+  //     { name: "Laravel", icon: <SiLaravel className="text-red-600" /> },
+  //     { name: "PHP", icon: <SiPhp className="text-indigo-400" /> },
+  //     { name: "Livewire", icon: <FaServer className="text-pink-500" /> },
+  //     { name: "Oracle DB", icon: <SiOracle className="text-red-500" /> },
+  //     { name: "Docker", icon: <SiDocker className="text-blue-500" /> },
+  //   ],
+  //   tags: ["Laravel", "Livewire", "PHP", "Oracle DB", "Tailwind CSS"],
+  //   // githubUrl: "https://github.com/Bbsphw/iwms-system",
+  //   featured: true,
+  //   image:
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376571/dashboard-overview-analytics_noy0kq.png",
+  //   gallery: [
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376573/login-screen_joxbhj.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376572/register-screen_e4gg04.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376569/forget-screen_bltqrn.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376566/invoice-e-screen_ay9kf7.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376565/invoice-e-add_txxpib.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376567/invoice-p-screen_vtqezn.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376572/invoice-p-create_d6cdws.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376565/invoice-p-import_tdb2gn.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376567/invoice-p-search_y9lv8h.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376580/report-dncn-screen_st08zn.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376568/acc-manage_a7wbdv.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376575/master-com_hybzm9.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376570/master-cus_tsrcqq.png",
+  //     "https://res.cloudinary.com/bbsphw/image/upload/v1768376571/master-product_qyrok0.png",
+  //   ],
+  // },
 
   // ----------------------------------------------------------------
   // PROJECT 3: BunLux Nail
@@ -327,7 +327,7 @@ export const projects: Project[] = [
     ],
     tags: ["React", "Admin Panel", "Data Visualization", "Tailwind CSS"],
     githubUrl: "https://github.com/Bbsphw/se-frontend-dashboard",
-    featured: false,
+    featured: true,
     image:
       "https://res.cloudinary.com/bbsphw/image/upload/v1768374285/group-view-1_umhdrs.jpg",
     gallery: [
@@ -376,7 +376,7 @@ export const projects: Project[] = [
     ],
     tags: ["Computer Vision", "AI", "Python", "MediaPipe", "OpenCV"],
     githubUrl: "https://github.com/Bbsphw/cv-workout",
-    featured: true,
+    featured: false,
     image:
       "https://res.cloudinary.com/bbsphw/image/upload/v1768373176/ai-pose-detection-cover_gdqztn.jpg",
     gallery: [
