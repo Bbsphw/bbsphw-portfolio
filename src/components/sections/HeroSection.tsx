@@ -57,21 +57,32 @@ export default function HeroSection(): React.JSX.Element {
               <MapPin className="h-4 w-4" />
               <span>Based in Bangkok, Thailand 🇹🇭</span>
             </div>
+
             <div className="hidden h-1 w-1 rounded-full bg-zinc-300 sm:block dark:bg-zinc-700" />
+
             <div className="flex items-center gap-2">
               <Briefcase className="h-4 w-4" />
               <span>Hybrid work</span>
             </div>
+
+            {/* <div className="hidden h-1 w-1 rounded-full bg-zinc-300 sm:block dark:bg-zinc-700" />
+            <div className="flex items-center gap-2 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900/30 dark:text-green-400">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+              </span>
+              <span>Open for work</span>
+            </div> */}
           </div>
         </div>
 
         <div className="leading-loose">
           <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
-            Passionate and seasoned Software Engineer with a strong focus on
-            frontend development. Proficient in TypeScript and well-versed in
-            all aspects of web technologies. Collaborative team player dedicated
-            to delivering efficient, scalable, and visually appealing web
-            applications.
+            Passionate Full Stack & Software Engineer dedicated to crafting
+            scalable, high-performance web applications. Proficient in
+            TypeScript and the modern web ecosystem. I combine engineering best
+            practices with a focus on delivering robust solutions. Currently
+            open for new opportunities.
           </p>
         </div>
       </motion.header>
