@@ -15,8 +15,23 @@ import {
   SiExpo,
   SiSupabase,
   SiGit,
+  SiPython,
+  SiOpencv,
+  SiHtml5,
+  SiCss3,
+  SiJavascript,
+  SiAuth0,
 } from "react-icons/si";
-import { FaMobileAlt, FaServer, FaDatabase } from "react-icons/fa";
+
+import {
+  FaMobileAlt,
+  FaServer,
+  FaDatabase,
+  FaChartLine,
+  FaCamera,
+  FaFileInvoiceDollar,
+  FaBrain,
+} from "react-icons/fa";
 
 export const projects: Project[] = [
   // ----------------------------------------------------------------
@@ -67,13 +82,17 @@ export const projects: Project[] = [
     ],
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
     link: "https://sophonwit.site",
-    githubUrl: "https://github.com/Bbsphw/portfolio",
+    githubUrl: "https://github.com/Bbsphw/bbsphw-portfolio",
     featured: true,
-    image: "https://placehold.co/1200x675/1a1a1a/FFF.png?text=Portfolio+Cover",
+    image:
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768290030/hero-section-desktop_kmigsn.png",
     gallery: [
-      "https://placehold.co/1200x675/202020/FFF.png?text=Portfolio+Home+Screen",
-      "https://placehold.co/1200x675/202020/FFF.png?text=Projects+Grid+View",
-      "https://placehold.co/1200x675/202020/FFF.png?text=Contact+Page+Design",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768290034/about-skills-animation_meko7b.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768290031/projects-grid-view_idr87q.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768290040/projects-detail-grid-view_lfi88f.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768290033/contact-gird-view_og1gtn.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768291199/mb-appside-bar_vls3lq.jpg",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768291200/mb-hero-section-view_enfhyz.jpg",
     ],
   },
 
@@ -119,15 +138,25 @@ export const projects: Project[] = [
       { name: "Docker", icon: <SiDocker className="text-blue-500" /> },
     ],
     tags: ["Laravel", "Livewire", "PHP", "Oracle DB", "Tailwind CSS"],
-    githubUrl: "https://github.com/Bbsphw/warehouse-erp",
+    githubUrl: "https://github.com/Bbsphw/iwms-system",
     featured: true,
     image:
-      "https://placehold.co/1200x675/1e3a8a/FFF.png?text=Warehouse+ERP+Cover",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376571/dashboard-overview-analytics_noy0kq.png",
     gallery: [
-      "https://placehold.co/1200x675/2563eb/FFF.png?text=Dashboard+Overview",
-      "https://placehold.co/1200x675/2563eb/FFF.png?text=Stock+Management+Table",
-      "https://placehold.co/1200x675/2563eb/FFF.png?text=Invoice+Generation+Form",
-      "https://placehold.co/1200x675/2563eb/FFF.png?text=PDF+Report+Preview",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376573/login-screen_joxbhj.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376572/register-screen_e4gg04.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376569/forget-screen_bltqrn.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376566/invoice-e-screen_ay9kf7.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376565/invoice-e-add_txxpib.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376567/invoice-p-screen_vtqezn.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376572/invoice-p-create_d6cdws.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376565/invoice-p-import_tdb2gn.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376567/invoice-p-search_y9lv8h.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376580/report-dncn-screen_st08zn.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376568/acc-manage_a7wbdv.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376575/master-com_hybzm9.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376570/master-cus_tsrcqq.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768376571/master-product_qyrok0.png",
     ],
   },
 
@@ -173,15 +202,232 @@ export const projects: Project[] = [
       { name: "Mobile", icon: <FaMobileAlt className="text-purple-500" /> },
     ],
     tags: ["React Native", "Expo", "NativeWind", "Mobile", "TypeScript"],
-    link: "https://expo.dev/@bbsphw/bunlux-nail",
+    // link: "https://expo.dev/@bbsphw/bunlux-nail",
     githubUrl: "https://github.com/Bbsphw/bunluxnail-mobile",
     featured: false,
-    image: "https://placehold.co/1200x675/831843/FFF.png?text=BunLux+App+Cover",
+    image:
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768377808/chat-maps_gavksq.png",
     gallery: [
-      "https://placehold.co/1200x675/db2777/FFF.png?text=App+Home+Screen",
-      "https://placehold.co/1200x675/db2777/FFF.png?text=Booking+Flow",
-      "https://placehold.co/1200x675/db2777/FFF.png?text=Nail+Art+Gallery",
-      "https://placehold.co/1200x675/db2777/FFF.png?text=User+Profile",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768377814/sign-in_q5uyjm.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768377816/sign-up_bb4cjs.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768377808/create-user_zlgwsf.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768377819/verify-user_pjsbcx.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768377808/forget_xj0cge.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768377807/chat-ai_ivvbcv.jpg",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768377808/select-day_q7tjcg.png",
+    ],
+  },
+
+  // ----------------------------------------------------------------
+  // PROJECT 4: MonkPad Finance
+  // ----------------------------------------------------------------
+  {
+    id: "proj-monkpad",
+    slug: "monkpad-finance-tracker",
+    title: "MonkPad Finance",
+    category: "Web App",
+    description:
+      "A smart financial management platform featuring OCR slip scanning and automated expense tracking.",
+    role: "Frontend Developer",
+    date: "July 2024 - Aug 2024",
+    overview:
+      "MonkPad is a personal finance application designed to simplify expense tracking. It solves the tedium of manual data entry by implementing OCR (Optical Character Recognition) to scan transaction slips and automatically categorize expenses. The dashboard provides clear visualization of spending habits and monthly reports.",
+    features: [
+      "Smart Slip Scanning with OCR Integration",
+      "Interactive Dashboard with Spending Trends",
+      "Transaction Management & Categorization",
+      "Monthly & Yearly Financial Reports",
+      "Secure Authentication & User Profile Management",
+    ],
+    challenges: [
+      {
+        problem: "Accurately parsing text from diverse slip formats.",
+        solution:
+          "Implemented a custom parsing logic post-OCR to identify key information like date, amount, and merchant from unstructured text data.",
+      },
+      {
+        problem: "Visualizing financial data effectively.",
+        solution:
+          "Integrated Chart.js/Recharts to create interactive bar and pie charts that allow users to drill down into specific spending categories.",
+      },
+    ],
+    technologies: [
+      {
+        name: "Next.js",
+        icon: <SiNextdotjs className="text-black dark:text-white" />,
+      },
+      { name: "TypeScript", icon: <SiTypescript className="text-blue-600" /> },
+      {
+        name: "Tailwind CSS",
+        icon: <SiTailwindcss className="text-cyan-500" />,
+      },
+      { name: "OCR", icon: <FaFileInvoiceDollar className="text-green-500" /> },
+      { name: "Recharts", icon: <FaChartLine className="text-orange-500" /> },
+    ],
+    tags: ["Next.js", "Finance", "OCR", "Dashboard", "TypeScript"],
+    githubUrl: "https://github.com/Bbsphw/monkpad-frontend",
+    link: "https://youtu.be/hjAAhFDxCyQ",
+    featured: false,
+    image:
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768356580/landing-page-hero_apxmqd.png",
+    gallery: [
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768356580/login-in-view_q0lgvz.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768356579/resgiter-view_ksemib.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768356579/dashboard-analytics_uwddn6.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768356581/upload-slip-ocr_gqibnf.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768356580/transaction-list_bjsedj.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768356583/reports-view_gjpd2e.png",
+    ],
+  },
+
+  // ----------------------------------------------------------------
+  // PROJECT 5: SE Admin Dashboard (TiawPao)
+  // ----------------------------------------------------------------
+  {
+    id: "proj-se-dashboard",
+    slug: "tiawpao-admin-dashboard",
+    title: "TiawPao Admin Dashboard",
+    category: "Web App",
+    description:
+      "A comprehensive admin interface for the 'TiawPao' travel application, managing users, content, and system analytics.",
+    role: "Frontend Developer",
+    date: "Aug 2024 - Sep 2024",
+    overview:
+      "This project serves as the backend control panel for the TiawPao travel platform. It empowers administrators to manage user accounts, monitor system health, and analyze trip planning trends. The dashboard is built for scalability and ease of use, featuring advanced filtering and real-time data visualization.",
+    features: [
+      "Comprehensive User Management System (CRUD)",
+      "Trip Plan Analytics & Popular Destinations",
+      "System Health Monitoring & Logs",
+      "Role-Based Access Control (Admin/Super Admin)",
+      "User Demographics & Retention Analysis",
+    ],
+    challenges: [
+      {
+        problem: "Handling complex state for multi-step forms and filters.",
+        solution:
+          "Utilized React Hook Form with Zod validation to manage form state efficiently and ensure data integrity across the application.",
+      },
+      {
+        problem: "Presenting complex user retention data clearly.",
+        solution:
+          "Designed custom chart components to visualize cohort analysis and user growth trends, making abstract data actionable for admins.",
+      },
+    ],
+    technologies: [
+      {
+        name: "Next.js",
+        icon: <SiNextdotjs className="text-black dark:text-white" />,
+      },
+      { name: "React", icon: <SiReact className="text-cyan-400" /> },
+      {
+        name: "Tailwind CSS",
+        icon: <SiTailwindcss className="text-cyan-500" />,
+      },
+      { name: "NextAuth", icon: <SiAuth0 className="text-purple-500" /> },
+    ],
+    tags: ["React", "Admin Panel", "Data Visualization", "Tailwind CSS"],
+    githubUrl: "https://github.com/Bbsphw/se-frontend-dashboard",
+    featured: false,
+    image:
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768374285/group-view-1_umhdrs.jpg",
+    gallery: [
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768374286/group-view-2_tzrxah.jpg",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768374512/dashboard-overview-demo_v4fodr.jpg",
+    ],
+  },
+
+  // ----------------------------------------------------------------
+  // PROJECT 6: AI Workout Trainer
+  // ----------------------------------------------------------------
+  {
+    id: "proj-cv-workout",
+    slug: "ai-workout-assistant",
+    title: "AI Workout Assistant",
+    category: "Others",
+    description:
+      "A desktop application leveraging Computer Vision to provide real-time exercise form correction and rep counting.",
+    role: "AI Developer",
+    date: "May 2024 - June 2024",
+    overview:
+      "This project explores the intersection of fitness and AI using Python. By utilizing MediaPipe's Pose Estimation, the application detects key body landmarks from a webcam feed to analyze exercise mechanics. It accurately counts repetitions for exercises like Push-ups and Squats while providing visual feedback on form.",
+    features: [
+      "Real-time Human Pose Estimation",
+      "Automatic Repetition Counting Logic",
+      "Form Correction Feedback (e.g., 'Lower your hips')",
+      "Angle Calculation for Joint Analysis",
+      "User-friendly GUI built with CustomTkinter/PyQt",
+    ],
+    challenges: [
+      {
+        problem: "Inaccurate detection during fast movements.",
+        solution:
+          "implemented a smoothing algorithm for landmark coordinates and optimized confidence thresholds to reduce jitter.",
+      },
+      {
+        problem: "Calculating rep states (UP/DOWN) reliably.",
+        solution:
+          "Developed a state machine logic based on calculated joint angles to prevent false positives in rep counting.",
+      },
+    ],
+    technologies: [
+      { name: "Python", icon: <SiPython className="text-yellow-500" /> },
+      { name: "OpenCV", icon: <SiOpencv className="text-green-600" /> },
+      { name: "MediaPipe", icon: <FaBrain className="text-teal-500" /> },
+    ],
+    tags: ["Computer Vision", "AI", "Python", "MediaPipe", "OpenCV"],
+    githubUrl: "https://github.com/Bbsphw/cv-workout",
+    featured: true,
+    image:
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768373176/ai-pose-detection-cover_gdqztn.jpg",
+    gallery: [
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768374539/test-pose-detection_hmmodt.jpg",
+    ],
+  },
+
+  // ----------------------------------------------------------------
+  // PROJECT 7: Legacy Portfolio
+  // ----------------------------------------------------------------
+  {
+    id: "proj-legacy-portfolio",
+    slug: "legacy-html-portfolio",
+    title: "Legacy Portfolio",
+    category: "Web App",
+    description:
+      "My first portfolio website built with raw HTML, CSS, and JavaScript, marking the beginning of my web dev journey.",
+    role: "Frontend Developer",
+    date: "Early 2024",
+    overview:
+      "This project represents my foundational step into web development. Hosted on GitHub Pages, it was built without any frameworks to understand the core concepts of the DOM, responsive design with media queries, and basic interactivity using Vanilla JavaScript.",
+    features: [
+      "Pure HTML5 & CSS3 Implementation",
+      "Responsive Layout using CSS Grid/Flexbox",
+      "Vanilla JavaScript for Mobile Menu & Interactions",
+      "Hosted via GitHub Pages",
+    ],
+    challenges: [
+      {
+        problem: "Making the site responsive without a CSS framework.",
+        solution:
+          "Manually wrote media queries for various breakpoints to ensure the layout adapted correctly to mobile, tablet, and desktop screens.",
+      },
+    ],
+    technologies: [
+      { name: "HTML5", icon: <SiHtml5 className="text-orange-600" /> },
+      { name: "CSS3", icon: <SiCss3 className="text-blue-500" /> },
+      {
+        name: "JavaScript",
+        icon: <SiJavascript className="text-yellow-400" />,
+      },
+    ],
+    tags: ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+    link: "https://bbsphw.github.io",
+    githubUrl: "https://github.com/Bbsphw/bbsphw.github.io",
+    featured: false,
+    image:
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768358489/about-section_z0jcfd.png",
+    gallery: [
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768358489/about-section_z0jcfd.png",
+      "https://res.cloudinary.com/bbsphw/image/upload/v1768358489/contact-form_eidiyz.png",
     ],
   },
 ];

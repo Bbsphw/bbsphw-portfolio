@@ -1,3 +1,5 @@
+// src/components/comboboxs/AchievementsCombobox.tsx
+
 "use client";
 
 import * as React from "react";
@@ -23,6 +25,8 @@ const achievementTypes = [
   { value: "certification", label: "Certification" },
   { value: "badge", label: "Badge" },
   { value: "awards", label: "Awards" },
+  { value: "hackathon", label: "Hackathon" },
+  { value: "talks", label: "Talks" },
 ];
 
 interface AchievementComboboxProps {
@@ -65,8 +69,11 @@ export function AchievementCombobox({
                   key={type.value}
                   value={type.value}
                   onSelect={(currentValue) => {
-                    // ถ้าเลือกซ้ำให้เป็นค่าว่าง (deselect) หรือใช้ค่าใหม่
-                    onSelect(currentValue === selectedType ? "" : currentValue);
+                    // ถ้าเลือกซ้ำให้เป็นค่าว่าง ("") หรือเลือกค่าใหม่
+                    const newValue =
+                      currentValue === selectedType ? "" : currentValue;
+                    // ถ้าเลือก "All Achievements" (value="") ก็ให้ส่งค่าว่างไป
+                    onSelect(type.value === "" ? "" : newValue);
                     setOpen(false);
                   }}
                   className="cursor-pointer aria-selected:bg-zinc-100 dark:aria-selected:bg-zinc-800"

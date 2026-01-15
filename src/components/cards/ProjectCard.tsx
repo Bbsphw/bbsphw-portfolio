@@ -1,10 +1,10 @@
-// src/components/cards/ProjectCard.tsx
+"use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Pin, ArrowUpRight } from "lucide-react";
 import { Project } from "@/types";
 import { cn } from "@/lib/utils";
+import { UniversalImage } from "../universal-image";
 
 export default function ProjectCard({
   slug,
@@ -18,7 +18,6 @@ export default function ProjectCard({
     <div className="h-full transform-none opacity-100 will-change-auto">
       <div className="h-full w-full rounded-xl border-[1.5px] border-zinc-300 p-1 shadow-sm transition-all duration-300 hover:border-zinc-400 dark:border-[#333333] dark:hover:border-zinc-600">
         <Link
-          // ✅ เปลี่ยน Link เป็น Dynamic Route
           href={`/projects/${slug}`}
           className={cn(
             "group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-lg",
@@ -27,7 +26,6 @@ export default function ProjectCard({
             "dark:from-[#242424] dark:to-zinc-900 dark:hover:to-zinc-950",
           )}
         >
-          {/* ... (ส่วน Featured Badge คงเดิม) ... */}
           {featured && (
             <div className="absolute top-0 right-0 z-20 flex items-center gap-x-1 rounded-tr-lg rounded-bl-lg bg-cyan-500 px-2 py-1 text-sm font-medium text-zinc-900 shadow-md">
               <Pin className="h-4 w-4 fill-white" />
@@ -36,12 +34,16 @@ export default function ProjectCard({
           )}
 
           <div className="relative h-48 w-full shrink-0 overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
-            <Image
-              src={image || "/images/project-placeholder.svg"}
+            {/* ✅ ใช้ UniversalImage แทน Logic เดิม */}
+            <UniversalImage
+              src={image}
               alt={title}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-500 group-hover:scale-105"
+              cldProps={{ crop: "fill", gravity: "auto" }} // ส่ง props พิเศษให้ Cloudinary ได้
             />
+
             <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/60 text-sm font-medium text-zinc-50 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
               <span>View Details</span>
               <ArrowUpRight className="h-4 w-4" />
@@ -64,7 +66,7 @@ export default function ProjectCard({
                 >
                   <div className="text-zinc-600 dark:text-zinc-400">
                     {tech.icon}
-                  </div>{" "}
+                  </div>
                 </div>
               ))}
             </div>

@@ -2,15 +2,18 @@
 
 import { ReactNode } from "react";
 
-export type ProjectCategory =
-  | "Web App"
-  | "Mobile App"
-  | "Embedded / IoT"
-  | "Enterprise"
-  | "Others";
+export const PROJECT_CATEGORIES = [
+  "Web App",
+  "Mobile App",
+  "Embedded / IoT",
+  "Enterprise",
+  "Others",
+] as const;
+
+export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number];
 
 export interface Project {
-  id: string; 
+  id: string;
   slug: string;
   title: string;
   category: ProjectCategory;
@@ -36,14 +39,21 @@ export interface Project {
 }
 
 export type Skill = {
-  id: string; 
+  id: string;
   name: string;
   icon: ReactNode;
 };
 
+export type AchievementType =
+  | "certification"
+  | "badge"
+  | "awards"
+  | "hackathon"
+  | "talks";
+
 export type Achievement = {
-  id: string; 
-  type: "certification" | "badge" | "awards";
+  id: string;
+  type: AchievementType;
   title: string;
   organization: string;
   image: string;
@@ -51,10 +61,11 @@ export type Achievement = {
   date: string;
   description?: string;
   skills?: string[];
+  gallery?: string[];
 };
 
 export type Education = {
-  id: string; 
+  id: string;
   school: string;
   degree: string;
   year: string;
@@ -64,7 +75,7 @@ export type Education = {
 };
 
 export type Career = {
-  id: string; 
+  id: string;
   role: string;
   company: string;
   logo?: string;

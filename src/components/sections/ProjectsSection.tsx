@@ -9,6 +9,7 @@ import { motion, Variants, AnimatePresence } from "framer-motion";
 import ProjectCard from "@/components/cards/ProjectCard";
 import { projects } from "@/data/projects";
 import { ProjectsCombobox } from "@/components/comboboxs/ProjectsCombobox";
+import { useDebouncedCallback } from "use-debounce";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -25,29 +26,36 @@ function ProjectsContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // 1. Get URL Params
   const currentCategory = searchParams.get("category") || "";
   const currentSearch = searchParams.get("q") || "";
 
-  // 2. Helper Update URL
-  const updateUrl = useCallback(
-    (key: string, value: string) => {
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
-      if (value) params.set(key, value);
-      else params.delete(key);
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+      if (value) params.set(name, value);
+      else params.delete(name);
+      return params.toString();
     },
-    [searchParams, pathname, router],
+    [searchParams],
   );
 
-  // 3. Filtering Logic
+  const handleSearchChange = useDebouncedCallback((value: string) => {
+    router.replace(pathname + "?" + createQueryString("q", value), {
+      scroll: false,
+    });
+  }, 300);
+
+  const handleCategoryChange = (val: string) => {
+    router.replace(pathname + "?" + createQueryString("category", val), {
+      scroll: false,
+    });
+  };
+
   const filteredProjects = useMemo(() => {
     let result = [...projects];
-
     if (currentCategory) {
       result = result.filter((p) => p.category === currentCategory);
     }
-
     if (currentSearch) {
       const q = currentSearch.toLowerCase();
       result = result.filter(
@@ -57,7 +65,6 @@ function ProjectsContent() {
           p.tags.some((tag) => tag.toLowerCase().includes(q)),
       );
     }
-
     return result.sort(
       (a, b) => (Number(b.featured) || 0) - (Number(a.featured) || 0),
     );
@@ -105,7 +112,7 @@ function ProjectsContent() {
               type="text"
               placeholder="Search projects..."
               defaultValue={currentSearch}
-              onChange={(e) => updateUrl("q", e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               className="w-full rounded-lg border border-zinc-200 bg-zinc-50 py-2 pr-4 pl-10 text-sm text-zinc-900 placeholder:text-zinc-500 focus:border-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100"
             />
           </div>
@@ -113,7 +120,7 @@ function ProjectsContent() {
           <div className="w-full md:w-[230px]">
             <ProjectsCombobox
               selectedCategory={currentCategory}
-              onSelect={(val) => updateUrl("category", val)}
+              onSelect={handleCategoryChange}
             />
           </div>
         </motion.div>
