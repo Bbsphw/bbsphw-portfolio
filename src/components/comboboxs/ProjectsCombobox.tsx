@@ -32,7 +32,6 @@ export function ProjectsCombobox({
 }: ProjectsComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
-  // ✅ สร้าง Options จาก Constant
   const categories = [
     { value: "", label: "All Categories" },
     ...PROJECT_CATEGORIES.map((cat) => ({ value: cat, label: cat })),
@@ -66,7 +65,8 @@ export function ProjectsCombobox({
                 <CommandItem
                   key={category.value}
                   value={category.value}
-                  onSelect={(currentValue) => {
+                  // แก้ไข: ลบพารามิเตอร์ currentValue ที่ไม่ได้ใช้ออก หรือใช้ () =>
+                  onSelect={() => {
                     const val = category.value;
                     onSelect(val === selectedCategory ? "" : val);
                     setOpen(false);

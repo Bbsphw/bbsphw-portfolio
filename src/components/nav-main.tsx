@@ -2,8 +2,7 @@
 
 "use client";
 
-import { usePathname } from "next/navigation";
-import { Link } from "@/i18n/routing";
+import { Link, usePathname } from "@/i18n/routing";
 import { LucideIcon, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -16,26 +15,21 @@ export interface NavItem {
 }
 
 export default function NavMain({ items }: { items: NavItem[] }) {
+  // pathname นี้จะไม่มี /en หรือ /th ติดมา (เช่น เป็น "/about" ตลอด)
   const pathname = usePathname();
   const t = useTranslations("Nav");
 
   return (
     <nav className="grid gap-2">
       {items.map(({ titleKey, url, icon: Icon }) => {
-        // ตรวจสอบ Active State:
-        // pathname อาจจะเป็น "/en/about", url คือ "/about"
-        // เราต้องเช็คว่า pathname ลงท้ายด้วย url หรือไม่ (หรือใช้วิธีอื่นที่เหมาะสมกับ structure)
-        // วิธีง่ายๆ คือเช็คว่า pathname มี url อยู่ไหม (แต่อาจจะไม่เป๊ะ 100% ถ้า url ซ้ำซ้อน)
-        // วิธีที่ดีกว่าคือใช้ useSelectedLayoutSegment หรือเทียบ path หลังตัด locale
-
-        // ตัวอย่างการเช็คแบบง่าย (ปรับปรุงได้ตามต้องการ)
-        const isActive =
-          pathname.endsWith(url) || (url === "/" && pathname.length <= 3); // pathname อาจเป็น "/" หรือ "/en" หรือ "/th"
+        // ถ้า url เป็น "/" ต้องเช็คว่า pathname คือ "/" เท่านั้น
+        // ถ้า url อื่นๆ ให้เช็คว่า pathname เริ่มต้นด้วย url นั้น (เผื่อมี sub-route) หรือจะเช็ค === ก็ได้ถ้าไม่มี sub-menu
+        const isActive = pathname === url;
 
         return (
           <Link
             key={url}
-            href={url} // ไม่ต้องใส่ /en หรือ /th เอง Link ของ next-intl จะจัดการให้
+            href={url}
             prefetch={false}
             className={cn(
               "group relative flex w-full items-center justify-between rounded-xl px-4 py-3 transition-all duration-200",

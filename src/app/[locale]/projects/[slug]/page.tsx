@@ -16,7 +16,6 @@ interface ProjectPageProps {
 }
 
 // 1. Generate Static Params (SSG)
-// สร้าง path ครบทุกคู่: /en/projects/project-a, /th/projects/project-a, ...
 export async function generateStaticParams() {
   const params: { locale: string; slug: string }[] = [];
 
@@ -39,8 +38,8 @@ export async function generateMetadata({
 }: ProjectPageProps): Promise<Metadata> {
   const { slug, locale } = await params;
 
-  // ตรวจสอบว่า locale ถูกต้องหรือไม่
-  if (!routing.locales.includes(locale as any)) {
+  // แก้ไข: ใช้ as Language แทน as any
+  if (!routing.locales.includes(locale as Language)) {
     return { title: "Page Not Found" };
   }
 
@@ -69,18 +68,14 @@ export async function generateMetadata({
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug, locale } = await params;
 
-  // Validate Locale & Enable SSG
-  if (!routing.locales.includes(locale as any)) {
+  // แก้ไข: ใช้ as Language แทน as any
+  if (!routing.locales.includes(locale as Language)) {
     notFound();
   }
   setRequestLocale(locale);
 
   const lang = locale as Language;
-
-  // ✅ ดึงข้อมูลตามภาษา
   const projects = projectsData[lang];
-
-  // ค้นหา Index ของโปรเจกต์
   const currentIndex = projects.findIndex((p) => p.slug === slug);
 
   if (currentIndex === -1) {
@@ -89,7 +84,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const project = projects[currentIndex];
 
-  // ✅ คำนวณหาโปรเจกต์ ก่อนหน้า/ถัดไป
   const prevProject =
     currentIndex > 0
       ? {
