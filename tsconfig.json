@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-, "src/app/[section]/loading.tsx"  ],
+, "src/app/[locale]/[section]/loading.tsx"  ],
   "exclude": [
     "node_modules"
   ]

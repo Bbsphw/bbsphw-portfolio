@@ -8,11 +8,12 @@ import { AchievementSummary } from "../AchievementSummary";
 import { Suspense, useCallback, useMemo } from "react";
 import AchievementCard from "../cards/AchievementCard";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { achievements } from "@/data/achievements";
+import { achievementsData } from "@/data/achievements";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import { useDebouncedCallback } from "use-debounce";
+import { useTranslations, useLocale } from "next-intl"; // ✅ Import
+import { Language } from "@/types";
 
-// --- Animation Variants ---
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
@@ -20,12 +21,7 @@ const fadeInUp: Variants = {
 
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
 function AchievementsContent() {
@@ -33,27 +29,27 @@ function AchievementsContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // 1. ดึงค่าจาก URL
+  const t = useTranslations("Section");
+  const locale = useLocale() as Language;
+
   const currentType = searchParams.get("type") || "";
   const currentSearch = searchParams.get("q") || "";
 
-  // 2. Helper Update URL
+  // ✅ เลือกข้อมูล
+  const achievementsList = achievementsData[locale];
+
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
-      if (value) {
-        params.set(name, value);
-      } else {
-        params.delete(name);
-      }
+      if (value) params.set(name, value);
+      else params.delete(name);
       return params.toString();
     },
     [searchParams],
   );
 
-  // 3. Logic Filter
   const filteredAchievements = useMemo(() => {
-    return achievements.filter((achievement) => {
+    return achievementsList.filter((achievement) => {
       const matchesType = currentType ? achievement.type === currentType : true;
       const matchesSearch = currentSearch
         ? achievement.title
@@ -65,9 +61,8 @@ function AchievementsContent() {
         : true;
       return matchesType && matchesSearch;
     });
-  }, [currentType, currentSearch]);
+  }, [currentType, currentSearch, achievementsList]);
 
-  // 4. Handlers
   const handleSearchChange = useDebouncedCallback((value: string) => {
     router.replace(pathname + "?" + createQueryString("q", value), {
       scroll: false,
@@ -82,7 +77,6 @@ function AchievementsContent() {
 
   return (
     <section className="space-y-6">
-      {/* --- HEADER --- */}
       <motion.header
         initial="hidden"
         whileInView="visible"
@@ -95,18 +89,16 @@ function AchievementsContent() {
             id="achievements-heading"
             className="text-2xl font-medium text-zinc-900 dark:text-zinc-50"
           >
-            Achievements
+            {t("achievements")}
           </h1>
         </div>
         <p className="text-zinc-600 dark:text-zinc-400">
-          A collection of certificates and badges earned throughout my
-          professional journey.
+          {t("achievementsDesc")}
         </p>
       </motion.header>
 
       <hr className="border-zinc-200 dark:border-zinc-700" />
 
-      {/* --- FILTER BAR --- */}
       <motion.div
         className="space-y-4"
         initial="hidden"
@@ -114,11 +106,11 @@ function AchievementsContent() {
         viewport={{ once: true, margin: "-50px" }}
         variants={staggerContainer}
       >
+        {/* Filter Bar */}
         <motion.div
           variants={fadeInUp}
           className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
         >
-          {/* Search Input */}
           <div className="relative flex w-full items-center md:w-1/2">
             <div className="pointer-events-none absolute left-3 flex items-center pl-1">
               <Search className="h-4 w-4 text-zinc-500" />
@@ -128,11 +120,9 @@ function AchievementsContent() {
               placeholder="Search achievements..."
               defaultValue={currentSearch}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="w-full rounded-lg border border-zinc-200 bg-zinc-50 py-2 pr-4 pl-10 text-sm text-zinc-900 placeholder:text-zinc-500 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100 dark:placeholder:text-zinc-400 dark:focus:border-zinc-700"
+              className="w-full rounded-lg border border-zinc-200 bg-zinc-50 py-2 pr-4 pl-10 text-sm text-zinc-900 placeholder:text-zinc-500 focus:border-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100"
             />
           </div>
-
-          {/* Filter Dropdown */}
           <div className="w-full md:w-[230px]">
             <AchievementCombobox
               selectedType={currentType}
@@ -141,7 +131,6 @@ function AchievementsContent() {
           </div>
         </motion.div>
 
-        {/* Summary */}
         <motion.div
           variants={fadeInUp}
           className="ml-1 text-sm text-zinc-500 dark:text-zinc-400"
@@ -149,10 +138,9 @@ function AchievementsContent() {
           <AchievementSummary total={filteredAchievements.length} />
         </motion.div>
 
-        {/* --- GRID CONTENT --- */}
         {filteredAchievements.length > 0 ? (
           <motion.div
-            key={`${currentType}-${currentSearch}`}
+            key={`${currentType}-${currentSearch}-${locale}`} // ✅ Re-render เมื่อเปลี่ยนภาษา
             className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
             variants={staggerContainer}
             initial="hidden"
@@ -174,7 +162,7 @@ function AchievementsContent() {
             animate="visible"
             className="py-10 text-center text-zinc-500 dark:text-zinc-400"
           >
-            No achievements found matching your criteria.
+            <p>No achievements found matching your criteria.</p>
           </motion.div>
         )}
       </motion.div>
@@ -182,7 +170,6 @@ function AchievementsContent() {
   );
 }
 
-// Main Component
 export default function AchievementsSection() {
   return (
     <section id="achievements" aria-labelledby="achievements-heading">

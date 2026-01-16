@@ -15,8 +15,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useTranslations, useLocale } from "next-intl"; // ✅ Import
+import { Language } from "@/types"; // ✅ Import Type เพื่อความ Type Safe
 
-// --- Animation Variants ---
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
@@ -24,21 +25,21 @@ const fadeInUp: Variants = {
 
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
 export default function AboutSection() {
-  // Path ของไฟล์ Resume
   const resumeUrl = "/pdf/Sophonwit_Thapseng-SoftwareENG_Internship.pdf";
+  const t = useTranslations("Section"); // เรียก namespace Section
+  const actionT = useTranslations("Action"); // เรียก namespace Action
+  const locale = useLocale() as Language; // ✅ Cast เป็น Language type
+
+  // ✅ เลือกข้อมูลตามภาษา
+  const careers = careerData[locale];
+  const educations = educationData[locale];
 
   return (
     <section id="about" aria-labelledby="about-heading" className="space-y-6">
-      {/* --- HEADER --- */}
       <motion.header
         initial="hidden"
         whileInView="visible"
@@ -50,7 +51,7 @@ export default function AboutSection() {
           id="about-heading"
           className="text-2xl font-medium text-zinc-900 dark:text-zinc-50"
         >
-          About
+          {t("about")} {/* ✅ แปล About Me */}
         </h1>
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -66,12 +67,11 @@ export default function AboutSection() {
                 className="group w-fit gap-2 rounded-full border-zinc-300 hover:border-zinc-400 hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
               >
                 <FileText className="h-4 w-4 transition-transform group-hover:-translate-y-1" />
-                Preview Resume
+                {actionT("previewResume")} {/* ✅ แปลปุ่ม */}
               </Button>
             </DialogTrigger>
 
             <DialogContent className="flex h-[95vh] max-w-4xl flex-col overflow-hidden p-0">
-              {/* Header ของ Modal */}
               <DialogHeader className="flex-shrink-0 border-b border-zinc-200 bg-white px-6 py-4 dark:border-zinc-800 dark:bg-zinc-950">
                 <div className="flex items-center justify-between pr-8">
                   <DialogTitle className="text-lg font-medium">
@@ -89,7 +89,7 @@ export default function AboutSection() {
                       rel="noopener noreferrer"
                     >
                       <ExternalLink className="h-4 w-4" />
-                      Open in New Tab
+                      {actionT("openInNewTab")}
                     </a>
                   </Button>
                 </div>
@@ -108,7 +108,6 @@ export default function AboutSection() {
         </div>
       </motion.header>
 
-      {/* --- ABOUT ME TEXT --- */}
       <hr className="my-6 border-zinc-200 dark:border-zinc-700" />
       <motion.section
         initial="hidden"
@@ -162,7 +161,7 @@ export default function AboutSection() {
               id="career-heading"
               className="text-xl font-medium text-zinc-800 capitalize dark:text-zinc-300"
             >
-              Career
+              {t("experience")} {/* ✅ แปล Experience */}
             </h2>
           </div>
           <p className="text-zinc-600 dark:text-zinc-400">
@@ -171,16 +170,15 @@ export default function AboutSection() {
         </motion.div>
 
         <div className="grid grid-cols-1 gap-4">
-          {careerData.length > 0 ? (
-            careerData.map((career) => (
+          {careers.length > 0 ? (
+            careers.map((career) => (
               <motion.div key={career.id} variants={fadeInUp}>
-                {" "}
                 <CareerCard career={career} />
               </motion.div>
             ))
           ) : (
             <motion.p variants={fadeInUp} className="text-zinc-500">
-              No professional experience yet.
+              No experience.
             </motion.p>
           )}
         </div>
@@ -203,7 +201,7 @@ export default function AboutSection() {
               id="education-heading"
               className="text-xl font-medium text-zinc-800 capitalize dark:text-zinc-300"
             >
-              Education
+              {t("education")} {/* ✅ แปล Education */}
             </h2>
           </div>
           <p className="text-zinc-600 dark:text-zinc-400">
@@ -212,10 +210,9 @@ export default function AboutSection() {
         </motion.div>
 
         <div className="grid grid-cols-1 gap-4">
-          {educationData.length > 0 ? (
-            educationData.map((education) => (
+          {educations.length > 0 ? (
+            educations.map((education) => (
               <motion.div key={education.id} variants={fadeInUp}>
-                {" "}
                 <EducationCard education={education} />
               </motion.div>
             ))

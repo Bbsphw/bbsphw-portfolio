@@ -1,4 +1,4 @@
-// src/app/template.tsx
+// src/app/[locale]/template.tsx
 
 "use client";
 
