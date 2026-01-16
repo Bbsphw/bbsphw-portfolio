@@ -2,8 +2,6 @@
 
 "use client";
 
-"use client";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "../forms/ContactForm";
@@ -16,7 +14,7 @@ import {
   SiGithub,
 } from "react-icons/si";
 import { MdArrowOutward } from "react-icons/md";
-import { motion, Variants } from "framer-motion";
+import { m, Variants } from "framer-motion"; // ✅ เปลี่ยนเป็น m
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
@@ -44,7 +42,7 @@ export default function ContactSection() {
       className="space-y-6"
     >
       {/* --- HEADER --- */}
-      <motion.header
+      <m.header // ✅
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -62,27 +60,25 @@ export default function ContactSection() {
         <p className="text-zinc-600 dark:text-zinc-400">
           Have a question or looking for a developer?
         </p>
-      </motion.header>
+      </m.header>
 
       <hr className="border-zinc-200 dark:border-zinc-700" />
 
       {/* --- SOCIAL BENTO GRID --- */}
-      <motion.div
+      <m.div // ✅
         className="space-y-4"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
         variants={staggerContainer}
       >
-        <motion.h4
+        <m.h4 // ✅
           variants={fadeInUp}
           className="text-lg font-semibold text-zinc-800 dark:text-zinc-200"
         >
           Find me on social media
-        </motion.h4>
+        </m.h4>
 
-        {/* Grid Layout แบบเดิม (Bento Grid) */}
-        {/* ปรับ Mobile เป็น 1 col, Desktop เป็น 6 cols เหมือนเดิม */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:grid-rows-9 md:gap-6">
           {/* 1. GMAIL (Full Width Top) */}
           <SocialCard
@@ -95,7 +91,6 @@ export default function ContactSection() {
             buttonText="Go to Email"
             href="mailto:sophonwit.ts@gmail.com"
           />
-
           {/* 2. INSTAGRAM (Left Middle) */}
           <SocialCard
             variant="purple"
@@ -148,39 +143,36 @@ export default function ContactSection() {
             href="https://github.com/Bbsphw"
           />
         </div>
-      </motion.div>
+      </m.div>
 
       <hr className="border-zinc-200 dark:border-zinc-700" />
 
       {/* --- CONTACT FORM --- */}
-      <motion.div
+      <m.div // ✅
         className="space-y-4"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={staggerContainer}
       >
-        <motion.div variants={fadeInUp} className="space-y-2">
+        <m.div variants={fadeInUp} className="space-y-2">
           <div className="flex items-center gap-2">
             <MessageSquare className="text-xl text-zinc-800 dark:text-zinc-200" />
             <h2 className="text-lg font-medium text-zinc-800 dark:text-zinc-200">
               Or Send Me a Message
             </h2>
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.div variants={fadeInUp}>
+        <m.div variants={fadeInUp}>
           <ContactForm />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </section>
   );
 }
 
 // ----------------------------------------------------------------------
-// Reusable Social Card Component (Clean Code & DRY Principle)
-// ----------------------------------------------------------------------
-
 interface SocialCardProps {
   variant: "red" | "purple" | "sky" | "zinc" | "slate";
   className?: string;
@@ -202,7 +194,6 @@ function SocialCard({
   buttonText,
   href,
 }: SocialCardProps) {
-  // Define styles based on variant
   const styles = {
     red: {
       bg: "bg-gradient-to-b from-red-700 to-red-900 border-red-300",
@@ -239,9 +230,9 @@ function SocialCard({
   const currentStyle = styles[variant];
 
   return (
-    <motion.div
+    <m.div // ✅
       variants={fadeInUp}
-      className={cn("group", className)} // รับ className เพื่อจัด grid (col-span, row-span)
+      className={cn("group", className)}
     >
       <div
         className={cn(
@@ -294,6 +285,6 @@ function SocialCard({
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

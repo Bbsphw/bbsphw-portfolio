@@ -26,7 +26,7 @@ import {
   Check,
   Smartphone,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Project } from "@/types";
@@ -117,7 +117,7 @@ export default function ProjectDetail({
 
   return (
     <>
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -214,7 +214,7 @@ export default function ProjectDetail({
         </div>
 
         {/* ================= HERO IMAGE (Refactored) ================= */}
-        <motion.div
+        <m.div
           layoutId="hero-image-main"
           className="relative aspect-video w-full cursor-zoom-in overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 shadow-xl dark:border-zinc-800 dark:bg-zinc-900"
           initial={{ scale: 0.95, opacity: 0 }}
@@ -247,7 +247,7 @@ export default function ProjectDetail({
           <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 hover:bg-black/10">
             <Maximize2 className="h-12 w-12 text-white opacity-0 shadow-lg drop-shadow-md transition-opacity duration-300 hover:opacity-100" />
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Meta Info Grid */}
         <div className="grid grid-cols-2 gap-4 rounded-xl border border-zinc-200 bg-zinc-50 p-4 sm:grid-cols-4 dark:border-zinc-800 dark:bg-zinc-900/50">
@@ -389,7 +389,7 @@ export default function ProjectDetail({
                   style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                   {project.gallery.map((img, idx) => (
-                    <motion.div
+                    <m.div
                       key={`${img}-${idx}`}
                       layoutId={`gallery-${img}-${idx}`}
                       onClick={() =>
@@ -414,7 +414,7 @@ export default function ProjectDetail({
                       <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/20">
                         <Maximize2 className="h-8 w-8 text-white opacity-0 shadow-lg transition-opacity duration-300 group-hover:opacity-100" />
                       </div>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
               </section>
@@ -581,12 +581,12 @@ export default function ProjectDetail({
             <div />
           )}
         </div>
-      </motion.div>
+      </m.div>
 
       {/* ================= LIGHTBOX (Refactored) ================= */}
       <AnimatePresence>
         {selectedImage && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -600,7 +600,7 @@ export default function ProjectDetail({
               <X className="h-6 w-6" />
             </button>
 
-            <motion.div
+            <m.div
               layoutId={selectedImage.id}
               className="relative aspect-video w-full max-w-6xl overflow-hidden rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()}
@@ -614,8 +614,8 @@ export default function ProjectDetail({
                 priority
                 cldProps={{ quality: "90", sharpen: "100" }}
               />
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>
