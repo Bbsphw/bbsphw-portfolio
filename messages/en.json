@@ -8,6 +8,11 @@
     "achievements": "Achievements",
     "contact": "Contact"
   },
+  "NotFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, the project or page you are looking for does not exist. It might have been moved or deleted.",
+    "homeButton": "Back to Home"
+  },
   "Hero": {
     "greeting": "Hi, I'm Sophonwit Thapseng",
     "based": "Based in Bangkok, Thailand 🇹🇭",

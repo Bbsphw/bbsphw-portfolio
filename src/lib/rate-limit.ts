@@ -1,9 +1,5 @@
 // src/lib/rate-limit.ts
 
-// ✅ Simple In-Memory Rate Limiter (Token Bucket Algorithm)
-// Note: บน Vercel/Serverless ข้อมูลนี้จะรีเซ็ตเมื่อ Lambda หยุดทำงาน
-// แต่ก็เพียงพอสำหรับการกันสแปมพื้นฐาน (Best Practice สำหรับ Portfolio ที่ไม่มี Database)
-
 type Tracker = {
   count: number;
   expiresAt: number;
@@ -21,6 +17,11 @@ export function rateLimit(
   limit: number = 3,
   windowMs: number = 3600000,
 ) {
+  // ✅ Safety: ถ้า Map ใหญ่เกินไป (เช่นโดน Spam Attack ด้วย IP ปลอม) ให้เคลียร์ทิ้งป้องกัน Memory Leak
+  if (trackers.size > 10000) {
+    trackers.clear();
+  }
+
   const now = Date.now();
   const tracker = trackers.get(ip) || { count: 0, expiresAt: now + windowMs };
 

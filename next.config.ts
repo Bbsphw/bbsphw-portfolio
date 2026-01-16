@@ -5,15 +5,24 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
+  // ✅ 1. เปิดใช้ React Compiler (Experimental)
+  experimental: {
+    reactCompiler: true,
+  },
+
   images: {
-    // ✅ 1. อนุญาตให้โหลด SVG (ถูกต้อง)
+    // ✅ [เพิ่ม] เปิดใช้งาน Image Formats ล่าสุด (Performance)
+    // Next.js จะเลือกไฟล์ที่เล็กที่สุดให้ Browser อัตโนมัติ (AVIF > WebP > Original)
+    formats: ["image/avif", "image/webp"],
+
+    // ✅ อนุญาตให้โหลด SVG (ถูกต้อง)
     dangerouslyAllowSVG: true,
 
-    // ✅ 2. Security Headers สำหรับ SVG (ถูกต้องและดีมากครับ เป็น Best Practice)
+    // ✅ Security Headers สำหรับ SVG (ถูกต้องและดีมากครับ เป็น Best Practice)
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 
-    // ✅ 3. Remote Patterns
+    // ✅ Remote Patterns
     remotePatterns: [
       {
         protocol: "https",
@@ -29,10 +38,31 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
+  // ✅ [เพิ่ม] Security Headers (Security)
+  // ช่วยป้องกันการโจมตีพื้นฐาน เช่น Clickjacking หรือ MIME Sniffing
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "DENY", // ป้องกันเว็บเราไปโผล่ใน iframe เว็บอื่น (Clickjacking)
+          },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+        ],
+      },
+    ];
+  },
 };
 
-// ❌ ของเดิม (ผิด): next-intl จะไม่ทำงาน
-// export default nextConfig;
-
-// ✅ ของใหม่ (ที่ถูก): ต้องครอบด้วย withNextIntl
+// ✅ ต้องครอบด้วย withNextIntl
 export default withNextIntl(nextConfig);

@@ -4,7 +4,7 @@
 
 import { usePathname, useRouter } from "@/i18n/routing"; // ✅ Import จาก config routing ของเรา
 import { useLocale } from "next-intl"; // ✅ ดึงภาษาปัจจุบัน
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion"; // ✅ เปลี่ยนจาก m เป็น m
 import { useEffect, useState, useTransition } from "react";
 import { Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -95,7 +95,7 @@ export function LanguageSwitch() {
       aria-checked={isThai}
       aria-label={isThai ? "Switch to English" : "เปลี่ยนเป็นภาษาไทย"}
     >
-      <motion.div
+      <m.div
         className="flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-md dark:bg-zinc-950"
         layout
         transition={{ type: "spring", stiffness: 700, damping: 30 }}
@@ -104,7 +104,7 @@ export function LanguageSwitch() {
         }}
       >
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+          <m.div
             key={locale}
             initial={{ y: -10, opacity: 0, scale: 0.5 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -117,9 +117,9 @@ export function LanguageSwitch() {
             ) : (
               <USFlag className="h-4 w-4" />
             )}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
-      </motion.div>
+      </m.div>
     </button>
   );
 }
