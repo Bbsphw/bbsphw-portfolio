@@ -1,0 +1,46 @@
+{
+  "Nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "service": "Service",
+    "projects": "Projects",
+    "achievements": "Achievements",
+    "contact": "Contact"
+  },
+  "Hero": {
+    "greeting": "Hi, I'm Sophonwit Thapseng",
+    "based": "Based in Bangkok, Thailand 🇹🇭",
+    "hybrid": "Hybrid work",
+    "openForWork": "Open for work",
+    "description": "Passionate Full Stack Software Engineer dedicated to crafting scalable, high-performance web applications. Proficient in TypeScript and the modern web ecosystem. I combine engineering best practices with a focus on delivering robust solutions. Currently open for new opportunities.",
+    "contactMe": "Contact Me"
+  },
+  "Section": {
+    "about": "About Me",
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "skillsDesc": "My professional technical stack.",
+    "service": "Service",
+    "serviceDesc": "I work as a freelancer to develop exceptional websites for brands, companies, institutions, and startups.",
+    "projects": "Projects",
+    "projectsDesc": "A curated collection of my work spanning modern Web Apps, Cross-platform Mobile solutions, and Embedded Systems.",
+    "achievements": "Achievements",
+    "achievementsDesc": "A collection of certificates and badges earned throughout my professional journey."
+  },
+  "Action": {
+    "viewDetails": "View Details",
+    "readMore": "Read More",
+    "downloadResume": "Download Resume",
+    "previewResume": "Preview Resume",
+    "openInNewTab": "Open in New Tab"
+  },
+  "Footer": {
+    "workTogether": "Let's work together!",
+    "desc": "I'm open for freelance projects and full-time opportunities. Feel free to email me to see how can we collaborate."
+  },
+  "Common": {
+    "noData": "No data available."
+  }
+}

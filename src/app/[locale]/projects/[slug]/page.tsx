@@ -1,31 +1,54 @@
-// src/app/projects/[slug]/page.tsx
+// src/app/[locale]/projects/[slug]/page.tsx
 
 import { notFound } from "next/navigation";
-import { projects } from "@/data/projects";
+import { projectsData } from "@/data/projects";
 import ProjectDetail from "@/components/sections/ProjectDetail";
 import { Metadata } from "next";
+import { routing } from "@/i18n/routing";
+import { Language } from "@/types";
+import { setRequestLocale } from "next-intl/server";
 
 interface ProjectPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{
+    slug: string;
+    locale: string;
+  }>;
 }
 
-// 1. Generate Static Params (เพื่อทำ SSG ให้โหลดเร็ว)
+// 1. Generate Static Params (SSG)
 export async function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
+  const params: { locale: string; slug: string }[] = [];
+
+  for (const locale of routing.locales) {
+    const projects = projectsData[locale as Language];
+    for (const project of projects) {
+      params.push({
+        locale,
+        slug: project.slug,
+      });
+    }
+  }
+
+  return params;
 }
 
-// 2. Generate Metadata (เพื่อ SEO เวลาแชร์ลิงก์)
+// 2. Generate Metadata (SEO)
 export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+
+  // แก้ไข: ใช้ as Language แทน as any
+  if (!routing.locales.includes(locale as Language)) {
+    return { title: "Page Not Found" };
+  }
+
+  const projects = projectsData[locale as Language];
   const project = projects.find((p) => p.slug === slug);
 
   if (!project) {
     return {
-      title: "Project Not Found",
+      title: locale === "th" ? "ไม่พบโปรเจกต์" : "Project Not Found",
     };
   }
 
@@ -36,26 +59,31 @@ export async function generateMetadata({
       title: project.title,
       description: project.description,
       images: project.image ? [project.image] : [],
+      locale: locale,
     },
   };
 }
 
 // 3. Main Page Component
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
 
-  // ✅ Best Practice: ใช้ findIndex เพื่อหาทั้งโปรเจกต์ปัจจุบัน และใช้คำนวณหาตัวก่อนหน้า/ถัดไป
+  // แก้ไข: ใช้ as Language แทน as any
+  if (!routing.locales.includes(locale as Language)) {
+    notFound();
+  }
+  setRequestLocale(locale);
+
+  const lang = locale as Language;
+  const projects = projectsData[lang];
   const currentIndex = projects.findIndex((p) => p.slug === slug);
 
-  // ถ้าหาไม่เจอ (findIndex คืนค่า -1) ให้ไปหน้า 404
   if (currentIndex === -1) {
     notFound();
   }
 
   const project = projects[currentIndex];
 
-  // ✅ Logic คำนวณหา Previous Project
-  // ถ้า index > 0 แสดงว่ามีตัวก่อนหน้า
   const prevProject =
     currentIndex > 0
       ? {
@@ -64,8 +92,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         }
       : null;
 
-  // ✅ Logic คำนวณหา Next Project
-  // ถ้า index < ตัวสุดท้าย แสดงว่ามีตัวถัดไป
   const nextProject =
     currentIndex < projects.length - 1
       ? {
@@ -76,7 +102,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <main className="container mx-auto max-w-5xl px-6 py-10 md:py-16">
-      {/* ✅ ส่ง props ทั้งหมดไปให้ ProjectDetail */}
       <ProjectDetail
         project={project}
         prevProject={prevProject}

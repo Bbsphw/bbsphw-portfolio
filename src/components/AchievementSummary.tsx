@@ -1,4 +1,5 @@
 // src/components/AchievementSummary.tsx
+
 interface AchievementSummaryProps {
   total: number;
 }

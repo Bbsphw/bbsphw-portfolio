@@ -1,3 +1,5 @@
+// src/components/sections/ProjectDetail.tsx
+
 "use client";
 
 import Link from "next/link";
@@ -84,7 +86,7 @@ export default function ProjectDetail({
       setIsCopied(true);
       toast.success("Link copied to clipboard!");
       setTimeout(() => setIsCopied(false), 2000);
-    } catch (err) {
+    } catch {
       toast.error("Failed to copy link");
     }
   };
@@ -97,7 +99,7 @@ export default function ProjectDetail({
           text: `Check out this project: ${project.title}`,
           url: currentUrl,
         });
-      } catch (err) {
+      } catch {
         console.log("Share canceled");
       }
     }

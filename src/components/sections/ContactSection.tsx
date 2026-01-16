@@ -2,17 +2,19 @@
 
 "use client";
 
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "../forms/ContactForm";
-import { Send, ArrowUpRight, MessageSquare } from "lucide-react"; // UI Icons
+import { MessageSquare } from "lucide-react";
 import {
   SiGmail,
   SiInstagram,
   SiLinkedin,
   SiTiktok,
   SiGithub,
-} from "react-icons/si"; // Brand Icons
+} from "react-icons/si";
 import { MdArrowOutward } from "react-icons/md";
 import { motion, Variants } from "framer-motion";
 import { cn } from "@/lib/utils";

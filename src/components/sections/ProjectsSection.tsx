@@ -7,9 +7,11 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import ProjectCard from "@/components/cards/ProjectCard";
-import { projects } from "@/data/projects";
+import { projectsData } from "@/data/projects";
 import { ProjectsCombobox } from "@/components/comboboxs/ProjectsCombobox";
 import { useDebouncedCallback } from "use-debounce";
+import { useTranslations, useLocale } from "next-intl";
+import { Language } from "@/types";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -26,8 +28,13 @@ function ProjectsContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const t = useTranslations("Section");
+  const locale = useLocale() as Language;
+
   const currentCategory = searchParams.get("category") || "";
   const currentSearch = searchParams.get("q") || "";
+
+  const projectsList = projectsData[locale];
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -52,7 +59,7 @@ function ProjectsContent() {
   };
 
   const filteredProjects = useMemo(() => {
-    let result = [...projects];
+    let result = [...projectsList];
     if (currentCategory) {
       result = result.filter((p) => p.category === currentCategory);
     }
@@ -68,7 +75,7 @@ function ProjectsContent() {
     return result.sort(
       (a, b) => (Number(b.featured) || 0) - (Number(a.featured) || 0),
     );
-  }, [currentCategory, currentSearch]);
+  }, [currentCategory, currentSearch, projectsList]);
 
   return (
     <section className="space-y-6">
@@ -81,13 +88,10 @@ function ProjectsContent() {
       >
         <div className="flex items-center gap-2">
           <h1 className="text-2xl font-medium text-zinc-900 dark:text-zinc-50">
-            Projects
+            {t("projects")}
           </h1>
         </div>
-        <p className="text-zinc-600 dark:text-zinc-400">
-          A curated collection of my work spanning modern Web Apps,
-          Cross-platform Mobile solutions, and Embedded Systems.
-        </p>
+        <p className="text-zinc-600 dark:text-zinc-400">{t("projectsDesc")}</p>
       </motion.header>
 
       <hr className="border-zinc-200 dark:border-zinc-700" />
@@ -103,7 +107,6 @@ function ProjectsContent() {
           variants={fadeInUp}
           className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
         >
-          {/* Search Input */}
           <div className="relative flex w-full items-center md:w-1/2">
             <div className="pointer-events-none absolute left-3 flex items-center pl-1">
               <Search className="h-4 w-4 text-zinc-500" />
@@ -116,7 +119,6 @@ function ProjectsContent() {
               className="w-full rounded-lg border border-zinc-200 bg-zinc-50 py-2 pr-4 pl-10 text-sm text-zinc-900 placeholder:text-zinc-500 focus:border-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100"
             />
           </div>
-
           <div className="w-full md:w-[230px]">
             <ProjectsCombobox
               selectedCategory={currentCategory}
@@ -134,7 +136,7 @@ function ProjectsContent() {
 
         {filteredProjects.length > 0 ? (
           <motion.div
-            key={`${currentCategory}-${currentSearch}`}
+            key={`${currentCategory}-${currentSearch}-${locale}`}
             className="grid grid-cols-1 gap-6 md:grid-cols-2"
             variants={staggerContainer}
             initial="hidden"

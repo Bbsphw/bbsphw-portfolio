@@ -1,20 +1,22 @@
+// src/components/app-sidebar.tsx
+
 "use client";
 
 import Link from "next/link";
-import { Home, User, BookOpen, Code2, Trophy, Mail } from "lucide-react";
+import { Home, User, Code2, Trophy, Mail } from "lucide-react";
 import NavMain, { NavItem } from "./nav-main";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import ThemeSwitch from "./theme-switch";
-import LanguageSwitch from "./language-switch";
+import { LanguageSwitch } from "./language-switch"; // ✅ Import แบบใหม่
 import { cn } from "@/lib/utils";
 
+// ✅ ใช้ titleKey ให้ตรงกับ JSON
 const navMain: NavItem[] = [
-  { title: "Home", url: "/", icon: Home },
-  { title: "About", url: "/about", icon: User },
-  // { title: "Skills", url: "/skills", icon: BookOpen },
-  { title: "Projects", url: "/projects", icon: Code2 },
-  { title: "Achievements", url: "/achievements", icon: Trophy },
-  { title: "Contact", url: "/contact", icon: Mail },
+  { titleKey: "home", url: "/", icon: Home },
+  { titleKey: "about", url: "/about", icon: User },
+  { titleKey: "projects", url: "/projects", icon: Code2 },
+  { titleKey: "achievements", url: "/achievements", icon: Trophy },
+  { titleKey: "contact", url: "/contact", icon: Mail },
 ];
 
 export default function AppSidebar() {
@@ -22,16 +24,14 @@ export default function AppSidebar() {
     <aside
       className={cn(
         "flex h-full w-full flex-col px-4 py-6 transition-colors",
-        "bg-zinc-50 dark:bg-zinc-900", // Sidebar Background
+        "bg-zinc-50 dark:bg-zinc-900",
       )}
     >
-      {/* Header */}
       <header className="space-y-6">
-        {/* Avatar (Center) */}
         <div className="flex justify-center">
           <Avatar className="size-24 border-2 border-zinc-200 shadow-md transition-transform hover:scale-105 dark:border-zinc-700">
             <AvatarImage
-              src="/images/profile.JPG" // อย่าลืมใส่รูปจริง
+              src="/images/profile.JPG"
               alt="Profile"
               className="object-cover"
             />
@@ -41,12 +41,10 @@ export default function AppSidebar() {
           </Avatar>
         </div>
 
-        {/* Name & Role (Center) */}
         <div className="space-y-1 text-center">
           <Link href="/" className="block transition-opacity hover:opacity-80">
             <h2 className="flex items-center justify-center gap-1 text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
               Sophonwit Thapseng
-              {/* Blue Tick Icon */}
               <svg
                 viewBox="0 0 24 24"
                 aria-label="Verified"
@@ -61,22 +59,18 @@ export default function AppSidebar() {
           </p>
         </div>
 
-        {/* Switches */}
         <section className="flex items-center justify-center gap-4 py-2">
           <LanguageSwitch />
           <ThemeSwitch />
         </section>
       </header>
 
-      {/* Separator */}
       <hr className="my-6 border-zinc-200 dark:border-zinc-800" />
 
-      {/* Navigation */}
       <nav className="flex-1 space-y-1">
         <NavMain items={navMain} />
       </nav>
 
-      {/* Footer */}
       <footer className="mt-auto space-y-2 border-t border-zinc-200 pt-6 text-center text-xs text-zinc-400 dark:border-zinc-800 dark:text-zinc-500">
         <div className="flex flex-col gap-1">
           <p>COPYRIGHT © {new Date().getFullYear()}</p>

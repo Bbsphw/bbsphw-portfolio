@@ -16,8 +16,8 @@ import { Button } from "@/components/ui/button";
 import { skillsRow1, skillsRow2 } from "@/data/skills";
 import SkillsMarquee from "../SkillsMarquee";
 import { motion, Variants } from "framer-motion";
+import { useTranslations } from "next-intl"; // ✅ Import
 
-// --- Animation Variants ---
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
@@ -25,22 +25,21 @@ const fadeInUp: Variants = {
 
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
 export default function HeroSection(): React.JSX.Element {
+  const tHero = useTranslations("Hero"); // ✅ Namespace Hero
+  const tSection = useTranslations("Section"); // ✅ Namespace Section
+  const tFooter = useTranslations("Footer"); // ✅ Namespace Footer
+
   return (
     <section id="hero" aria-labelledby="hero-heading" className="space-y-6">
       {/* --- HERO INTRO --- */}
       <motion.header
         className="space-y-6"
         initial="hidden"
-        animate="visible" // บังคับให้เล่น Animation ทันทีที่ Component ถูก Mount
+        animate="visible"
         variants={fadeInUp}
       >
         <div className="space-y-2">
@@ -48,41 +47,25 @@ export default function HeroSection(): React.JSX.Element {
             id="hero-heading"
             className="text-3xl font-medium text-zinc-900 dark:text-zinc-50"
           >
-            Hi, I&apos;m Sophonwit Thapseng
+            {tHero("greeting")}
           </h1>
 
-          {/* Meta Info (Location & Work) */}
           <div className="flex flex-col gap-y-2 text-zinc-600 sm:flex-row sm:items-center sm:gap-x-4 dark:text-zinc-400">
             <div className="flex items-center gap-2">
               <MapPin className="h-4 w-4" />
-              <span>Based in Bangkok, Thailand 🇹🇭</span>
+              <span>{tHero("based")}</span>
             </div>
-
             <div className="hidden h-1 w-1 rounded-full bg-zinc-300 sm:block dark:bg-zinc-700" />
-
             <div className="flex items-center gap-2">
               <Briefcase className="h-4 w-4" />
-              <span>Hybrid work</span>
+              <span>{tHero("hybrid")}</span>
             </div>
-
-            {/* <div className="hidden h-1 w-1 rounded-full bg-zinc-300 sm:block dark:bg-zinc-700" />
-            <div className="flex items-center gap-2 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900/30 dark:text-green-400">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
-              </span>
-              <span>Open for work</span>
-            </div> */}
           </div>
         </div>
 
         <div className="leading-loose">
           <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
-            Passionate Full Stack & Software Engineer dedicated to crafting
-            scalable, high-performance web applications. Proficient in
-            TypeScript and the modern web ecosystem. I combine engineering best
-            practices with a focus on delivering robust solutions. Currently
-            open for new opportunities.
+            {tHero("description")}
           </p>
         </div>
       </motion.header>
@@ -104,15 +87,14 @@ export default function HeroSection(): React.JSX.Element {
               id="skills-heading"
               className="text-xl font-medium text-zinc-900 dark:text-zinc-50"
             >
-              Skills
+              {tSection("skills")}
             </h2>
           </div>
           <p className="text-zinc-600 dark:text-zinc-400">
-            My professional technical stack.
+            {tSection("skillsDesc")}
           </p>
         </motion.div>
 
-        {/* Marquee Content */}
         <motion.div variants={fadeInUp} className="space-y-6 py-2">
           <SkillsMarquee skills={skillsRow1} direction="left" speed={40} />
           <SkillsMarquee skills={skillsRow2} direction="right" speed={40} />
@@ -136,18 +118,16 @@ export default function HeroSection(): React.JSX.Element {
               id="service-heading"
               className="text-xl font-medium text-zinc-900 dark:text-zinc-50"
             >
-              Service
+              {tSection("service")}
             </h2>
           </div>
           <p className="text-zinc-600 dark:text-zinc-400">
-            I work as a freelancer to develop exceptional websites for brands,
-            companies, institutions, and startups, focusing on strategic web
-            solutions.
+            {tSection("serviceDesc")}
           </p>
         </motion.div>
       </motion.section>
 
-      {/* --- CALL TO ACTION (Footer Style) --- */}
+      {/* --- CALL TO ACTION --- */}
       <motion.footer
         className="pt-2"
         initial="hidden"
@@ -160,12 +140,11 @@ export default function HeroSection(): React.JSX.Element {
               <div className="flex items-center justify-center gap-2 sm:justify-start">
                 <Handshake className="text-zinc-800 dark:text-zinc-200" />
                 <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-                  Let&apos;s work together!
+                  {tFooter("workTogether")}
                 </h2>
               </div>
               <p className="text-zinc-600 dark:text-zinc-400">
-                I&apos;m open for freelance projects. Feel free to email me to
-                see how can we collaborate.
+                {tFooter("desc")}
               </p>
             </div>
 
@@ -177,7 +156,7 @@ export default function HeroSection(): React.JSX.Element {
               >
                 <Link href="/contact" aria-label="Go to contact section">
                   <Mail className="h-4 w-4 transition-transform group-hover:-translate-y-1" />
-                  Contact Me
+                  {tHero("contactMe")}
                 </Link>
               </Button>
             </div>
