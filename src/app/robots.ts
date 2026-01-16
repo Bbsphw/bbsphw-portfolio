@@ -1,4 +1,5 @@
 // src/app/robots.ts
+
 // บอก Bot ของ Google ว่าอนุญาตให้เก็บข้อมูลได้ที่หน้าไหนบ้าง
 
 import { MetadataRoute } from "next";

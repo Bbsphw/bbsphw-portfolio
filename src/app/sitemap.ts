@@ -1,30 +1,42 @@
 // src/app/sitemap.ts
-// เพื่อให้ Google รู้ว่าเว็บคุณมีหน้าไหนบ้าง (สำคัญมากสำหรับ Portfolio)
 
 import { MetadataRoute } from "next";
-import { projects } from "@/data/projects"; // ✅ ดึงข้อมูลโปรเจกต์จริง
+import { projectsData } from "@/data/projects"; // ✅ ใช้ projectsData ที่แยกภาษาแล้ว
+import { routing } from "@/i18n/routing"; // ✅ ดึง config ภาษา
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // ✅ ดึง Domain จาก .env
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-  // 1. หน้าหลัก (Static Routes)
-  const routes = ["", "/about", "/achievements", "/projects", "/contact"].map(
-    (route) => ({
-      url: `${baseUrl}${route}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 1,
-    }),
-  );
+  // หน้า Static ทั้งหมด
+  const staticRoutes = ["", "/about", "/achievements", "/projects", "/contact"];
 
-  // 2. หน้าโปรเจกต์ทั้งหมด (Dynamic Routes from Data)
-  const projectRoutes = projects.map((project) => ({
-    url: `${baseUrl}/projects/${project.slug}`,
-    lastModified: new Date(), // หรือใช้วันที่ update จริงของ project ถ้ามีเก็บไว้
-    changeFrequency: "weekly" as const,
-    priority: 0.8, // ให้ความสำคัญรองลงมาจากหน้าหลัก
-  }));
+  const entries: MetadataRoute.Sitemap = [];
 
-  return [...routes, ...projectRoutes];
+  // วนลูปสร้าง Sitemap สำหรับทุกภาษา (en, th)
+  for (const locale of routing.locales) {
+    // 1. Static Pages
+    for (const route of staticRoutes) {
+      entries.push({
+        url: `${baseUrl}/${locale}${route}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: route === "" ? 1 : 0.8,
+      });
+    }
+
+    // 2. Dynamic Project Pages
+    // ดึงข้อมูลตามภาษานั้นๆ มาสร้าง URL
+    const projects = projectsData[locale]; // cast type ถ้าจำเป็น: as keyof typeof projectsData
+
+    for (const project of projects) {
+      entries.push({
+        url: `${baseUrl}/${locale}/projects/${project.slug}`,
+        lastModified: new Date(), // หรือใช้วันที่อัปเดตจริง
+        changeFrequency: "weekly",
+        priority: 0.7,
+      });
+    }
+  }
+
+  return entries;
 }
