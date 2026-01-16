@@ -10,8 +10,6 @@ import AboutSection from "@/components/sections/AboutSection";
 import AchievementsSection from "@/components/sections/AchievementsSection";
 import ContactSection from "@/components/sections/ContactSection";
 
-// 1. กำหนด Section ที่อนุญาต (Whitelist)
-// ⚠️ สำคัญ: ห้ามใส่ 'projects' ในนี้ เพราะเราแยกโฟลเดอร์ projects ไปแล้ว
 const SECTIONS = {
   about: AboutSection,
   achievements: AchievementsSection,
@@ -19,6 +17,11 @@ const SECTIONS = {
 };
 
 type SectionKey = keyof typeof SECTIONS;
+
+// ✅ เพิ่ม Type Guard Function
+function isValidSection(section: string): section is SectionKey {
+  return Object.keys(SECTIONS).includes(section);
+}
 
 interface SectionPageProps {
   params: Promise<{
@@ -28,16 +31,13 @@ interface SectionPageProps {
 }
 
 // 2. Generate Static Params (SSG)
-// สร้าง path: /en/about, /th/contact, ...
 export async function generateStaticParams() {
   const params: { locale: string; section: string }[] = [];
-
   for (const locale of routing.locales) {
     for (const section of Object.keys(SECTIONS)) {
       params.push({ locale, section });
     }
   }
-
   return params;
 }
 
@@ -47,21 +47,17 @@ export async function generateMetadata({
 }: SectionPageProps): Promise<Metadata> {
   const { locale, section } = await params;
 
-  // ตรวจสอบว่า section มีอยู่จริงไหม
-  if (!Object.keys(SECTIONS).includes(section)) {
+  // ✅ ใช้ Type Guard แทนการเช็ค includes ธรรมดา
+  if (!isValidSection(section)) {
     return {};
   }
 
-  // ดึงคำแปล Title จากไฟล์ JSON (Nav namespace)
   const t = await getTranslations({ locale, namespace: "Nav" });
 
-  // แปลง slug เป็น key ใน json (เช่น achievements -> achievements)
-  // ถ้า key ใน json ไม่ตรงกับ url slug ให้ทำ map ตรงนี้เพิ่ม
-  const titleKey = section as any;
-
+  // ตอนนี้ TypeScript รู้แล้วว่า section คือ SectionKey แน่นอน ไม่ต้อง as string/any
   return {
-    title: `${t(titleKey)} | Sophonwit Thapseng`,
-    description: `View my ${section} page.`, // ปรับคำบรรยายตามต้องการ
+    title: `${t(section)} | Sophonwit Thapseng`,
+    description: `View my ${section} page.`,
   };
 }
 
@@ -69,16 +65,15 @@ export async function generateMetadata({
 export default async function SectionPage({ params }: SectionPageProps) {
   const { locale, section } = await params;
 
-  // Enable Static Rendering
   setRequestLocale(locale);
 
-  // Validate Section
-  if (!Object.keys(SECTIONS).includes(section)) {
+  // ✅ ใช้ Type Guard
+  if (!isValidSection(section)) {
     notFound();
   }
 
-  // เลือก Component มาแสดงตาม section url
-  const Component = SECTIONS[section as SectionKey];
+  // TypeScript รู้ทันทีว่า section เป็น key ที่ถูกต้อง Access ได้เลย
+  const Component = SECTIONS[section];
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
