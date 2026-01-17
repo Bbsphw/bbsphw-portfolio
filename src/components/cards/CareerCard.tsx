@@ -48,7 +48,8 @@ export default function CareerCard({ career }: CareerCardProps) {
                   alt={career.company}
                   fill
                   className="object-contain p-1"
-                  sizes="(max-width: 768px) 100vw, 64px"
+                  // ✅ แก้ไข: โหลดรูปเล็ก 64px พอ (เพราะแสดงแค่ 56px)
+                  sizes="64px"
                 />
               ) : (
                 <Building2 className="text-zinc-400" />
@@ -58,7 +59,6 @@ export default function CareerCard({ career }: CareerCardProps) {
             <div className="flex-1 space-y-1">
               {/* Row 1: Role */}
               <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
-                {/* ✅ แก้ไข: เอาสี Teal ออก เปลี่ยนเป็น Zinc เข้มเมื่อ Hover */}
                 <h3 className="text-lg font-bold text-zinc-800 transition-colors group-hover:text-zinc-950 dark:text-zinc-200 dark:group-hover:text-zinc-50">
                   {career.role}
                 </h3>

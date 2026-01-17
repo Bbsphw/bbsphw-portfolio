@@ -52,7 +52,8 @@ const nextConfig: NextConfig = {
           },
           {
             key: "X-Frame-Options",
-            value: "DENY", // ป้องกันเว็บเราไปโผล่ใน iframe เว็บอื่น (Clickjacking)
+            value: "SAMEORIGIN", // อนุญาตให้แสดงผลใน iframe ได้ ถ้า iframe
+            // นั้นอยู่ในโดเมนเดียวกัน (เว็บของคุณเอง) แต่ยังป้องกันเว็บอื่นเอาไปทำ Clickjacking ได้เหมือนเดิม
           },
           {
             key: "Referrer-Policy",

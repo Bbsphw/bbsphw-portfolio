@@ -1,5 +1,3 @@
-// src/components/sections/AboutSection.tsx
-
 "use client";
 
 import { educationData, careerData } from "@/data/about";
@@ -13,10 +11,11 @@ import {
   DialogContent,
   DialogTrigger,
   DialogHeader,
+  DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useTranslations, useLocale } from "next-intl"; // ✅ Import
-import { Language } from "@/types"; // ✅ Import Type เพื่อความ Type Safe
+import { useTranslations, useLocale } from "next-intl";
+import { Language } from "@/types";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -30,11 +29,14 @@ const staggerContainer: Variants = {
 
 export default function AboutSection() {
   const resumeUrl = "/pdf/Sophonwit_Thapseng-SoftwareENG_Internship.pdf";
-  const t = useTranslations("Section"); // เรียก namespace Section
-  const actionT = useTranslations("Action"); // เรียก namespace Action
-  const locale = useLocale() as Language; // ✅ Cast เป็น Language type
 
-  // ✅ เลือกข้อมูลตามภาษา
+  const t = useTranslations("Section"); // Namespace: Section
+  const aboutT = useTranslations("About"); // Namespace: About (เพิ่มใหม่)
+  const actionT = useTranslations("Action"); // Namespace: Action
+
+  const locale = useLocale() as Language;
+
+  // เลือกข้อมูลตามภาษา
   const careers = careerData[locale];
   const educations = educationData[locale];
 
@@ -51,12 +53,12 @@ export default function AboutSection() {
           id="about-heading"
           className="text-2xl font-medium text-zinc-900 dark:text-zinc-50"
         >
-          {t("about")} {/* ✅ แปล About Me */}
+          {t("about")}
         </h1>
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-zinc-600 dark:text-zinc-400">
-            A short story of me.
+            {aboutT("subtitle")} {/* ✅ "A short story of me." */}
           </p>
 
           <Dialog>
@@ -67,7 +69,7 @@ export default function AboutSection() {
                 className="group w-fit gap-2 rounded-full border-zinc-300 hover:border-zinc-400 hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
               >
                 <FileText className="h-4 w-4 transition-transform group-hover:-translate-y-1" />
-                {actionT("previewResume")} {/* ✅ แปลปุ่ม */}
+                {actionT("previewResume")}
               </Button>
             </DialogTrigger>
 
@@ -75,8 +77,13 @@ export default function AboutSection() {
               <DialogHeader className="flex-shrink-0 border-b border-zinc-200 bg-white px-6 py-4 dark:border-zinc-800 dark:bg-zinc-950">
                 <div className="flex items-center justify-between pr-8">
                   <DialogTitle className="text-lg font-medium">
-                    Resume Preview
+                    {aboutT("resumePreview")} {/* ✅ "Resume Preview" */}
                   </DialogTitle>
+
+                  <DialogDescription className="sr-only">
+                    Preview of my resume in PDF format
+                  </DialogDescription>
+
                   <Button
                     variant="ghost"
                     size="sm"
@@ -116,31 +123,10 @@ export default function AboutSection() {
         variants={fadeInUp}
       >
         <div className="space-y-4 leading-relaxed text-zinc-600 dark:text-zinc-300">
-          <p>
-            I&apos;m a final-year Computer and Information Engineering student
-            at Kasetsart University, Sriracha Campus, with a strong passion for
-            software and web development. Over the past few years, I&apos;ve
-            honed my skills in JavaScript, React, and Node.js through both
-            academic projects and personal learning. I enjoy building
-            interactive, user-focused applications that are not only functional
-            but also clean and maintainable.
-          </p>
-          <p>
-            What drives me is the challenge of solving real-world problems
-            through technology. I take pride in writing efficient and scalable
-            code, collaborating in team environments, and continuously learning
-            new tools and best practices in modern web development. My
-            experience with full-stack development has equipped me to understand
-            the big picture while paying attention to the details that matter in
-            user experience and system design.
-          </p>
-          <p>
-            Currently, I&apos;m seeking a cooperative internship where I can
-            apply my knowledge, contribute to real projects, and grow as a
-            developer in a professional setting. I&apos;m excited to bring my
-            curiosity, adaptability, and commitment to continuous improvement to
-            a team that values innovation and impact.
-          </p>
+          {/* ✅ ใช้คำแปลจากไฟล์ JSON แทน Hardcoded Text */}
+          <p>{aboutT("bio1")}</p>
+          <p>{aboutT("bio2")}</p>
+          <p>{aboutT("bio3")}</p>
         </div>
       </motion.section>
 
@@ -161,11 +147,11 @@ export default function AboutSection() {
               id="career-heading"
               className="text-xl font-medium text-zinc-800 capitalize dark:text-zinc-300"
             >
-              {t("experience")} {/* ✅ แปล Experience */}
+              {t("experience")}
             </h2>
           </div>
           <p className="text-zinc-600 dark:text-zinc-400">
-            My professional career journey
+            {t("experienceDesc")} {/* ✅ "My professional career journey" */}
           </p>
         </motion.div>
 
@@ -178,7 +164,7 @@ export default function AboutSection() {
             ))
           ) : (
             <motion.p variants={fadeInUp} className="text-zinc-500">
-              No experience.
+              {aboutT("noExperience")} {/* ✅ "No experience." */}
             </motion.p>
           )}
         </div>
@@ -201,11 +187,11 @@ export default function AboutSection() {
               id="education-heading"
               className="text-xl font-medium text-zinc-800 capitalize dark:text-zinc-300"
             >
-              {t("education")} {/* ✅ แปล Education */}
+              {t("education")}
             </h2>
           </div>
           <p className="text-zinc-600 dark:text-zinc-400">
-            My educational background
+            {t("educationDesc")} {/* ✅ "My educational background" */}
           </p>
         </motion.div>
 
@@ -218,7 +204,7 @@ export default function AboutSection() {
             ))
           ) : (
             <motion.p variants={fadeInUp} className="text-zinc-500">
-              No education data.
+              {aboutT("noEducation")} {/* ✅ "No education data." */}
             </motion.p>
           )}
         </div>

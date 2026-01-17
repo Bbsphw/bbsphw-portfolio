@@ -44,16 +44,23 @@ export default function AchievementCard(props: Achievement) {
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <div className="group h-full transform-none cursor-pointer opacity-100 will-change-auto">
+          <div
+            className="group h-full transform-none cursor-pointer opacity-100 will-change-auto"
+            role="button" // ✅ Accessibility: บอกว่าเป็นปุ่มกดได้
+            tabIndex={0} // ✅ Accessibility: โฟกัสด้วยคีย์บอร์ดได้
+            aria-label={`View details for ${title}`} // ✅ Accessibility
+          >
             <div className="h-full w-full rounded-xl border-[1.5px] border-zinc-300 p-1 shadow-sm transition-all duration-300 hover:border-zinc-400 dark:border-[#333333] dark:hover:border-zinc-600">
               {/* Card Container */}
               <div className="relative flex h-full flex-col overflow-hidden rounded-lg bg-white transition-all duration-300 hover:bg-zinc-50 dark:bg-[#1e1e1e] dark:hover:bg-[#242424]">
-                {/* Image Section (Clean แล้ว!) */}
+                {/* Image Section */}
                 <div className="relative h-48 w-full shrink-0 overflow-hidden border-b border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
                   <UniversalImage
                     src={image}
                     alt={`${title} from ${organization}`}
                     fill
+                    // ✅ Performance: ขนาดที่โหลดควรเล็กเหมาะสมกับการ์ด
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
                   />
 
@@ -111,7 +118,7 @@ export default function AchievementCard(props: Achievement) {
             <div className="p-6">
               <DialogHeader className="mb-6">
                 <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-6">
-                  {/* Logo Detail (Clean!) */}
+                  {/* Logo Detail */}
                   <div
                     className="relative h-20 w-20 shrink-0 cursor-zoom-in overflow-hidden rounded-lg border border-zinc-200 bg-zinc-50 transition-opacity hover:opacity-80 dark:border-zinc-700 dark:bg-zinc-800"
                     onClick={() => setSelectedImage(image)}
@@ -120,6 +127,8 @@ export default function AchievementCard(props: Achievement) {
                       src={image}
                       alt={title}
                       fill
+                      // ✅ Performance: โหลดรูปเล็กมาก (80px)
+                      sizes="80px"
                       className="object-contain p-2"
                     />
                   </div>
@@ -155,7 +164,7 @@ export default function AchievementCard(props: Achievement) {
                   </div>
                 )}
 
-                {/* Gallery Grid (Clean!) */}
+                {/* Gallery Grid */}
                 {gallery && gallery.length > 0 && (
                   <div className="space-y-3">
                     <h4 className="flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
@@ -171,9 +180,10 @@ export default function AchievementCard(props: Achievement) {
                         >
                           <UniversalImage
                             src={imgUrl}
-                            alt={`Gallery ${idx}`}
+                            alt={`Gallery image ${idx + 1}`}
                             fill
                             className="object-cover"
+                            // ✅ Performance: รูปใน Gallery ก็ไม่ต้องใหญ่มาก
                             sizes="(max-width: 768px) 50vw, 33vw"
                           />
                         </div>
@@ -185,7 +195,12 @@ export default function AchievementCard(props: Achievement) {
                 {link && (
                   <div className="flex justify-end pt-4">
                     <Button asChild>
-                      <a href={link} target="_blank" rel="noreferrer">
+                      <a
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`View credential for ${title} (opens in new tab)`} // ✅ Accessibility
+                      >
                         View Credential / Post{" "}
                         <ArrowUpRight className="ml-2 h-4 w-4" />
                       </a>
@@ -211,6 +226,7 @@ export default function AchievementCard(props: Achievement) {
             <button
               onClick={() => setSelectedImage(null)}
               className="absolute top-4 right-4 z-[160] rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-colors hover:bg-white/20"
+              aria-label="Close lightbox" // ✅ Accessibility
             >
               <X className="h-6 w-6" />
             </button>
@@ -222,13 +238,15 @@ export default function AchievementCard(props: Achievement) {
               className="relative aspect-video w-full max-w-5xl overflow-hidden rounded-lg p-4"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Lightbox ใช้ UniversalImage แต่เพิ่ม Quality */}
               <UniversalImage
                 src={selectedImage}
                 alt="Full screen view"
                 fill
                 className="object-contain"
+                // ✅ Performance: Lightbox ต้องการคุณภาพสูงสุด
                 cldProps={{ quality: "90", sharpen: "100" }}
+                sizes="100vw"
+                priority // ✅ Performance: โหลดทันทีเมื่อเปิด Lightbox
               />
             </motion.div>
           </motion.div>

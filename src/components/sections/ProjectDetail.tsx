@@ -2,7 +2,7 @@
 
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { useState, useEffect, useRef } from "react";
 import {
   ChevronLeft,
@@ -32,6 +32,8 @@ import { Badge } from "@/components/ui/badge";
 import { Project } from "@/types";
 import { toast } from "sonner";
 import { UniversalImage } from "../universal-image";
+import { useTranslations } from "next-intl"; // ✅ Import
+import { TechIcon } from "../icons/TechIcons"; // ✅ Import
 
 interface ProjectNode {
   slug: string;
@@ -49,6 +51,8 @@ export default function ProjectDetail({
   prevProject,
   nextProject,
 }: ProjectDetailProps) {
+  const t = useTranslations("ProjectDetail"); // ✅ เรียกใช้
+
   // --- STATE & REFS ---
   const [currentUrl, setCurrentUrl] = useState("");
   const [isCopied, setIsCopied] = useState(false);
@@ -70,7 +74,6 @@ export default function ProjectDetail({
     }
   }, []);
 
-  // ปิด Lightbox ด้วยปุ่ม ESC
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSelectedImage(null);
@@ -132,7 +135,7 @@ export default function ProjectDetail({
           >
             <Link href="/projects">
               <ChevronLeft className="h-4 w-4" />
-              Back to All Projects
+              {t("back")} {/* ✅ Back to All Projects */}
             </Link>
           </Button>
         </div>
@@ -162,17 +165,17 @@ export default function ProjectDetail({
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-center">
           <div className="space-y-2">
             <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-              Technologies Used
+              {t("techStack")} {/* ✅ Technologies Used */}
             </span>
             <div className="flex flex-wrap items-center gap-2">
-              {project.technologies.map((tech, idx) => (
+              {project.technologies.map((techName, idx) => (
                 <div
                   key={idx}
                   className="flex h-10 w-10 items-center justify-center rounded-md border border-zinc-200 bg-white p-2 shadow-sm transition-transform hover:scale-105 dark:border-zinc-800 dark:bg-zinc-900"
-                  title={tech.name}
+                  title={techName}
                 >
                   <div className="text-xl text-zinc-700 dark:text-zinc-300">
-                    {tech.icon}
+                    <TechIcon name={techName} className="h-full w-full" />
                   </div>
                 </div>
               ))}
@@ -193,7 +196,7 @@ export default function ProjectDetail({
                   rel="noopener noreferrer"
                 >
                   <Globe className="h-4 w-4" />
-                  Live Demo
+                  {t("liveDemo")} {/* ✅ Live Demo */}
                   <ExternalLink className="h-3 w-3 opacity-50" />
                 </a>
               </Button>
@@ -206,14 +209,14 @@ export default function ProjectDetail({
                   rel="noopener noreferrer"
                 >
                   <Github className="h-4 w-4" />
-                  Source Code
+                  {t("sourceCode")} {/* ✅ Source Code */}
                 </a>
               </Button>
             )}
           </div>
         </div>
 
-        {/* ================= HERO IMAGE (Refactored) ================= */}
+        {/* ================= HERO IMAGE ================= */}
         <m.div
           layoutId="hero-image-main"
           className="relative aspect-video w-full cursor-zoom-in overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-100 shadow-xl dark:border-zinc-800 dark:bg-zinc-900"
@@ -229,15 +232,14 @@ export default function ProjectDetail({
             }
           }}
         >
-          {/* ✅ ใช้ UniversalImage จัดการ logic ทั้งหมด */}
           <UniversalImage
             src={project.image}
             alt={`${project.title} Preview`}
             fill
             className="object-cover transition-transform duration-500 hover:scale-105"
-            priority
+            priority={true}
+            sizes="100vw"
             cldProps={{
-              sizes: "(max-width: 1200px) 100vw, 1200px",
               crop: "fill",
               gravity: "auto",
               sharpen: "100",
@@ -257,7 +259,7 @@ export default function ProjectDetail({
             </div>
             <div>
               <p className="text-xs font-medium text-zinc-500 uppercase">
-                Role
+                {t("role")} {/* ✅ Role */}
               </p>
               <p className="font-medium text-zinc-900 dark:text-zinc-200">
                 {project.role || "Developer"}
@@ -270,7 +272,7 @@ export default function ProjectDetail({
             </div>
             <div>
               <p className="text-xs font-medium text-zinc-500 uppercase">
-                Timeline
+                {t("timeline")} {/* ✅ Timeline */}
               </p>
               <p className="font-medium text-zinc-900 dark:text-zinc-200">
                 {project.date || "-"}
@@ -288,7 +290,7 @@ export default function ProjectDetail({
               <section className="space-y-4">
                 <h2 className="flex items-center gap-2 text-2xl font-bold text-zinc-900 dark:text-zinc-50">
                   <Layout className="h-6 w-6 text-cyan-500" />
-                  Project Overview
+                  {t("overview")} {/* ✅ Project Overview */}
                 </h2>
                 <div className="prose prose-zinc dark:prose-invert max-w-none leading-loose text-zinc-600 dark:text-zinc-300">
                   <p>{project.overview}</p>
@@ -300,7 +302,7 @@ export default function ProjectDetail({
             {project.features && project.features.length > 0 && (
               <section className="space-y-4">
                 <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-                  Key Features
+                  {t("features")} {/* ✅ Key Features */}
                 </h2>
                 <ul className="space-y-3">
                   {project.features.map((feature, idx) => (
@@ -321,7 +323,7 @@ export default function ProjectDetail({
               <section className="space-y-6">
                 <h2 className="flex items-center gap-2 text-2xl font-bold text-zinc-900 dark:text-zinc-50">
                   <Zap className="h-6 w-6 text-yellow-500" />
-                  Challenges & Solutions
+                  {t("challenges")} {/* ✅ Challenges */}
                 </h2>
                 <div className="space-y-4">
                   {project.challenges.map((item, idx) => (
@@ -331,7 +333,7 @@ export default function ProjectDetail({
                     >
                       <div className="bg-zinc-50 px-5 py-3 dark:bg-zinc-900">
                         <h3 className="font-semibold text-red-600 dark:text-red-400">
-                          Problem:{" "}
+                          {t("problem")}: {/* ✅ Problem */}
                           <span className="text-zinc-900 dark:text-zinc-200">
                             {item.problem}
                           </span>
@@ -340,7 +342,7 @@ export default function ProjectDetail({
                       <div className="bg-white px-5 py-4 dark:bg-zinc-950">
                         <p className="text-zinc-600 dark:text-zinc-400">
                           <span className="font-semibold text-green-600 dark:text-green-500">
-                            Solution:{" "}
+                            {t("solution")}: {/* ✅ Solution */}
                           </span>
                           {item.solution}
                         </p>
@@ -356,7 +358,7 @@ export default function ProjectDetail({
               <section className="w-full space-y-4 pt-4">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-                    Gallery
+                    {t("gallery")} {/* ✅ Gallery */}
                   </h2>
 
                   {project.gallery.length > 1 && (
@@ -400,14 +402,13 @@ export default function ProjectDetail({
                       }
                       className="group relative aspect-video min-w-[280px] flex-shrink-0 cursor-zoom-in snap-center overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100 sm:min-w-[400px] dark:border-zinc-800 dark:bg-zinc-900"
                     >
-                      {/* ✅ ใช้ UniversalImage ใน Gallery Grid */}
                       <UniversalImage
                         src={img}
                         alt={`Gallery ${idx + 1}`}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        sizes="(max-width: 768px) 50vw, 33vw"
                         cldProps={{
-                          sizes: "(max-width: 768px) 100vw, 400px",
                           sharpen: "100",
                         }}
                       />
@@ -426,7 +427,7 @@ export default function ProjectDetail({
             {/* Tags */}
             <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
               <h3 className="mb-4 font-semibold text-zinc-900 dark:text-zinc-50">
-                Related Tags
+                {t("tags")} {/* ✅ Related Tags */}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
@@ -445,7 +446,7 @@ export default function ProjectDetail({
             <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
               <h3 className="mb-4 flex items-center gap-2 font-semibold text-zinc-900 dark:text-zinc-50">
                 <Share2 className="h-4 w-4" />
-                Share Project
+                {t("share")} {/* ✅ Share Project */}
               </h3>
 
               <div className="flex w-full gap-2">
@@ -524,14 +525,16 @@ export default function ProjectDetail({
             {/* CTA */}
             <div className="rounded-xl bg-gradient-to-br from-zinc-50 to-zinc-100 p-6 text-center shadow-inner dark:from-zinc-900/50 dark:to-zinc-900">
               <p className="mb-4 text-sm font-medium text-zinc-600 dark:text-zinc-300">
-                Need a developer?
+                {t("needDev")} {/* ✅ Need a developer? */}
               </p>
               <Button
                 variant="default"
                 className="w-full shadow-lg shadow-zinc-500/10"
                 asChild
               >
-                <Link href="/contact">Get in Touch</Link>
+                <Link href="/contact">
+                  {t("getInTouch")} {/* ✅ Get in Touch */}
+                </Link>
               </Button>
             </div>
           </div>
@@ -550,7 +553,9 @@ export default function ProjectDetail({
               <Link href={`/projects/${prevProject.slug}`}>
                 <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
                 <div className="flex flex-col items-start">
-                  <span className="text-xs text-zinc-400">Previous</span>
+                  <span className="text-xs text-zinc-400">
+                    {t("previous")} {/* ✅ Previous */}
+                  </span>
                   <span className="max-w-[150px] truncate font-medium sm:max-w-xs">
                     {prevProject.title}
                   </span>
@@ -569,7 +574,9 @@ export default function ProjectDetail({
             >
               <Link href={`/projects/${nextProject.slug}`}>
                 <div className="flex flex-col items-end">
-                  <span className="text-xs text-zinc-400">Next</span>
+                  <span className="text-xs text-zinc-400">
+                    {t("next")} {/* ✅ Next */}
+                  </span>
                   <span className="max-w-[150px] truncate font-medium sm:max-w-xs">
                     {nextProject.title}
                   </span>
@@ -583,7 +590,7 @@ export default function ProjectDetail({
         </div>
       </m.div>
 
-      {/* ================= LIGHTBOX (Refactored) ================= */}
+      {/* ================= LIGHTBOX ================= */}
       <AnimatePresence>
         {selectedImage && (
           <m.div
@@ -605,13 +612,13 @@ export default function ProjectDetail({
               className="relative aspect-video w-full max-w-6xl overflow-hidden rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* ✅ ใช้ UniversalImage ใน Lightbox (High Quality) */}
               <UniversalImage
                 src={selectedImage.url}
                 alt="Full screen preview"
                 fill
                 className="object-contain"
                 priority
+                sizes="100vw"
                 cldProps={{ quality: "90", sharpen: "100" }}
               />
             </m.div>

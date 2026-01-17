@@ -1,5 +1,3 @@
-// src/components/sections/ContactSection.tsx
-
 "use client";
 
 import Link from "next/link";
@@ -14,9 +12,10 @@ import {
   SiGithub,
 } from "react-icons/si";
 import { MdArrowOutward } from "react-icons/md";
-import { m, Variants } from "framer-motion"; // ✅ เปลี่ยนเป็น m
+import { m, Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
+import { useTranslations } from "next-intl"; // ✅ Import
 
 // --- Animation Variants ---
 const fadeInUp: Variants = {
@@ -35,6 +34,8 @@ const staggerContainer: Variants = {
 };
 
 export default function ContactSection() {
+  const t = useTranslations("Contact"); // ✅ เรียกใช้
+
   return (
     <section
       id="contact"
@@ -42,7 +43,7 @@ export default function ContactSection() {
       className="space-y-6"
     >
       {/* --- HEADER --- */}
-      <m.header // ✅
+      <m.header
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -54,44 +55,44 @@ export default function ContactSection() {
             id="contact-heading"
             className="text-3xl font-medium text-zinc-900 dark:text-zinc-50"
           >
-            Contact
+            {t("title")} {/* ✅ Contact */}
           </h1>
         </div>
         <p className="text-zinc-600 dark:text-zinc-400">
-          Have a question or looking for a developer?
+          {t("subtitle")} {/* ✅ Have a question... */}
         </p>
       </m.header>
 
       <hr className="border-zinc-200 dark:border-zinc-700" />
 
       {/* --- SOCIAL BENTO GRID --- */}
-      <m.div // ✅
+      <m.div
         className="space-y-4"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
         variants={staggerContainer}
       >
-        <m.h4 // ✅
+        <m.h4
           variants={fadeInUp}
           className="text-lg font-semibold text-zinc-800 dark:text-zinc-200"
         >
-          Find me on social media
+          {t("socialTitle")} {/* ✅ Find me on... */}
         </m.h4>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:grid-rows-9 md:gap-6">
-          {/* 1. GMAIL (Full Width Top) */}
+          {/* 1. GMAIL */}
           <SocialCard
             variant="red"
             className="md:col-span-6 md:row-span-3"
             icon={<SiGmail className="h-10 w-10" />}
             bgIcon={<SiGmail className="h-[275px] w-[275px] text-white/10" />}
-            title="Get in touch"
-            description="For inquiries or collaborations, please contact us via email."
-            buttonText="Go to Email"
+            title={t("social.emailTitle")} // ✅
+            description={t("social.emailDesc")} // ✅
+            buttonText={t("social.emailBtn")} // ✅
             href="mailto:sophonwit.ts@gmail.com"
           />
-          {/* 2. INSTAGRAM (Left Middle) */}
+          {/* 2. INSTAGRAM */}
           <SocialCard
             variant="purple"
             className="md:col-span-3 md:row-span-3"
@@ -99,13 +100,13 @@ export default function ContactSection() {
             bgIcon={
               <SiInstagram className="h-[275px] w-[275px] text-white/10" />
             }
-            title="Follow My Journey"
-            description="Stay updated with my latest posts and stories on Instagram."
-            buttonText="Go to Instagram"
+            title={t("social.igTitle")} // ✅
+            description={t("social.igDesc")} // ✅
+            buttonText={t("social.igBtn")} // ✅
             href="https://www.instagram.com/bbsphw_"
           />
 
-          {/* 3. LINKEDIN (Right Middle) */}
+          {/* 3. LINKEDIN */}
           <SocialCard
             variant="sky"
             className="md:col-span-3 md:row-span-3"
@@ -113,33 +114,33 @@ export default function ContactSection() {
             bgIcon={
               <SiLinkedin className="h-[275px] w-[275px] text-white/10" />
             }
-            title="Let's Connect"
-            description="Connect for collaboration or explore my professional experience."
-            buttonText="Go to LinkedIn"
+            title={t("social.liTitle")} // ✅
+            description={t("social.liDesc")} // ✅
+            buttonText={t("social.liBtn")} // ✅
             href="https://linkedin.com/in/sophonwit-thapseng-1b1076330"
           />
 
-          {/* 4. TIKTOK (Left Bottom) */}
+          {/* 4. TIKTOK */}
           <SocialCard
             variant="zinc"
             className="md:col-span-3 md:row-span-3"
             icon={<SiTiktok className="h-10 w-10" />}
             bgIcon={<SiTiktok className="h-[275px] w-[275px] text-white/10" />}
-            title="Join the Fun"
-            description="Follow me on TikTok for entertaining and engaging content."
-            buttonText="Go to TikTok"
+            title={t("social.ttTitle")} // ✅
+            description={t("social.ttDesc")} // ✅
+            buttonText={t("social.ttBtn")} // ✅
             href="https://www.tiktok.com/@bbsphw_"
           />
 
-          {/* 5. GITHUB (Right Bottom) */}
+          {/* 5. GITHUB */}
           <SocialCard
             variant="slate"
             className="md:col-span-3 md:row-span-3"
             icon={<SiGithub className="h-10 w-10" />}
             bgIcon={<SiGithub className="h-[275px] w-[275px] text-white/10" />}
-            title="Explore the Code"
-            description="Explore the source code for all my projects on GitHub."
-            buttonText="Go to Github"
+            title={t("social.ghTitle")} // ✅
+            description={t("social.ghDesc")} // ✅
+            buttonText={t("social.ghBtn")} // ✅
             href="https://github.com/Bbsphw"
           />
         </div>
@@ -148,7 +149,7 @@ export default function ContactSection() {
       <hr className="border-zinc-200 dark:border-zinc-700" />
 
       {/* --- CONTACT FORM --- */}
-      <m.div // ✅
+      <m.div
         className="space-y-4"
         initial="hidden"
         whileInView="visible"
@@ -159,7 +160,7 @@ export default function ContactSection() {
           <div className="flex items-center gap-2">
             <MessageSquare className="text-xl text-zinc-800 dark:text-zinc-200" />
             <h2 className="text-lg font-medium text-zinc-800 dark:text-zinc-200">
-              Or Send Me a Message
+              {t("messageTitle")} {/* ✅ Or Send Me... */}
             </h2>
           </div>
         </m.div>
@@ -230,22 +231,17 @@ function SocialCard({
   const currentStyle = styles[variant];
 
   return (
-    <m.div // ✅
-      variants={fadeInUp}
-      className={cn("group", className)}
-    >
+    <m.div variants={fadeInUp} className={cn("group", className)}>
       <div
         className={cn(
           "relative grid h-full w-full grid-cols-1 gap-4 overflow-hidden rounded-md border p-6 md:grid-cols-[2.5fr_1fr]",
           currentStyle.bg,
         )}
       >
-        {/* Background icon inside the box behind text */}
         <div className="absolute -top-[3.5rem] -left-[3.5rem] rotate-45 text-zinc-50/5 transition-transform duration-500 group-hover:scale-110">
           {bgIcon}
         </div>
 
-        {/* Text Content */}
         <div className="z-10 flex flex-col justify-between gap-y-2 subpixel-antialiased">
           <h4
             className={cn(
@@ -278,7 +274,6 @@ function SocialCard({
           </Button>
         </div>
 
-        {/* Right Icon */}
         <div className="flex items-end justify-end">
           <div className="border-opacity-10 bg-opacity-5 rounded-2xl border-8 p-2 text-zinc-50 backdrop-blur-sm">
             {icon}

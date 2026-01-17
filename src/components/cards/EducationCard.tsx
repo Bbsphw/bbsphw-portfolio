@@ -23,7 +23,8 @@ export default function EducationCard({ education }: EducationCardProps) {
                 alt={education.school}
                 fill
                 className="object-contain p-1"
-                sizes="(max-width: 768px) 100vw, 64px"
+                // ✅ แก้ไข: โหลดรูปเล็ก 64px พอ
+                sizes="64px"
               />
             ) : (
               <Building2 className="text-zinc-400" />
@@ -37,7 +38,6 @@ export default function EducationCard({ education }: EducationCardProps) {
               <h3 className="text-lg font-bold text-zinc-800 dark:text-zinc-200">
                 {education.school}
               </h3>
-              {/* ✅ แก้ไข: เปลี่ยน text-teal-600 เป็น text-zinc-600 */}
               <p className="font-medium text-zinc-600 dark:text-zinc-400">
                 {education.degree}
               </p>
