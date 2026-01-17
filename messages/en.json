@@ -9,8 +9,8 @@
     "contact": "Contact"
   },
   "NotFound": {
-    "title": "Page Not Found",
-    "description": "Sorry, the project or page you are looking for does not exist. It might have been moved or deleted.",
+    "title": "404 - Page Not Found",
+    "description": "Sorry, the page you are looking for does not exist.",
     "homeButton": "Back to Home"
   },
   "Hero": {
@@ -24,7 +24,9 @@
   "Section": {
     "about": "About Me",
     "experience": "Experience",
+    "experienceDesc": "My professional career journey",
     "education": "Education",
+    "educationDesc": "My educational background",
     "skills": "Skills",
     "skillsDesc": "My professional technical stack.",
     "service": "Service",
@@ -33,6 +35,15 @@
     "projectsDesc": "A curated collection of my work spanning modern Web Apps, Cross-platform Mobile solutions, and Embedded Systems.",
     "achievements": "Achievements",
     "achievementsDesc": "A collection of certificates and badges earned throughout my professional journey."
+  },
+  "About": {
+    "subtitle": "A short story of me.",
+    "resumePreview": "Resume Preview",
+    "bio1": "I'm a final-year Computer and Information Engineering student at Kasetsart University, Sriracha Campus, with a strong passion for software and web development. Over the past few years, I've honed my skills in JavaScript, React, and Node.js through both academic projects and personal learning. I enjoy building interactive, user-focused applications that are not only functional but also clean and maintainable.",
+    "bio2": "What drives me is the challenge of solving real-world problems through technology. I take pride in writing efficient and scalable code, collaborating in team environments, and continuously learning new tools and best practices in modern web development. My experience with full-stack development has equipped me to understand the big picture while paying attention to the details that matter in user experience and system design.",
+    "bio3": "Currently, I'm seeking a cooperative internship where I can apply my knowledge, contribute to real projects, and grow as a developer in a professional setting. I'm excited to bring my curiosity, adaptability, and commitment to continuous improvement to a team that values innovation and impact.",
+    "noExperience": "No experience.",
+    "noEducation": "No education data."
   },
   "Action": {
     "viewDetails": "View Details",
@@ -43,9 +54,58 @@
   },
   "Footer": {
     "workTogether": "Let's work together!",
-    "desc": "I'm open for freelance projects and full-time opportunities. Feel free to email me to see how can we collaborate."
+    "desc": "I'm open for freelance projects and full-time opportunities. Feel free to email me to see how can we collaborate.",
+    "copyright": "All rights reserved."
+  },
+  "Contact": {
+    "title": "Contact",
+    "subtitle": "Have a question or looking for a developer?",
+    "socialTitle": "Find me on social media",
+    "messageTitle": "Or Send Me a Message",
+    "social": {
+      "emailTitle": "Get in touch",
+      "emailDesc": "For inquiries or collaborations, please contact us via email.",
+      "emailBtn": "Go to Email",
+      "igTitle": "Follow My Journey",
+      "igDesc": "Stay updated with my latest posts and stories on Instagram.",
+      "igBtn": "Go to Instagram",
+      "liTitle": "Let's Connect",
+      "liDesc": "Connect for collaboration or explore my professional experience.",
+      "liBtn": "Go to LinkedIn",
+      "ttTitle": "Join the Fun",
+      "ttDesc": "Follow me on TikTok for entertaining and engaging content.",
+      "ttBtn": "Go to TikTok",
+      "ghTitle": "Explore the Code",
+      "ghDesc": "Explore the source code for all my projects on GitHub.",
+      "ghBtn": "Go to Github"
+    }
+  },
+  "ProjectDetail": {
+    "back": "Back to All Projects",
+    "techStack": "Technologies Used",
+    "liveDemo": "Live Demo",
+    "sourceCode": "Source Code",
+    "role": "Role",
+    "timeline": "Timeline",
+    "overview": "Project Overview",
+    "features": "Key Features",
+    "challenges": "Challenges & Solutions",
+    "problem": "Problem",
+    "solution": "Solution",
+    "gallery": "Gallery",
+    "tags": "Related Tags",
+    "share": "Share Project",
+    "needDev": "Need a developer?",
+    "getInTouch": "Get in Touch",
+    "previous": "Previous",
+    "next": "Next"
   },
   "Common": {
-    "noData": "No data available."
+    "searchProjects": "Search projects...",
+    "searchAchievements": "Search achievements...",
+    "showingProjects": "Showing {count} project(s)",
+    "showingAchievements": "Showing {count} achievement(s)",
+    "noProjects": "No projects found matching your criteria.",
+    "noAchievements": "No achievements found matching your criteria."
   }
 }

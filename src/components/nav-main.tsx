@@ -21,8 +21,13 @@ export default function NavMain({ items }: { items: NavItem[] }) {
   return (
     <nav className="grid gap-2">
       {items.map(({ titleKey, url, icon: Icon }) => {
-        // ✅ Logic ใหม่ แม่นยำ 100%
-        const isActive = pathname === url;
+        // 👇 จุดที่แก้ไข: Logic ใหม่ให้รองรับ Nested Routes
+        // ถ้า url คือ "/" ให้เช็คตรงๆ
+        // ถ้า url อื่นๆ ให้เช็คว่า pathname เริ่มต้นด้วย url นั้นหรือไม่ (เช่น /projects/...)
+        const isActive =
+          url === "/"
+            ? pathname === "/"
+            : pathname === url || pathname.startsWith(`${url}/`);
 
         return (
           <Link

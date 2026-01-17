@@ -1,7 +1,5 @@
 // src/types/index.ts
 
-import { ReactNode } from "react";
-
 // ✅ 1. เพิ่ม Type สำหรับภาษา
 export type Language = "en" | "th";
 
@@ -34,7 +32,7 @@ export interface Project {
   features?: string[];
   challenges?: { problem: string; solution: string }[];
 
-  technologies: { name: string; icon: ReactNode }[];
+  technologies: string[];
 
   tags: string[];
   link?: string;
@@ -47,7 +45,7 @@ export interface Project {
 export type Skill = {
   id: string;
   name: string;
-  icon: ReactNode;
+  icon: string;
 };
 
 export type AchievementType =

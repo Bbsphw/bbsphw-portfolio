@@ -11,7 +11,6 @@ const getPublicId = (url: string) => {
   if (!url.includes("cloudinary.com")) return url;
 
   // Regex: หา pattern หลัง /upload/ ตามด้วย (อาจจะมี v+ตัวเลข/) และจับกลุ่มที่เหลือจนจบหรือเจอ .
-  // รองรับทั้งแบบมี version และไม่มี version
   const regex = /\/upload\/(?:v\d+\/)?([^\.]+)/;
   const match = url.match(regex);
 
@@ -40,12 +39,16 @@ export function UniversalImage({
         src={publicId}
         alt={alt}
         className={className}
-        format="auto"
-        {...cldProps}
-        {...props}
+        // ✅ Performance Improvements:
+        format="auto" // ให้ Cloudinary เลือกไฟล์ที่ดีที่สุด (AVIF/WebP)
+        quality="auto" // บีบอัดภาพอัตโนมัติ (ลดขนาดไฟล์โดยตาเปล่าแยกไม่ออก)
+        dpr="auto" // ปรับความชัดตาม Device Pixel Ratio
+        {...cldProps} // ยอมให้ override ค่าได้ถ้าส่ง cldProps มา
+        {...props} // ส่ง props มาตรฐาน (fill, sizes, priority) ต่อไป
       />
     );
   }
 
+  // สำหรับรูป Local
   return <Image src={safeSrc} alt={alt} className={className} {...props} />;
 }

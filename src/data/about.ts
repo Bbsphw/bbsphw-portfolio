@@ -2,7 +2,6 @@
 
 import { Career, Education, LocalizedData } from "@/types";
 
-// ✅ แยกข้อมูล Career เป็น EN/TH
 export const careerData: LocalizedData<Career[]> = {
   en: [
     {
@@ -19,7 +18,7 @@ export const careerData: LocalizedData<Career[]> = {
       current: true,
       description: [
         "Developed 'WarehouseFlow ERP', a bespoke internal system designed to bridge physical warehouse operations with the legacy Oracle ERP.",
-        "Built the full-stack architecture using Laravel (PHP), Livewire, and Oracle DB to automate Invoice (Export/Picking) generation and Debit/Credit Note reporting.",
+        "Built the full-stack architecture using Laravel (PHP), Livewire, and MySQL to automate Invoice (Export/Picking) generation and Debit/Credit Note reporting.",
         "Resolved legacy database timeout issues by implementing chunking strategies and utilizing Laravel Queues for background synchronization of massive datasets.",
         "Implemented Role-Based Access Control (RBAC) and PDF export features, streamlining the workflow and significantly reducing manual data entry errors.",
       ],
@@ -40,7 +39,7 @@ export const careerData: LocalizedData<Career[]> = {
       current: true,
       description: [
         "พัฒนา 'WarehouseFlow ERP' ระบบภายในองค์กรเพื่อเชื่อมโยงการทำงานในคลังสินค้าเข้ากับระบบ Oracle ERP เดิม",
-        "ออกแบบและพัฒนา Full-stack architecture โดยใช้ Laravel (PHP), Livewire และ Oracle DB เพื่อจัดการระบบ Invoice (Export/Picking) และรายงาน Debit/Credit Note แบบอัตโนมัติ",
+        "ออกแบบและพัฒนา Full-stack architecture โดยใช้ Laravel (PHP), Livewire และ MySQL เพื่อจัดการระบบ Invoice (Export/Picking) และรายงาน Debit/Credit Note แบบอัตโนมัติ",
         "แก้ไขปัญหา Timeout ของฐานข้อมูลเก่า (Legacy DB) โดยใช้เทคนิค Chunking และ Laravel Queues เพื่อประมวลผลข้อมูลขนาดใหญ่ในเบื้องหลัง",
         "พัฒนาระบบจัดการสิทธิ์ผู้ใช้งาน (RBAC) และระบบออกรายงาน PDF ช่วยลดขั้นตอนการทำงานและลดความผิดพลาดจากการคีย์ข้อมูล",
       ],

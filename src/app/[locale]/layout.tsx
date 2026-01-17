@@ -92,8 +92,8 @@ export default async function LocaleLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Sophonwit Thapseng",
-    url: "https://www.your-domain.com", // 🔹 ใส่ Domain จริง
-    jobTitle: "Software Engineer & Frontend Developer",
+    url: baseUrl, // 🔹 ใส่ Domain จริง
+    jobTitle: "Software Engineer & Full Stack Developer",
     sameAs: [
       "https://github.com/Bbsphw",
       "https://linkedin.com/in/sophonwit-thapseng",

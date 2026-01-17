@@ -4,11 +4,8 @@
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-
-export type Skill = {
-  name: string;
-  icon: React.ReactNode;
-};
+import { Skill } from "@/types"; // Import Skill type ที่แก้แล้ว
+import { TechIcon } from "./icons/TechIcons"; // ✅ Import
 
 type MarqueeProps = {
   skills: Skill[];
@@ -71,7 +68,9 @@ function SkillBadge({ skill }: { skill: Skill }) {
       variant="secondary"
       className="flex items-center gap-2 rounded-lg border border-zinc-200 bg-white/80 px-4 py-2 text-sm font-medium text-zinc-700 shadow-sm transition-all hover:scale-105 hover:border-zinc-300 hover:bg-white dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:bg-zinc-900"
     >
-      <span className="text-lg">{skill.icon}</span>
+      <span className="text-lg">
+        <TechIcon name={skill.icon} />
+      </span>
       <span>{skill.name}</span>
     </Badge>
   );
