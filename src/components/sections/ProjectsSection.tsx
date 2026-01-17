@@ -10,7 +10,7 @@ import ProjectCard from "@/components/cards/ProjectCard";
 import { projectsData } from "@/data/projects";
 import { ProjectsCombobox } from "@/components/comboboxs/ProjectsCombobox";
 import { useDebouncedCallback } from "use-debounce";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations, useLocale } from "next-intl"; // ✅
 import { Language } from "@/types";
 
 const fadeInUp: Variants = {
@@ -29,6 +29,7 @@ function ProjectsContent() {
   const searchParams = useSearchParams();
 
   const t = useTranslations("Section");
+  const commonT = useTranslations("Common"); // ✅ Common
   const locale = useLocale() as Language;
 
   const currentCategory = searchParams.get("category") || "";
@@ -113,7 +114,7 @@ function ProjectsContent() {
             </div>
             <input
               type="text"
-              placeholder="Search projects..."
+              placeholder={commonT("searchProjects")} // ✅
               defaultValue={currentSearch}
               onChange={(e) => handleSearchChange(e.target.value)}
               className="w-full rounded-lg border border-zinc-200 bg-zinc-50 py-2 pr-4 pl-10 text-sm text-zinc-900 placeholder:text-zinc-500 focus:border-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100"
@@ -131,7 +132,10 @@ function ProjectsContent() {
           variants={fadeInUp}
           className="ml-1 text-sm text-zinc-500 dark:text-zinc-400"
         >
-          <p>Showing {filteredProjects.length} project(s)</p>
+          <p>
+            {commonT("showingProjects", { count: filteredProjects.length })}{" "}
+            {/* ✅ */}
+          </p>
         </motion.div>
 
         {filteredProjects.length > 0 ? (
@@ -158,7 +162,7 @@ function ProjectsContent() {
             animate="visible"
             className="py-20 text-center text-zinc-500 dark:text-zinc-400"
           >
-            <p>No projects found matching your criteria.</p>
+            <p>{commonT("noProjects")}</p> {/* ✅ */}
           </motion.div>
         )}
       </motion.div>

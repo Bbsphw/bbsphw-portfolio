@@ -5,25 +5,21 @@
 import Image, { ImageProps } from "next/image";
 import { CldImage, CldImageProps } from "next-cloudinary";
 
-// Helper ดึง Public ID
+// ✅ Helper ดึง Public ID แบบใหม่ (Robust Regex)
 const getPublicId = (url: string) => {
   if (!url) return "";
   if (!url.includes("cloudinary.com")) return url;
-  const parts = url.split("/upload/");
-  if (parts.length < 2) return url;
-  const pathParts = parts[1].split("/");
-  if (
-    pathParts[0].startsWith("v") &&
-    !isNaN(Number(pathParts[0].substring(1)))
-  ) {
-    return pathParts.slice(1).join("/");
-  }
-  return parts[1];
+
+  // Regex: หา pattern หลัง /upload/ ตามด้วย (อาจจะมี v+ตัวเลข/) และจับกลุ่มที่เหลือจนจบหรือเจอ .
+  const regex = /\/upload\/(?:v\d+\/)?([^\.]+)/;
+  const match = url.match(regex);
+
+  return match ? match[1] : url; // fallback
 };
 
 interface UniversalImageProps extends Omit<ImageProps, "src"> {
   src?: string | null;
-  cldProps?: Partial<CldImageProps>; // เผื่อส่ง props พิเศษของ Cloudinary
+  cldProps?: Partial<CldImageProps>;
 }
 
 export function UniversalImage({
@@ -43,12 +39,16 @@ export function UniversalImage({
         src={publicId}
         alt={alt}
         className={className}
-        format="auto"
-        {...cldProps} // รับ props เสริมเช่น quality, sharpen
-        {...props} // รับ props มาตรฐานเช่น fill, sizes
+        // ✅ Performance Improvements:
+        format="auto" // ให้ Cloudinary เลือกไฟล์ที่ดีที่สุด (AVIF/WebP)
+        quality="auto" // บีบอัดภาพอัตโนมัติ (ลดขนาดไฟล์โดยตาเปล่าแยกไม่ออก)
+        dpr="auto" // ปรับความชัดตาม Device Pixel Ratio
+        {...cldProps} // ยอมให้ override ค่าได้ถ้าส่ง cldProps มา
+        {...props} // ส่ง props มาตรฐาน (fill, sizes, priority) ต่อไป
       />
     );
   }
 
+  // สำหรับรูป Local
   return <Image src={safeSrc} alt={alt} className={className} {...props} />;
 }

@@ -1,5 +1,3 @@
-// src/components/app-sidebar.tsx
-
 "use client";
 
 import Link from "next/link";
@@ -7,10 +5,10 @@ import { Home, User, Code2, Trophy, Mail } from "lucide-react";
 import NavMain, { NavItem } from "./nav-main";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import ThemeSwitch from "./theme-switch";
-import { LanguageSwitch } from "./language-switch"; // ✅ Import แบบใหม่
+import { LanguageSwitch } from "./language-switch";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl"; // ✅
 
-// ✅ ใช้ titleKey ให้ตรงกับ JSON
 const navMain: NavItem[] = [
   { titleKey: "home", url: "/", icon: Home },
   { titleKey: "about", url: "/about", icon: User },
@@ -20,6 +18,8 @@ const navMain: NavItem[] = [
 ];
 
 export default function AppSidebar() {
+  const t = useTranslations("Footer"); // ✅
+
   return (
     <aside
       className={cn(
@@ -71,10 +71,10 @@ export default function AppSidebar() {
         <NavMain items={navMain} />
       </nav>
 
-      <footer className="mt-auto space-y-2 border-t border-zinc-200 pt-6 text-center text-xs text-zinc-400 dark:border-zinc-800 dark:text-zinc-500">
+      <footer className="mt-auto space-y-2 border-t border-zinc-200 pt-6 text-center text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
         <div className="flex flex-col gap-1">
-          <p>COPYRIGHT © {new Date().getFullYear()}</p>
-          <p>Sophonwit Thapseng. All rights reserved.</p>
+          <p className="font-medium">COPYRIGHT © {new Date().getFullYear()}</p>
+          <p>Sophonwit Thapseng. {t("copyright")}</p>
         </div>
       </footer>
     </aside>

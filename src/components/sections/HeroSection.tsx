@@ -15,8 +15,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { skillsRow1, skillsRow2 } from "@/data/skills";
 import SkillsMarquee from "../SkillsMarquee";
-import { motion, Variants } from "framer-motion";
-import { useTranslations } from "next-intl"; // ✅ Import
+import { m, Variants } from "framer-motion"; // ✅ เปลี่ยนเป็น m
+import { useTranslations } from "next-intl";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -29,14 +29,14 @@ const staggerContainer: Variants = {
 };
 
 export default function HeroSection(): React.JSX.Element {
-  const tHero = useTranslations("Hero"); // ✅ Namespace Hero
-  const tSection = useTranslations("Section"); // ✅ Namespace Section
-  const tFooter = useTranslations("Footer"); // ✅ Namespace Footer
+  const tHero = useTranslations("Hero");
+  const tSection = useTranslations("Section");
+  const tFooter = useTranslations("Footer");
 
   return (
     <section id="hero" aria-labelledby="hero-heading" className="space-y-6">
       {/* --- HERO INTRO --- */}
-      <motion.header
+      <m.header // ✅ ใช้ m.header
         className="space-y-6"
         initial="hidden"
         animate="visible"
@@ -68,19 +68,19 @@ export default function HeroSection(): React.JSX.Element {
             {tHero("description")}
           </p>
         </div>
-      </motion.header>
+      </m.header>
 
       <hr className="border-zinc-200 dark:border-zinc-700" />
 
       {/* --- SKILLS SECTION --- */}
-      <motion.section
+      <m.section // ✅ ใช้ m.section
         aria-labelledby="skills-heading"
         className="space-y-6"
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
       >
-        <motion.div variants={fadeInUp} className="space-y-2">
+        <m.div variants={fadeInUp} className="space-y-2">
           <div className="flex items-center gap-2">
             <Code2 className="text-2xl text-zinc-800 dark:text-zinc-200" />
             <h2
@@ -93,25 +93,25 @@ export default function HeroSection(): React.JSX.Element {
           <p className="text-zinc-600 dark:text-zinc-400">
             {tSection("skillsDesc")}
           </p>
-        </motion.div>
+        </m.div>
 
-        <motion.div variants={fadeInUp} className="space-y-6 py-2">
+        <m.div variants={fadeInUp} className="space-y-6 py-2">
           <SkillsMarquee skills={skillsRow1} direction="left" speed={40} />
           <SkillsMarquee skills={skillsRow2} direction="right" speed={40} />
-        </motion.div>
-      </motion.section>
+        </m.div>
+      </m.section>
 
       <hr className="border-zinc-200 dark:border-zinc-700" />
 
       {/* --- SERVICE SECTION --- */}
-      <motion.section
+      <m.section // ✅ ใช้ m.section
         aria-labelledby="service-heading"
         className="space-y-6"
         initial="hidden"
         animate="visible"
         variants={staggerContainer}
       >
-        <motion.div variants={fadeInUp} className="space-y-2">
+        <m.div variants={fadeInUp} className="space-y-2">
           <div className="flex items-center gap-2">
             <Sparkles className="text-2xl text-zinc-800 dark:text-zinc-200" />
             <h2
@@ -124,11 +124,11 @@ export default function HeroSection(): React.JSX.Element {
           <p className="text-zinc-600 dark:text-zinc-400">
             {tSection("serviceDesc")}
           </p>
-        </motion.div>
-      </motion.section>
+        </m.div>
+      </m.section>
 
       {/* --- CALL TO ACTION --- */}
-      <motion.footer
+      <m.footer // ✅ ใช้ m.footer
         className="pt-2"
         initial="hidden"
         animate="visible"
@@ -162,7 +162,7 @@ export default function HeroSection(): React.JSX.Element {
             </div>
           </div>
         </div>
-      </motion.footer>
+      </m.footer>
     </section>
   );
 }

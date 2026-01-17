@@ -7,6 +7,7 @@ import { Pin, ArrowUpRight } from "lucide-react";
 import { Project } from "@/types";
 import { cn } from "@/lib/utils";
 import { UniversalImage } from "../universal-image";
+import { TechIcon } from "../icons/TechIcons";
 
 export default function ProjectCard({
   slug,
@@ -36,14 +37,14 @@ export default function ProjectCard({
           )}
 
           <div className="relative h-48 w-full shrink-0 overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
-            {/* ✅ ใช้ UniversalImage แทน Logic เดิม */}
             <UniversalImage
               src={image}
               alt={title}
               fill
+              // ✅ แก้ไข: ปรับ sizes ให้เหมาะกับ Grid (มือถือ 100vw, จอใหญ่ 50vw/33vw)
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-500 group-hover:scale-105"
-              cldProps={{ crop: "fill", gravity: "auto" }} // ส่ง props พิเศษให้ Cloudinary ได้
+              cldProps={{ crop: "fill", gravity: "auto" }}
             />
 
             <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/60 text-sm font-medium text-zinc-50 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
@@ -60,14 +61,14 @@ export default function ProjectCard({
               {description}
             </p>
             <div className="mt-auto flex flex-wrap items-center gap-2 pt-4">
-              {technologies.map((tech, index) => (
+              {technologies.map((techName, index) => (
                 <div
                   key={index}
                   className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-white p-1.5 shadow-sm ring-1 ring-zinc-200 dark:bg-zinc-800 dark:ring-zinc-700"
-                  title={tech.name}
+                  title={techName}
                 >
                   <div className="text-zinc-600 dark:text-zinc-400">
-                    {tech.icon}
+                    <TechIcon name={techName} className="h-full w-full" />
                   </div>
                 </div>
               ))}

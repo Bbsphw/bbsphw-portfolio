@@ -143,10 +143,14 @@
 
 .animate-marquee-left {
   animation: marquee-left 25s linear infinite;
+  will-change: transform; /* ✅ GPU Hint */
+  transform: translateZ(0); /* ✅ Force Hardware Acceleration */
 }
 
 .animate-marquee2-left {
   animation: marquee2-left 25s linear infinite;
+  will-change: transform; /* ✅ GPU Hint */
+  transform: translateZ(0); /* ✅ Force Hardware Acceleration */
 }
 
 /* Marquee Right Animations */
@@ -170,8 +174,31 @@
 
 .animate-marquee-right {
   animation: marquee-right 25s linear infinite;
+  will-change: transform; /* ✅ GPU Hint */
+  transform: translateZ(0);
 }
 
 .animate-marquee2-right {
   animation: marquee2-right 25s linear infinite;
+  will-change: transform; /* ✅ GPU Hint */
+  transform: translateZ(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-marquee-left,
+  .animate-marquee2-left,
+  .animate-marquee-right,
+  .animate-marquee2-right {
+    animation: none !important;
+    transform: none !important;
+  }
 }

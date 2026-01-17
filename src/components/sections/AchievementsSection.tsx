@@ -1,5 +1,3 @@
-// src/components/sections/AchievementsSection.tsx
-
 "use client";
 
 import { Search } from "lucide-react";
@@ -30,12 +28,12 @@ function AchievementsContent() {
   const searchParams = useSearchParams();
 
   const t = useTranslations("Section");
+  const commonT = useTranslations("Common"); // ✅
   const locale = useLocale() as Language;
 
   const currentType = searchParams.get("type") || "";
   const currentSearch = searchParams.get("q") || "";
 
-  // ✅ เลือกข้อมูล
   const achievementsList = achievementsData[locale];
 
   const createQueryString = useCallback(
@@ -106,7 +104,6 @@ function AchievementsContent() {
         viewport={{ once: true, margin: "-50px" }}
         variants={staggerContainer}
       >
-        {/* Filter Bar */}
         <motion.div
           variants={fadeInUp}
           className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
@@ -117,7 +114,7 @@ function AchievementsContent() {
             </div>
             <input
               type="text"
-              placeholder="Search achievements..."
+              placeholder={commonT("searchAchievements")} // ✅
               defaultValue={currentSearch}
               onChange={(e) => handleSearchChange(e.target.value)}
               className="w-full rounded-lg border border-zinc-200 bg-zinc-50 py-2 pr-4 pl-10 text-sm text-zinc-900 placeholder:text-zinc-500 focus:border-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100"
@@ -140,7 +137,7 @@ function AchievementsContent() {
 
         {filteredAchievements.length > 0 ? (
           <motion.div
-            key={`${currentType}-${currentSearch}-${locale}`} // ✅ Re-render เมื่อเปลี่ยนภาษา
+            key={`${currentType}-${currentSearch}-${locale}`}
             className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
             variants={staggerContainer}
             initial="hidden"
@@ -162,7 +159,7 @@ function AchievementsContent() {
             animate="visible"
             className="py-10 text-center text-zinc-500 dark:text-zinc-400"
           >
-            <p>No achievements found matching your criteria.</p>
+            <p>{commonT("noAchievements")}</p> {/* ✅ */}
           </motion.div>
         )}
       </motion.div>

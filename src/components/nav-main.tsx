@@ -2,10 +2,10 @@
 
 "use client";
 
-import { Link, usePathname } from "@/i18n/routing";
+import { Link, usePathname } from "@/i18n/routing"; // ✅ ใช้ next-intl
 import { LucideIcon, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { m } from "framer-motion"; // ✅ เปลี่ยน motion เป็น m
 import { useTranslations } from "next-intl";
 
 export interface NavItem {
@@ -15,22 +15,27 @@ export interface NavItem {
 }
 
 export default function NavMain({ items }: { items: NavItem[] }) {
-  // pathname นี้จะไม่มี /en หรือ /th ติดมา (เช่น เป็น "/about" ตลอด)
-  const pathname = usePathname();
+  const pathname = usePathname(); // ค่าที่ได้จะไม่มี locale (เช่น /about)
   const t = useTranslations("Nav");
 
   return (
     <nav className="grid gap-2">
       {items.map(({ titleKey, url, icon: Icon }) => {
-        // ถ้า url เป็น "/" ต้องเช็คว่า pathname คือ "/" เท่านั้น
-        // ถ้า url อื่นๆ ให้เช็คว่า pathname เริ่มต้นด้วย url นั้น (เผื่อมี sub-route) หรือจะเช็ค === ก็ได้ถ้าไม่มี sub-menu
-        const isActive = pathname === url;
+        // 👇 จุดที่แก้ไข: Logic ใหม่ให้รองรับ Nested Routes
+        // ถ้า url คือ "/" ให้เช็คตรงๆ
+        // ถ้า url อื่นๆ ให้เช็คว่า pathname เริ่มต้นด้วย url นั้นหรือไม่ (เช่น /projects/...)
+        const isActive =
+          url === "/"
+            ? pathname === "/"
+            : pathname === url || pathname.startsWith(`${url}/`);
 
         return (
           <Link
             key={url}
             href={url}
             prefetch={false}
+            // ✅ Accessibility: บอก Screen Reader ว่านี่คือหน้าปัจจุบัน
+            aria-current={isActive ? "page" : undefined}
             className={cn(
               "group relative flex w-full items-center justify-between rounded-xl px-4 py-3 transition-all duration-200",
               isActive
@@ -39,7 +44,8 @@ export default function NavMain({ items }: { items: NavItem[] }) {
             )}
           >
             {isActive && (
-              <motion.span
+              // ✅ ใช้ m.span
+              <m.span
                 layoutId="sidebar-active"
                 className="absolute inset-0 rounded-xl bg-zinc-800"
                 initial={{ opacity: 0 }}

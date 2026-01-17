@@ -20,7 +20,12 @@ const resend = new Resend(env.RESEND_API_KEY);
 export async function sendEmail(data: ContactFormValues) {
   // 1. 🛡️ Security: Rate Limiting
   const headersList = await headers();
-  const ip = headersList.get("x-forwarded-for") || "unknown";
+
+  // Fallback เพื่อความชัวร์ในการหา IP จริง
+  const ip =
+    headersList.get("x-forwarded-for") ||
+    headersList.get("x-real-ip") ||
+    "unknown";
 
   // อนุญาตให้ส่งได้ 3 ครั้ง ต่อ 1 ชั่วโมง ต่อ 1 IP
   const isAllowed = rateLimit(ip, 3, 60 * 60 * 1000);
