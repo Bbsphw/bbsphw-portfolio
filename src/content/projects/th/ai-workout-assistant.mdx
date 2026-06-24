@@ -1,0 +1,40 @@
+---
+id: proj-cv-workout
+title: AI Workout Assistant
+category: Others
+description: >-
+  พัฒนาโปรแกรมเดสก์ท็อปที่ประยุกต์ใช้ Computer Vision เพื่อตรวจจับท่าทางการออกกำลังกาย ให้คำแนะนำ และนับจำนวนครั้งแบบเรียลไทม์
+role: AI Developer
+date: พ.ค. 2567 - มิ.ย. 2567
+technologies:
+  - Python
+  - OpenCV
+  - MediaPipe
+tags:
+  - Computer Vision
+  - AI
+  - Python
+  - MediaPipe
+  - OpenCV
+githubUrl: 'https://github.com/Bbsphw/cv-workout'
+featured: false
+order: 5
+image: >-
+  https://res.cloudinary.com/bbsphw/image/upload/v1768373176/ai-pose-detection-cover_gdqztn.jpg
+gallery:
+  - >-
+    https://res.cloudinary.com/bbsphw/image/upload/v1768374539/test-pose-detection_hmmodt.jpg
+overview: >-
+  โปรเจกต์นี้เป็นการนำ AI มาประยุกต์ใช้กับการออกกำลังกาย (Fitness) โดยใช้ภาษา Python และเทคโนโลยี MediaPipe Pose Estimation เพื่อวิเคราะห์กลไกการเคลื่อนไหวผ่านกล้อง Webcam แบบเรียลไทม์ ตัวระบบสามารถตรวจจับจุดสำคัญบนร่างกาย (Landmarks) เพื่อนับจำนวนครั้งของการทำท่า Push-ups หรือ Squats ได้อย่างแม่นยำ พร้อมทั้งมีระบบแจ้งเตือนเพื่อจัดระเบียบร่างกายให้ถูกต้อง ช่วยลดความเสี่ยงในการบาดเจ็บ
+features:
+  - "Real-time Pose Estimation: ใช้ MediaPipe ในการตรวจจับและแสดงผลโครงสร้างร่างกายผู้ใช้งานแบบเรียลไทม์ด้วยความแม่นยำสูง"
+  - "Automated Rep Counting: พัฒนาระบบนับจำนวนครั้งอัตโนมัติ ช่วยให้ผู้ใช้โฟกัสกับการออกกำลังกายได้เต็มที่"
+  - "Form Correction Feedback: ระบบแจ้งเตือนเพื่อปรับปรุงท่าทางบนหน้าจอ (เช่น 'ลดสะโพกลง') เพื่อรักษา Posture ที่ถูกต้อง"
+  - "Joint Angle Analysis: คำนวณองศาของข้อต่อแบบไดนามิก เพื่อใช้ประเมินสถานะการเคลื่อนไหวของร่างกาย"
+  - "Custom GUI: ออกแบบและพัฒนาส่วนติดต่อผู้ใช้งาน (GUI) ที่ใช้งานง่ายด้วยไลบรารี CustomTkinter และ PyQt"
+challenges:
+  - problem: "การตรวจจับเกิดความผิดพลาดและภาพสั่น (Jitter) เมื่อผู้ใช้งานมีการเคลื่อนไหวที่รวดเร็ว"
+    solution: "เขียนอัลกอริทึม Smoothing เพื่อเกลี่ยค่าพิกัดของ Landmark และปรับค่า Confidence Thresholds ให้เหมาะสม ช่วยลดอาการสั่นของการตรวจจับได้อย่างมีนัยสำคัญ"
+  - problem: "การคำนวณสถานะของการออกกำลังกาย (จังหวะขึ้น/ลง) ให้มีความแม่นยำและไม่นับซ้ำซ้อน"
+    solution: "ออกแบบระบบ State Machine ที่ทำงานอ้างอิงจากการคำนวณมุมข้อต่ออย่างต่อเนื่อง ทำให้สามารถแยกแยะจังหวะ UP และ DOWN ได้อย่างแม่นยำ ป้องกันการนับผิดพลาด"
+---

@@ -24,6 +24,7 @@ const loadIcon = (importFn: () => Promise<IconModule>, iconName: string) => {
 // TypeScript จะไม่งอแงแล้ว เพราะ import(...) return ค่าที่เข้ากันได้กับ IconModule
 const loadSi = (name: string) => loadIcon(() => import("react-icons/si"), name);
 const loadFa = (name: string) => loadIcon(() => import("react-icons/fa"), name);
+const loadGr = (name: string) => loadIcon(() => import("react-icons/gr"), name);
 
 type IconConfig = {
   Component: ComponentType<{ className?: string }>;
@@ -34,14 +35,17 @@ type IconConfig = {
 export const TechIconsMap: Record<string, IconConfig> = {
   // Languages
   HTML5: { Component: loadSi("SiHtml5"), color: "text-orange-500" },
-  CSS3: { Component: loadSi("SiCss3"), color: "text-blue-500" },
+  CSS3: { Component: loadSi("SiCss"), color: "text-blue-500" },
   JavaScript: { Component: loadSi("SiJavascript"), color: "text-yellow-400" },
   TypeScript: { Component: loadSi("SiTypescript"), color: "text-blue-600" },
   Java: { Component: loadFa("FaJava"), color: "text-red-500" },
   Python: { Component: loadSi("SiPython"), color: "text-yellow-500" },
   "C++": { Component: loadSi("SiCplusplus"), color: "text-blue-700" },
-  C: { Component: loadSi("SiC"), color: "text-blue-600" }, // เพิ่ม C ตามที่ขอ
+  C: { Component: loadSi("SiC"), color: "text-blue-600" },
   PHP: { Component: loadSi("SiPhp"), color: "text-indigo-400" },
+  Dart: { Component: loadSi("SiDart"), color: "text-blue-500" },
+  SQL: { Component: loadFa("FaDatabase"), color: "text-blue-500" },
+  MATLAB: { Component: loadFa("FaCode"), color: "text-orange-500" },
 
   // Frontend
   React: { Component: loadSi("SiReact"), color: "text-cyan-400" },
@@ -58,6 +62,7 @@ export const TechIconsMap: Record<string, IconConfig> = {
     Component: loadSi("SiFramer"),
     color: "text-black dark:text-white",
   },
+  Vite: { Component: loadSi("SiVite"), color: "text-purple-500" },
   Figma: { Component: loadSi("SiFigma"), color: "text-pink-500" },
   Expo: { Component: loadSi("SiExpo"), color: "text-black dark:text-white" },
   Mobile: { Component: loadFa("FaMobileAlt"), color: "text-purple-500" },
@@ -70,19 +75,24 @@ export const TechIconsMap: Record<string, IconConfig> = {
     color: "text-black dark:text-white",
   },
   Laravel: { Component: loadSi("SiLaravel"), color: "text-red-600" },
+  FastAPI: { Component: loadSi("SiFastapi"), color: "text-emerald-500" },
   Prisma: {
     Component: loadSi("SiPrisma"),
-    color: "text-teal-900 dark:text-white",
+    color: "text-zinc-900 dark:text-white",
   },
-  Livewire: { Component: loadFa("FaServer"), color: "text-pink-500" },
+  Livewire: { Component: loadSi("SiLivewire"), color: "text-pink-500" },
+  "React Native": { Component: loadSi("SiReact"), color: "text-cyan-400" },
+  Flutter: { Component: loadSi("SiFlutter"), color: "text-blue-400" },
+  Zustand: { Component: loadFa("FaReact"), color: "text-amber-700" },
+  Redux: { Component: loadSi("SiRedux"), color: "text-purple-600" },
 
   // DB
   Supabase: { Component: loadSi("SiSupabase"), color: "text-green-600" },
   PostgreSQL: { Component: loadSi("SiPostgresql"), color: "text-blue-400" },
   MongoDB: { Component: loadSi("SiMongodb"), color: "text-green-600" },
   MySQL: { Component: loadSi("SiMysql"), color: "text-blue-500" },
-  "Oracle DB": { Component: loadSi("SiOracle"), color: "text-red-600" },
   Firebase: { Component: loadSi("SiFirebase"), color: "text-orange-500" },
+  "Oracle Database": { Component: loadGr("GrOracle"), color: "text-red-600" },
 
   // Tools
   Docker: { Component: loadSi("SiDocker"), color: "text-blue-500" },
@@ -91,7 +101,6 @@ export const TechIconsMap: Record<string, IconConfig> = {
     Component: loadSi("SiGithub"),
     color: "text-black dark:text-white",
   },
-  AWS: { Component: loadSi("SiAmazonwebservices"), color: "text-orange-500" },
   Vercel: {
     Component: loadSi("SiVercel"),
     color: "text-black dark:text-white",
@@ -108,11 +117,27 @@ export const TechIconsMap: Record<string, IconConfig> = {
   MQTT: { Component: loadSi("SiMqtt"), color: "text-red-600" },
   "Node-RED": { Component: loadSi("SiNodered"), color: "text-red-700" },
   EasyEDA: { Component: loadSi("SiEasyeda"), color: "text-blue-600" },
+  Proteus: { Component: loadSi("SiProteus"), color: "text-blue-700" },
   OCR: { Component: loadFa("FaFileInvoiceDollar"), color: "text-green-500" },
   Recharts: { Component: loadFa("FaChartLine"), color: "text-orange-500" },
   NextAuth: { Component: loadSi("SiAuth0"), color: "text-purple-500" },
   OpenCV: { Component: loadSi("SiOpencv"), color: "text-green-600" },
-  MediaPipe: { Component: loadFa("FaBrain"), color: "text-teal-500" },
+  MediaPipe: { Component: loadSi("SiMediapipe"), color: "text-teal-500" },
+  Postman: { Component: loadSi("SiPostman"), color: "text-orange-500" },
+  "Linux (Bash)": {
+    Component: loadSi("SiLinux"),
+    color: "text-zinc-800 dark:text-zinc-200",
+  },
+  "RESTful APIs": { Component: loadFa("FaServer"), color: "text-blue-400" },
+  WebSocket: { Component: loadFa("FaNetworkWired"), color: "text-blue-400" },
+  "Git/GitHub": {
+    Component: loadSi("SiGithub"),
+    color: "text-black dark:text-white",
+  },
+  "Google Cloud": {
+    Component: loadSi("SiGooglecloud"),
+    color: "text-blue-500",
+  },
 
   // Generic / Fallback
   Finance: { Component: loadFa("FaChartLine"), color: "text-gray-500" },

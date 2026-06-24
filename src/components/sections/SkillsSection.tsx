@@ -1,7 +1,7 @@
 // // src/components/sections/SkillsSection.tsx
 // "use client";
 
-// import { motion, Variants } from "framer-motion";
+// import { m, Variants } from "framer-motion";
 // import { Cpu, Code2, Database, Wrench } from "lucide-react"; // Using Lucide icons for consistency
 // import {
 //   SiJavascript,
@@ -93,7 +93,7 @@
 //   return (
 //     <section id="skills" aria-labelledby="skills-heading" className="space-y-6">
 //       {/* --- HEADER --- */}
-//       <motion.header
+//       <m.header
 //         initial="hidden"
 //         whileInView="visible"
 //         viewport={{ once: true }}
@@ -109,12 +109,12 @@
 //         <p className="text-zinc-600 dark:text-zinc-400">
 //           A comprehensive overview of my technical proficiencies and tools.
 //         </p>
-//       </motion.header>
+//       </m.header>
 
 //       <hr className="my-6 border-zinc-200 dark:border-zinc-700" />
 
 //       {/* --- SKILLS CATEGORIES --- */}
-//       <motion.div
+//       <m.div
 //         className="space-y-10"
 //         initial="hidden"
 //         whileInView="visible"
@@ -122,7 +122,7 @@
 //         variants={staggerContainer}
 //       >
 //         {skillCategories.map((category, index) => (
-//           <motion.div key={index} variants={fadeInUp} className="space-y-4">
+//           <m.div key={index} variants={fadeInUp} className="space-y-4">
 //             {/* Category Title */}
 //             <div className="flex items-center gap-2">
 //               <category.icon className="text-xl text-zinc-800 dark:text-zinc-200" />
@@ -147,9 +147,9 @@
 //                 </div>
 //               ))}
 //             </div>
-//           </motion.div>
+//           </m.div>
 //         ))}
-//       </motion.div>
+//       </m.div>
 //     </section>
 //   );
 // }

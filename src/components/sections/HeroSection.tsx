@@ -3,7 +3,7 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import {
   Mail,
   Code2,
@@ -13,10 +13,10 @@ import {
   Briefcase,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { skillsRow1, skillsRow2 } from "@/data/skills";
+import { skillsRow1, skillsRow2 } from "@/content/skills";
 import SkillsMarquee from "../SkillsMarquee";
 import { m, Variants } from "framer-motion"; // ✅ เปลี่ยนเป็น m
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -32,6 +32,7 @@ export default function HeroSection(): React.JSX.Element {
   const tHero = useTranslations("Hero");
   const tSection = useTranslations("Section");
   const tFooter = useTranslations("Footer");
+  const locale = useLocale();
 
   return (
     <section id="hero" aria-labelledby="hero-heading" className="space-y-6">
@@ -60,11 +61,18 @@ export default function HeroSection(): React.JSX.Element {
               <Briefcase className="h-4 w-4" />
               <span>{tHero("hybrid")}</span>
             </div>
+            {/* 
+            <div className="hidden h-1 w-1 rounded-full bg-zinc-300 sm:block dark:bg-zinc-700" />
+            <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-0.5 rounded-full w-fit">
+              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-sm">{tHero("openForWork")}</span>
+            </div>
+            */}
           </div>
         </div>
 
         <div className="leading-loose">
-          <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
+          <p className={`text-lg text-zinc-600 dark:text-zinc-300 ${locale === 'th' ? 'leading-loose' : 'leading-relaxed'}`}>
             {tHero("description")}
           </p>
         </div>
@@ -96,8 +104,8 @@ export default function HeroSection(): React.JSX.Element {
         </m.div>
 
         <m.div variants={fadeInUp} className="space-y-6 py-2">
-          <SkillsMarquee skills={skillsRow1} direction="left" speed={40} />
-          <SkillsMarquee skills={skillsRow2} direction="right" speed={40} />
+          <SkillsMarquee skills={skillsRow1} direction="left" speed={80} />
+          <SkillsMarquee skills={skillsRow2} direction="right" speed={80} />
         </m.div>
       </m.section>
 

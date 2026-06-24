@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
+import { getAboutData, getAllAchievements } from "@/lib/mdx";
 
 // Import Components
 import AboutSection from "@/components/sections/AboutSection";
@@ -77,9 +78,21 @@ export default async function SectionPage({ params }: SectionPageProps) {
 
   const Component = SECTIONS[section];
 
+  const props: Record<string, unknown> = {};
+
+  if (section === "about") {
+    const aboutData = getAboutData(locale);
+    if (aboutData && aboutData.meta) {
+      props.careers = aboutData.meta.careers || [];
+      props.educations = aboutData.meta.educations || [];
+    }
+  } else if (section === "achievements") {
+    props.achievements = getAllAchievements(locale) || [];
+  }
+
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <Component />
+      <Component {...props} />
     </div>
   );
 }

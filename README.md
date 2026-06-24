@@ -1,145 +1,160 @@
-<div align="center">
+# Sophonwit Thapseng | Portfolio 🚀
 
-# ✨ Sophonwit Portfolio
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-15.5.19-black)
+![React](https://img.shields.io/badge/React-19.2.3-blue)
+![Tailwind](https://img.shields.io/badge/TailwindCSS-v4.1.7-06B6D4)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6)
 
-![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=for-the-badge&logo=next.js&logoColor=white)
-![React](https://img.shields.io/badge/React-19-20232a?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-
-<br />
-
-**A modern, high-performance personal portfolio website.** *Built to showcase my development journey, projects, and skills with a focus on UX, Performance, and Clean Architecture.*
-
-[Live Demo](https://sophonwit.site) · [Report Bug](https://github.com/Bbsphw/bbsphw-portfolio/issues) · [Request Feature](https://github.com/Bbsphw/bbsphw-portfolio/issues)
-
-</div>
+A highly optimized, SEO-friendly, and interactive personal portfolio website showcasing my skills, projects, and professional journey as a Software Engineer & Full Stack Developer.
 
 ---
 
-## 🚀 Features
+## 🌟 Key Features
 
-| Feature | Description |
-| :--- | :--- |
-| **⚡️ Modern Stack** | Built with Next.js 15 (App Router), React 19, and Tailwind CSS 4. |
-| **🎨 Responsive** | Mobile-first approach ensuring perfect display on all devices. |
-| **🌗 Dark Mode** | System-aware theme switching using `next-themes`. |
-| **✨ Animations** | Smooth page transitions and interactions powered by `framer-motion`. |
-| **📧 Contact Form** | Integrated with **Resend** for reliable email handling via server actions. |
-| **🛡️ Type Safety** | Robust code with TypeScript and Zod schema validation. |
-| **🔍 SEO Ready** | Fully configured metadata, Open Graph tags, and sitemap. |
+- **Blazing Fast Performance**: Built with Next.js 15.5.19 (App Router) using **Turbopack** and 100% Static Site Generation (SSG).
+- **React Compiler Enabled**: Leveraging React 19.2.3 with the experimental React Compiler for seamless state optimization without manual `useMemo` or `useCallback`.
+- **Content via MDX**: Case studies and project details are structured within an **MDX-based CMS** (`next-mdx-remote` v6) for clean separation of code and content.
+- **Dynamic Open Graph Images**: Auto-generated `@vercel/og` thumbnails for professional social sharing.
+- **SEO & Structured Data**: Implemented **JSON-LD Schema.org** markup for `Person` profiles, and a dynamic `sitemap.xml` that auto-indexes localized MDX files.
+- **Micro-Interactions**: Smooth scrolling, Framer Motion (v12.24.0) animations. *Optimized with `LazyMotion` and `<m.div>` to aggressively reduce bundle size.*
+- **Strict Type-Safety Audit**: Mathematically proven 100% Type-Safe (`tsc --noEmit` passed flawlessly) with **Zero `any` Policy**.
+- **Lighthouse CI & Vercel Insights**: Automated performance auditing via GitHub Actions, combined with Real User Monitoring via `@vercel/analytics` and `@vercel/speed-insights`.
 
-## 🛠️ Tech Stack
-
-### Core & Styling
-| Category | Technologies |
-| :--- | :--- |
-| **Framework** | [Next.js 15](https://nextjs.org/) (App Router & Turbopack) |
-| **UI Library** | [React 19](https://react.dev/) |
-| **Language** | [TypeScript](https://www.typescriptlang.org/) |
-| **Styling** | [Tailwind CSS 4](https://tailwindcss.com/) |
-| **Components** | [Radix UI](https://www.radix-ui.com/), [Lucide React](https://lucide.dev/) |
-| **Animation** | [Framer Motion](https://www.framer.com/motion/) |
-
-### Utilities & Tools
-| Category | Technologies |
-| :--- | :--- |
-| **Forms** | [React Hook Form](https://react-hook-form.com/), [Zod](https://zod.dev/) |
-| **Email API** | [Resend](https://resend.com/) |
-| **UI Utils** | [Sonner](https://sonner.emilkowal.ski/), clsx, tailwind-merge |
+---
 
 ## 📂 Project Structure
 
-```bash
+A clean, scalable Next.js App Router architecture with localized MDX support:
+
+```text
 bbsphw-portfolio/
-├── public/              # Static assets (images, icons, fonts)
+├── public/                 # Static assets (images, icons, PDFs)
+├── messages/               # i18n JSON dictionaries (en.json, th.json)
 ├── src/
-│   ├── actions/         # Server Actions (e.g., send-email.ts)
-│   ├── app/             # Next.js App Router pages & layouts
-│   ├── components/      # React components
-│   │   ├── cards/       # Project/Experience/Education cards
-│   │   ├── sections/    # Page sections (Hero, About, Contact)
-│   │   └── ui/          # Reusable UI components
-│   ├── data/            # Static data content
-│   ├── hooks/           # Custom React hooks
-│   ├── lib/             # Utility functions
-│   ├── providers/       # Context providers (Theme, Language)
-│   ├── types/           # TypeScript definitions
-│   └── env.ts           # Env validation schema (Zod)
-├── next.config.ts       # Next.js config
-└── tailwind.config.ts   # Tailwind config
+│   ├── actions/            # Server actions (e.g., Contact Form handling)
+│   ├── app/                # Next.js App Router
+│   │   ├── [locale]/       # Dynamic i18n routing (Pages, Layouts)
+│   │   └── api/            # API endpoints
+│   ├── components/         # Reusable UI components
+│   │   ├── cards/          # Project & Achievement cards
+│   │   ├── forms/          # User input forms
+│   │   ├── sections/       # Major landing page sections
+│   │   └── ui/             # Shadcn/UI primitive components
+│   ├── config/             # Site configuration and static metadata
+│   ├── content/            # 📝 MDX CMS Content Data
+│   │   ├── achievements/   # Certifications (en/th)
+│   │   └── projects/       # Portfolio case studies (en/th)
+│   ├── hooks/              # Custom React hooks
+│   ├── i18n/               # Internationalization configuration
+│   ├── lib/                # Utility functions & MDX parser logic
+│   ├── providers/          # Global React Context providers (Themes)
+│   ├── types/              # TypeScript interfaces
+│   ├── env.ts              # Environment variable validation
+│   └── middleware.ts       # Next.js Middleware (Language detection)
+├── .env.example            # Environment variables template
+└── package.json            # Dependencies & Scripts
 ```
 
-## 🏁 Getting Started
-Follow these steps to set up the project locally.
+---
 
-Prerequisites
-Node.js (v18.17 or later)
+## 🏛️ Deep Technical Architecture & Versions
 
-Package Manager: npm, yarn, pnpm, or bun
+This project utilizes bleeding-edge technologies configured for maximum production stability.
 
-## Installation
+| Category | Technology | Version | Implementation Details |
+| :--- | :--- | :--- | :--- |
+| **Framework** | `next` | `15.5.19` | App Router, **Turbopack**, React Compiler (`reactCompiler: true`), Enhanced Security Headers (`X-Frame-Options`, `X-Content-Type-Options`) |
+| **UI Library** | `react`, `react-dom` | `^19.2.3` | React Compiler integration, concurrent rendering |
+| **Styling** | `tailwindcss`, `@tailwindcss/vite` | `^4.1.7` | PostCSS Tailwind v4, Shadcn UI patterns with `tailwind-merge` and `clsx` |
+| **Language** | `typescript` | `5.9.3` | Strict Mode, audited to ensure 0 implicit or explicit `any` usages |
+| **Animation** | `framer-motion` | `^12.24.0` | `LazyMotion` loaded asynchronously to cut JS bundle payload |
+| **i18n** | `next-intl` | `^4.7.0` | Route handling `/[locale]/...` with middleware |
+| **CMS/Content**| `next-mdx-remote` | `^6.0.0` | Next.js Server Components rendering MDX + `gray-matter` for YAML parsing |
+| **Image Opt.** | `next/image` | Built-in | MDX mapping to `<Image />`, formats: `avif`/`webp`, configured strictly to `res.cloudinary.com` |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js >= 20
+- `pnpm` >= 8
+
+### Installation
+
 1. Clone the repository
-```bash
-git clone [https://github.com/your-username/bbsphw-portfolio.git](https://github.com/your-username/bbsphw-portfolio.git)
-cd bbsphw-portfolio
-```
+   ```bash
+   git clone https://github.com/Bbsphw/bbsphw-portfolio.git
+   cd bbsphw-portfolio
+   ```
 
 2. Install dependencies
-```bash
-npm install
-# or yarn install / pnpm install
-```
+   ```bash
+   pnpm install
+   ```
 
-3. Configure Environment Variables Create a .env file in the root directory:
-```bash
-# Required for Contact Form (Resend)
-RESEND_API_KEY=re_123456789
-RECEIVER_EMAIL=your-email@example.com
-NODE_ENV=development
+3. Set up environment variables
+   Copy the provided `.env.example` file to create your local environment file:
+   ```bash
+   cp .env.example .env.local
+   ```
+   *For Windows Command Prompt, use `copy .env.example .env.local`*
 
-# Public (Optional)
-NEXT_PUBLIC_BASE_URL=http://localhost:3000
-```
-💡 Note: You can obtain your API Key from Resend Dashboard.
+   **Key Environment Variables:**
+   - `NEXT_PUBLIC_APP_URL`: Your local or production domain (e.g. `http://localhost:3000`). Essential for Sitemap and SEO.
+   - `RESEND_API_KEY`: API Key from Resend to handle the Contact form.
+   - `RECEIVER_EMAIL`: The destination email where contact messages will be sent.
 
-4. Run the development server
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-Open http://localhost:3000 to view the project.
+4. Run the development server (with Turbopack)
+   ```bash
+   pnpm dev
+   ```
 
-## 📜 Scripts
-Script	Description
-```bash
-npm run dev
-Runs the app in development mode with Turbopack.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-npm run build
-Builds the app for production.
+---
 
-npm start
-Runs the built app in production mode.
+## 📝 Managing Content (MDX CMS & Cloudinary)
 
-npm run lint
-Runs ESLint to check for code quality issues.
-```
+The portfolio uses an MDX-based file system to handle dynamic content, natively supporting both English (`/en/`) and Thai (`/th/`) locales.
 
-## 🚀 Deployment
-The easiest way to deploy your Next.js app is to use the Vercel Platform.
-  1. Push your code to a GitHub repository.
-  2. Import the project into Vercel.
-  3. Add the Environment Variables (RESEND_API_KEY, etc.) in Vercel settings.
-  4. Deploy! 🚀
+**To add or update a project:**
+1. Create or edit a `.mdx` file in both `src/content/projects/en/` and `src/content/projects/th/`.
+2. Provide the synchronized YAML Frontmatter metadata. The schema supports the following key fields:
+   ```yaml
+   id: proj-name-id
+   title: Project Title
+   category: Web App | Enterprise | Mobile
+   description: Short description for the project card.
+   role: Your Role (e.g., Full-Stack Developer)
+   date: Duration (e.g., Nov 2024 - Mar 2025)
+   technologies: [Next.js, React, ...]
+   tags: [Automation, Dashboard, ...]
+   featured: true # Set to true to show on the Hero/Featured section
+   order: 1 # Determines rendering order
+   image: 'https://res.cloudinary.com/...' # Main hero thumbnail
+   gallery: # Array of additional Cloudinary images for the detail page
+     - 'https://res.cloudinary.com/...'
+   # Optional fields:
+   link: 'https://live-demo-url.com'
+   githubUrl: 'https://github.com/...'
+   ```
+3. Below the frontmatter, use the `overview`, `features`, and `challenges` structured data. The `sitemap.xml` will dynamically index it upon the next build.
 
-## 👤 Author
-Sophonwit Thapseng
-  🌐 Portfolio: https://bbsphw-portfolio.vercel.app
-  🐙 GitHub: [@Bbsphw](https://github.com/Bbsphw)
+> [!TIP]
+> **Cloudinary Integration**: Always use Cloudinary URLs (`res.cloudinary.com`) for the `image` and `gallery` fields to ensure Next.js image optimization works correctly without throwing external domain errors.
 
-## 📄 License
-This project is open source and available under the MIT License.
+**To edit skills:**
+Update the arrays inside `src/types/index.ts` or the relevant skills data component.
+
+---
+
+## 🤝 Contributing
+
+This is a personal portfolio, but feedback and suggestions are always welcome! Feel free to open an issue or submit a PR.
+Please follow the **Conventional Commits** format when contributing (`feat: ...`, `fix: ...`).
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

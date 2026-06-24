@@ -19,17 +19,23 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Loader2, CheckCircle2, XCircle, Send } from "lucide-react"; // ใช้ Lucide Icons
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 
-const ContactSchema = z.object({
-  name: z.string().min(2, "Please enter your name."),
-  email: z.string().email("Please enter a valid email."),
-  message: z.string().min(10, "Message must be at least 10 characters."),
+const createSchema = (t: (key: string) => string) => z.object({
+  name: z.string().min(2, t("valName")),
+  email: z.string().email(t("valEmail")),
+  message: z.string().min(10, t("valMessage")),
 });
 
-type ContactFormValues = z.infer<typeof ContactSchema>;
+type ContactFormValues = {
+  name: string;
+  email: string;
+  message: string;
+};
 
 export function ContactForm() {
+  const t = useTranslations("Contact.form");
   const [isPending, startTransition] = useTransition();
   const [status, setStatus] = useState<{
     type: "success" | "error" | null;
@@ -37,7 +43,7 @@ export function ContactForm() {
   }>({ type: null, message: "" });
 
   const form = useForm<ContactFormValues>({
-    resolver: zodResolver(ContactSchema),
+    resolver: zodResolver(createSchema(t)),
     defaultValues: {
       name: "",
       email: "",
@@ -50,12 +56,12 @@ export function ContactForm() {
     startTransition(async () => {
       const result = await sendEmail(data);
       if (result.success) {
-        setStatus({ type: "success", message: "Message sent successfully!" });
+        setStatus({ type: "success", message: t("successMsg") });
         form.reset();
       } else {
         setStatus({
           type: "error",
-          message: result.error || "Something went wrong.",
+          message: result.error || t("errorMsg"),
         });
       }
     });
@@ -74,7 +80,7 @@ export function ContactForm() {
                 <FormControl>
                   {/* Style Input ให้เข้ากับ Theme Zinc */}
                   <Input
-                    placeholder="Name"
+                    placeholder={t("namePlaceholder")}
                     disabled={isPending}
                     className="border-zinc-200 bg-zinc-50 focus-visible:ring-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/50"
                     {...field}
@@ -92,7 +98,7 @@ export function ContactForm() {
                 <FormLabel className="sr-only">Email</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Email"
+                    placeholder={t("emailPlaceholder")}
                     type="email"
                     disabled={isPending}
                     className="border-zinc-200 bg-zinc-50 focus-visible:ring-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/50"
@@ -112,7 +118,7 @@ export function ContactForm() {
               <FormLabel className="sr-only">Message</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Enter your message here..."
+                  placeholder={t("messagePlaceholder")}
                   className="min-h-[120px] resize-none border-zinc-200 bg-zinc-50 focus-visible:ring-zinc-400 dark:border-zinc-800 dark:bg-zinc-900/50"
                   disabled={isPending}
                   {...field}
@@ -126,7 +132,7 @@ export function ContactForm() {
         {/* Feedback Message with Animation */}
         <AnimatePresence mode="wait">
           {status.message && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
@@ -142,7 +148,7 @@ export function ContactForm() {
                 <XCircle className="h-4 w-4" />
               )}
               {status.message}
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
 
@@ -154,12 +160,12 @@ export function ContactForm() {
           {isPending ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              Sending...
+              {t("sending")}
             </>
           ) : (
             <>
               <Send className="h-4 w-4" />
-              Send Message
+              {t("sendBtn")}
             </>
           )}
         </Button>

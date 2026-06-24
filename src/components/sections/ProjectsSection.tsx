@@ -5,13 +5,12 @@
 import { useMemo, useCallback, Suspense } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Search } from "lucide-react";
-import { motion, Variants, AnimatePresence } from "framer-motion";
+import { m, Variants, AnimatePresence } from "framer-motion";
 import ProjectCard from "@/components/cards/ProjectCard";
-import { projectsData } from "@/data/projects";
 import { ProjectsCombobox } from "@/components/comboboxs/ProjectsCombobox";
 import { useDebouncedCallback } from "use-debounce";
 import { useTranslations, useLocale } from "next-intl"; // ✅
-import { Language } from "@/types";
+import { Language, Project } from "@/types";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -23,7 +22,11 @@ const staggerContainer: Variants = {
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
-function ProjectsContent() {
+interface ProjectsSectionProps {
+  projectsList: Project[];
+}
+
+function ProjectsContent({ projectsList }: ProjectsSectionProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -34,8 +37,6 @@ function ProjectsContent() {
 
   const currentCategory = searchParams.get("category") || "";
   const currentSearch = searchParams.get("q") || "";
-
-  const projectsList = projectsData[locale];
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -80,7 +81,7 @@ function ProjectsContent() {
 
   return (
     <section className="space-y-6">
-      <motion.header
+      <m.header
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -93,18 +94,18 @@ function ProjectsContent() {
           </h1>
         </div>
         <p className="text-zinc-600 dark:text-zinc-400">{t("projectsDesc")}</p>
-      </motion.header>
+      </m.header>
 
       <hr className="border-zinc-200 dark:border-zinc-700" />
 
-      <motion.div
+      <m.div
         className="space-y-4"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
         variants={staggerContainer}
       >
-        <motion.div
+        <m.div
           variants={fadeInUp}
           className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
         >
@@ -126,9 +127,9 @@ function ProjectsContent() {
               onSelect={handleCategoryChange}
             />
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           variants={fadeInUp}
           className="ml-1 text-sm text-zinc-500 dark:text-zinc-400"
         >
@@ -136,10 +137,10 @@ function ProjectsContent() {
             {commonT("showingProjects", { count: filteredProjects.length })}{" "}
             {/* ✅ */}
           </p>
-        </motion.div>
+        </m.div>
 
         {filteredProjects.length > 0 ? (
-          <motion.div
+          <m.div
             key={`${currentCategory}-${currentSearch}-${locale}`}
             className="grid grid-cols-1 gap-6 md:grid-cols-2"
             variants={staggerContainer}
@@ -148,14 +149,14 @@ function ProjectsContent() {
           >
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project) => (
-                <motion.div key={project.title} variants={fadeInUp} layout>
+                <m.div key={project.title} variants={fadeInUp} layout>
                   <ProjectCard {...project} />
-                </motion.div>
+                </m.div>
               ))}
             </AnimatePresence>
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.div
+          <m.div
             key="empty"
             variants={fadeInUp}
             initial="hidden"
@@ -163,18 +164,19 @@ function ProjectsContent() {
             className="py-20 text-center text-zinc-500 dark:text-zinc-400"
           >
             <p>{commonT("noProjects")}</p> {/* ✅ */}
-          </motion.div>
+          </m.div>
         )}
-      </motion.div>
+      </m.div>
     </section>
   );
 }
 
-export default function ProjectsSection() {
+export default function ProjectsSection({ projectsList }: ProjectsSectionProps) {
+  const commonT = useTranslations("Common");
   return (
     <section id="projects" aria-labelledby="projects-heading">
-      <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
-        <ProjectsContent />
+      <Suspense fallback={<div className="py-20 text-center">{commonT("loading")}</div>}>
+        <ProjectsContent projectsList={projectsList} />
       </Suspense>
     </section>
   );

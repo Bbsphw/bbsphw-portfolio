@@ -2,8 +2,9 @@
 
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { Pin, ArrowUpRight } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
 import { Project } from "@/types";
 import { cn } from "@/lib/utils";
 import { UniversalImage } from "../universal-image";
@@ -17,9 +18,12 @@ export default function ProjectCard({
   featured,
   image,
 }: Project) {
+  const commonT = useTranslations("Common");
+  const locale = useLocale();
+
   return (
     <div className="h-full transform-none opacity-100 will-change-auto">
-      <div className="h-full w-full rounded-xl border-[1.5px] border-zinc-300 p-1 shadow-sm transition-all duration-300 hover:border-zinc-400 dark:border-[#333333] dark:hover:border-zinc-600">
+      <div className="h-full w-full rounded-xl border-[1.5px] border-zinc-300 p-1 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-zinc-400 hover:shadow-lg hover:shadow-zinc-200 dark:border-[#333333] dark:hover:border-zinc-600 dark:hover:shadow-zinc-900">
         <Link
           href={`/projects/${slug}`}
           className={cn(
@@ -32,7 +36,7 @@ export default function ProjectCard({
           {featured && (
             <div className="absolute top-0 right-0 z-20 flex items-center gap-x-1 rounded-tr-lg rounded-bl-lg bg-cyan-500 px-2 py-1 text-sm font-medium text-zinc-900 shadow-md">
               <Pin className="h-4 w-4 fill-white" />
-              <span>Featured</span>
+              <span>{commonT("featured")}</span>
             </div>
           )}
 
@@ -48,7 +52,7 @@ export default function ProjectCard({
             />
 
             <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/60 text-sm font-medium text-zinc-50 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
-              <span>View Details</span>
+              <span>{commonT("viewDetails")}</span>
               <ArrowUpRight className="h-4 w-4" />
             </div>
           </div>
@@ -57,7 +61,12 @@ export default function ProjectCard({
             <h3 className="line-clamp-1 text-lg font-bold text-zinc-800 transition-colors duration-300 group-hover:text-teal-600 dark:text-zinc-200 dark:group-hover:text-teal-400">
               {title}
             </h3>
-            <p className="line-clamp-2 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+            <p
+              className={cn(
+                "line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400",
+                locale === "th" ? "leading-loose" : "leading-relaxed",
+              )}
+            >
               {description}
             </p>
             <div className="mt-auto flex flex-wrap items-center gap-2 pt-4">
