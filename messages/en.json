@@ -18,7 +18,7 @@
     "based": "Based in Bangkok, Thailand 🇹🇭",
     "hybrid": "Hybrid work",
     "openForWork": "Open for work",
-    "description": "Passionate Full Stack Software Engineer dedicated to crafting scalable, high-performance web applications. Proficient in TypeScript and the modern web ecosystem. I combine engineering best practices with a focus on delivering robust solutions. Currently open for new opportunities.",
+    "description": "A highly motivated graduate in Computer and Information Engineering seeking a position as a Software Engineer or Full Stack Developer. Proficient in TypeScript, React, and Node.js, with a dedication to building user-centric and maintainable applications. Eager to apply problem-solving skills and technical expertise to develop efficient, scalable solutions that provide real value to enterprise-level projects.",
     "contactMe": "Contact Me"
   },
   "Section": {
@@ -39,11 +39,13 @@
   "About": {
     "subtitle": "A short story of me.",
     "resumePreview": "Resume Preview",
-    "bio1": "I'm a final-year Computer and Information Engineering student at Kasetsart University, Sriracha Campus, with a strong passion for software and web development. Over the past few years, I've honed my skills in JavaScript, React, and Node.js through both academic projects and personal learning. I enjoy building interactive, user-focused applications that are not only functional but also clean and maintainable.",
-    "bio2": "What drives me is the challenge of solving real-world problems through technology. I take pride in writing efficient and scalable code, collaborating in team environments, and continuously learning new tools and best practices in modern web development. My experience with full-stack development has equipped me to understand the big picture while paying attention to the details that matter in user experience and system design.",
-    "bio3": "Currently, I'm seeking a cooperative internship where I can apply my knowledge, contribute to real projects, and grow as a developer in a professional setting. I'm excited to bring my curiosity, adaptability, and commitment to continuous improvement to a team that values innovation and impact.",
+    "bio1": "I am a Computer and Information Engineering graduate with a profound passion for software development. I specialize in Full Stack technologies (such as TypeScript, React, Node.js, and various databases) alongside modern web ecosystems. My core focus is on building fast, secure, and user-centric web applications with highly maintainable codebases for long-term scalability.",
+    "bio2": "Throughout my learning and professional journey, I have gained hands-on experience developing real-world projects that solve complex problems and deliver tangible business value at an enterprise level. I am highly accustomed to collaborating within fast-paced, cross-functional teams—whether it is communicating with stakeholders, conducting code reviews to maintain system standards, or brainstorming to find optimal solutions together. Consistently driven by \"the challenge of solving complex problems,\" I place a premium on Clean Code and flexible system architecture that aligns with both exceptional user experiences and business growth.",
+    "bio3": "As a highly motivated fresh graduate, I am fully prepared and eager to launch my professional career. I am currently seeking opportunities as a Software Engineer or Full Stack Developer to leverage my in-depth technical knowledge, analytical problem-solving skills, and adaptability to emerging technologies. I am committed to being a strong asset to your team, helping to innovate, deliver high-quality software, and drive scalable solutions that create true, positive impact for your organization.",
     "noExperience": "No experience.",
-    "noEducation": "No education data."
+    "noEducation": "No education data.",
+    "keyResponsibilities": "Key Responsibilities:",
+    "current": "Current"
   },
   "Action": {
     "viewDetails": "View Details",
@@ -78,6 +80,18 @@
       "ghTitle": "Explore the Code",
       "ghDesc": "Explore the source code for all my projects on GitHub.",
       "ghBtn": "Go to Github"
+    },
+    "form": {
+      "namePlaceholder": "Name",
+      "emailPlaceholder": "Email",
+      "messagePlaceholder": "Enter your message here...",
+      "sendBtn": "Send Message",
+      "sending": "Sending...",
+      "successMsg": "Message sent successfully!",
+      "errorMsg": "Something went wrong.",
+      "valName": "Please enter your name.",
+      "valEmail": "Please enter a valid email.",
+      "valMessage": "Message must be at least 10 characters."
     }
   },
   "ProjectDetail": {
@@ -106,6 +120,29 @@
     "showingProjects": "Showing {count} project(s)",
     "showingAchievements": "Showing {count} achievement(s)",
     "noProjects": "No projects found matching your criteria.",
-    "noAchievements": "No achievements found matching your criteria."
+    "noAchievements": "No achievements found matching your criteria.",
+    "allCategories": "All Categories",
+    "searchCategory": "Search category...",
+    "noCategoryFound": "No category found.",
+    "loading": "Loading...",
+    "featured": "Featured",
+    "viewDetails": "View Details",
+    "searchType": "Search type...",
+    "noTypeFound": "No type found.",
+    "allAchievements": "All Achievements",
+    "issuedOn": "Issued on {date}",
+    "eventGallery": "Event Gallery",
+    "viewCredential": "View Credential / Post",
+    "closeLightbox": "Close lightbox",
+    "certification": "Certification",
+    "badge": "Badge",
+    "awards": "Awards",
+    "hackathon": "Hackathon",
+    "talks": "Talks",
+    "loadingAchievements": "Loading achievements..."
+  },
+  "Metadata": {
+    "title": "Sophonwit Thapseng | Portfolio",
+    "description": "Sophonwit Thapseng - Software Engineer & Full Stack Developer Portfolio"
   }
 }

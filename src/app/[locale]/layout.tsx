@@ -1,12 +1,14 @@
 // src/app/[locale]/layout.tsx
 
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_Thai } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale, getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // Components
 import AppSidebar from "@/components/app-sidebar";
@@ -35,27 +37,49 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const notoSansThai = Noto_Sans_Thai({
+  variable: "--font-noto-sans-thai",
+  subsets: ["thai", "latin"],
+  display: "swap",
+});
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
   ? `https://${process.env.NEXT_PUBLIC_BASE_URL}`
   : "http://localhost:3000";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
-  title: {
-    default: "Sophonwit Thapseng | Portfolio",
-    template: "%s | Sophonwit Thapseng",
-  },
-  description:
-    "Sophonwit Thapseng - Software Engineer & Full Stack Developer Portfolio",
-  openGraph: {
-    title: "Sophonwit Thapseng | Portfolio",
-    description:
-      "Passionate Software Engineer specializing in Full Stack Development.",
-    url: baseUrl,
-    siteName: "Sophonwit Portfolio",
-    type: "website",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+
+  return {
+    metadataBase: new URL(baseUrl),
+    title: {
+      default: t("title"),
+      template: `%s | ${t("title").split(" | ")[0]}`,
+    },
+    description: t("description"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      url: baseUrl,
+      siteName: t("title").split(" | ")[0],
+      type: "website",
+    },
+    alternates: {
+      languages: {
+        en: "/en",
+        th: "/th",
+      },
+    },
+    icons: {
+      icon: "/favicon.ico",
+    },
+  };
+}
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -80,6 +104,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
 
   // Validate locale type-safe
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
@@ -116,10 +141,11 @@ export default async function LocaleLayout({
         <link rel="preconnect" href="https://res.cloudinary.com" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-white font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-50`}
+        className={`${geistSans.variable} ${geistMono.variable} ${notoSansThai.variable} bg-white font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-50`}
       >
         <NextIntlClientProvider messages={messages}>
           <LazyMotionProvider>
+            {/* <ScrollProgress /> */}
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -178,6 +204,8 @@ export default async function LocaleLayout({
             </ThemeProvider>
           </LazyMotionProvider>
         </NextIntlClientProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

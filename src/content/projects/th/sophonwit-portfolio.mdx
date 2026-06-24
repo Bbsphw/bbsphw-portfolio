@@ -1,0 +1,52 @@
+---
+id: proj-portfolio
+title: Sophonwit Portfolio
+category: Web App
+description: >-
+  พัฒนาเว็บไซต์พอร์ตโฟลิโอส่วนตัวที่มีประสิทธิภาพสูงด้วย Next.js เพื่อจัดแสดงเส้นทางการพัฒนาตนเองและผลงานระดับ Enterprise
+role: Frontend Developer
+date: ม.ค. 2568 - ปัจจุบัน
+technologies:
+  - Next.js
+  - React
+  - TypeScript
+  - Tailwind CSS
+tags:
+  - Next.js
+  - React
+  - TypeScript
+  - Tailwind CSS
+  - Framer Motion
+link: "https://bbsphw-portfolio.vercel.app/"
+githubUrl: "https://github.com/Bbsphw/bbsphw-portfolio"
+featured: false
+order: 1
+image: >-
+  https://res.cloudinary.com/bbsphw/image/upload/v1768290030/hero-section-desktop_kmigsn.png
+gallery:
+  - >-
+    https://res.cloudinary.com/bbsphw/image/upload/v1768290034/about-skills-animation_meko7b.png
+  - >-
+    https://res.cloudinary.com/bbsphw/image/upload/v1768290031/projects-grid-view_idr87q.png
+  - >-
+    https://res.cloudinary.com/bbsphw/image/upload/v1768290040/projects-detail-grid-view_lfi88f.png
+  - >-
+    https://res.cloudinary.com/bbsphw/image/upload/v1768290033/contact-gird-view_og1gtn.png
+  - >-
+    https://res.cloudinary.com/bbsphw/image/upload/v1768291199/mb-appside-bar_vls3lq.jpg
+  - >-
+    https://res.cloudinary.com/bbsphw/image/upload/v1768291200/mb-hero-section-view_enfhyz.jpg
+overview: >-
+  ออกแบบและพัฒนาเว็บไซต์พอร์ตโฟลิโอส่วนตัวขึ้นมาจากศูนย์ เพื่อแสดงให้เห็นถึงความเชี่ยวชาญในการใช้เทคโนโลยี Frontend สมัยใหม่ แพลตฟอร์มนี้ทำหน้าที่เป็นศูนย์กลางรวบรวมตัวตนทางอาชีพของผม โดยมีจุดเด่นอยู่ที่การนำเสนอโปรเจกต์แบบอินเทอร์แอกทีฟ การเจาะลึกกรณีศึกษาทางเทคนิค (Case Studies) และ UI ที่ตอบสนองอย่างลื่นไหล เป้าหมายหลักของการพัฒนาคือการทำคะแนนประสิทธิภาพ (Lighthouse Score) ให้ได้เต็ม 100 ในขณะที่ยังคงรักษาระดับประสบการณ์การใช้งาน (UX) ที่ยอดเยี่ยมและเข้าถึงได้ในทุกอุปกรณ์
+features:
+  - "Mobile-First Responsive Design: พัฒนาเลย์เอาต์โดยยึดหลัก Mobile-first เพื่อให้แสดงผลได้อย่างสมบูรณ์แบบทั้งบนมือถือ แท็บเล็ต และเดสก์ท็อป"
+  - "Interactive Gallery & Transitions: นำเสนอแอนิเมชันการเปลี่ยนหน้าเว็บที่ลื่นไหลเหมือนแอปพลิเคชัน (App-like feel) พร้อมลูกเล่น Shared Element Transitions"
+  - "Dynamic URL Filtering: สร้างระบบคัดกรองโปรเจกต์ผ่าน URL Search Params ช่วยให้ผู้ใช้สามารถคัดลอกลิงก์และแชร์ผลลัพธ์การค้นหาเฉพาะเจาะจงได้"
+  - "Theme Management: ผสานระบบตรวจจับ ธีมสว่าง/มืด อัตโนมัติตามการตั้งค่าของระบบปฏิบัติการที่ผู้ใช้อยู่"
+  - "SEO & Performance Optimization: ปรับแต่ง Metadata ระดับสูง รองรับ Open Graph tags และทำคะแนน Lighthouse ได้เต็ม 100"
+challenges:
+  - problem: "การสร้างแอนิเมชันเปลี่ยนหน้าที่ลื่นไหล (App-like) โดยต้องไม่กระทบต่อความเร็วในการโหลดเว็บและประสิทธิภาพ SEO"
+    solution: "เลือกใช้ AnimatePresence จาก `framer-motion` ในการทำ Exit animations ควบคู่กับการควบคุม Lifecycle การเรนเดอร์คอมโพเนนต์อย่างละเอียด เพื่อรับประกันว่าแอนิเมชันจะลื่นไหลระดับ 60fps โดยไม่ทำให้เว็บอืด"
+  - problem: "การจัดการ State สำหรับตัวกรองข้อมูลที่มีความซับซ้อน โดยที่ผู้ใช้ต้องสามารถบันทึก (Bookmark) หรือแชร์หน้าจอที่กรองแล้วได้"
+    solution: "ย้ายการจัดการ State ทั้งหมดไปผูกไว้กับ URL ผ่าน `useSearchParams` ของ Next.js ช่วยขจัดปัญหาความหน่วงจาก Local State และทำให้ทุกๆ การคัดกรองสามารถแชร์ต่อได้ทันที"
+---

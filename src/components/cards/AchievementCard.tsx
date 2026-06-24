@@ -23,8 +23,10 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { UniversalImage } from "../universal-image";
+import { useTranslations, useLocale } from "next-intl";
+import { cn } from "@/lib/utils";
 
 export default function AchievementCard(props: Achievement) {
   const {
@@ -39,6 +41,8 @@ export default function AchievementCard(props: Achievement) {
     gallery,
   } = props;
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const commonT = useTranslations("Common");
+  const locale = useLocale();
 
   return (
     <>
@@ -69,7 +73,8 @@ export default function AchievementCard(props: Achievement) {
                       variant="secondary"
                       className="bg-white/90 capitalize shadow-sm backdrop-blur-sm dark:bg-black/50"
                     >
-                      {type}
+                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                      {commonT(type.toLowerCase() as any)}
                     </Badge>
                   </div>
 
@@ -81,7 +86,7 @@ export default function AchievementCard(props: Achievement) {
                   )}
 
                   <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/60 text-sm font-medium text-white opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
-                    <span>View Details</span>
+                    <span>{commonT("viewDetails")}</span>
                     <Info className="h-4 w-4" />
                   </div>
                 </div>
@@ -102,7 +107,7 @@ export default function AchievementCard(props: Achievement) {
                     <div className="mt-auto pt-4">
                       <div className="flex items-center gap-2 border-t border-zinc-200 pt-3 text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-500">
                         <Calendar className="h-3.5 w-3.5" />
-                        <span>Issued on {date}</span>
+                        <span>{commonT("issuedOn", { date })}</span>
                       </div>
                     </div>
                   )}
@@ -159,7 +164,12 @@ export default function AchievementCard(props: Achievement) {
 
               <div className="space-y-6">
                 {description && (
-                  <div className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                  <div
+                    className={cn(
+                      "text-sm text-zinc-600 dark:text-zinc-300",
+                      locale === "th" ? "leading-loose" : "leading-relaxed",
+                    )}
+                  >
                     {description}
                   </div>
                 )}
@@ -169,7 +179,7 @@ export default function AchievementCard(props: Achievement) {
                   <div className="space-y-3">
                     <h4 className="flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100">
                       <ImageIcon className="h-4 w-4" />
-                      Event Gallery
+                      {commonT("eventGallery")}
                     </h4>
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                       {gallery.map((imgUrl, idx) => (
@@ -201,7 +211,7 @@ export default function AchievementCard(props: Achievement) {
                         rel="noopener noreferrer"
                         aria-label={`View credential for ${title} (opens in new tab)`} // ✅ Accessibility
                       >
-                        View Credential / Post{" "}
+                        {commonT("viewCredential")}{" "}
                         <ArrowUpRight className="ml-2 h-4 w-4" />
                       </a>
                     </Button>
@@ -216,7 +226,7 @@ export default function AchievementCard(props: Achievement) {
       {/* Lightbox Overlay */}
       <AnimatePresence>
         {selectedImage && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -226,12 +236,12 @@ export default function AchievementCard(props: Achievement) {
             <button
               onClick={() => setSelectedImage(null)}
               className="absolute top-4 right-4 z-[160] rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-colors hover:bg-white/20"
-              aria-label="Close lightbox" // ✅ Accessibility
+              aria-label={commonT("closeLightbox")} // ✅ Accessibility
             >
               <X className="h-6 w-6" />
             </button>
 
-            <motion.div
+            <m.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -248,8 +258,8 @@ export default function AchievementCard(props: Achievement) {
                 sizes="100vw"
                 priority // ✅ Performance: โหลดทันทีเมื่อเปิด Lightbox
               />
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

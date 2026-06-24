@@ -3,8 +3,7 @@
 // ✅ 1. เพิ่ม Type สำหรับภาษา
 export type Language = "en" | "th";
 
-// ✅ 2. สร้าง Generic Type สำหรับข้อมูลที่แยกภาษา
-export type LocalizedData<T> = Record<Language, T>;
+
 
 export const PROJECT_CATEGORIES = [
   "Web App",
@@ -40,6 +39,7 @@ export interface Project {
   featured?: boolean;
   image?: string;
   gallery?: string[];
+  order?: number;
 }
 
 export type Skill = {

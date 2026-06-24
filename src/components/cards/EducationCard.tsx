@@ -3,12 +3,14 @@
 import Image from "next/image";
 import { MapPin, CalendarDays, Building2 } from "lucide-react";
 import { Education } from "@/types";
+import { useLocale } from "next-intl";
 
 interface EducationCardProps {
   education: Education;
 }
 
 export default function EducationCard({ education }: EducationCardProps) {
+  const locale = useLocale();
   return (
     <div className="transform-none opacity-100 will-change-auto">
       {/* 1. กรอบนอก */}
@@ -62,7 +64,7 @@ export default function EducationCard({ education }: EducationCardProps) {
             </div>
 
             {/* Description */}
-            <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+            <p className={`text-sm text-zinc-600 dark:text-zinc-400 ${locale === 'th' ? 'leading-loose' : 'leading-relaxed'}`}>
               {education.description}
             </p>
           </div>

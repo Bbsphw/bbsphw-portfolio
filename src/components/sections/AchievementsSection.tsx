@@ -6,11 +6,10 @@ import { AchievementSummary } from "../AchievementSummary";
 import { Suspense, useCallback, useMemo } from "react";
 import AchievementCard from "../cards/AchievementCard";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { achievementsData } from "@/data/achievements";
-import { motion, Variants, AnimatePresence } from "framer-motion";
-import { useDebouncedCallback } from "use-debounce";
 import { useTranslations, useLocale } from "next-intl"; // ✅ Import
-import { Language } from "@/types";
+import { Language, Achievement } from "@/types";
+import { m, Variants, AnimatePresence } from "framer-motion";
+import { useDebouncedCallback } from "use-debounce";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -22,7 +21,7 @@ const staggerContainer: Variants = {
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
-function AchievementsContent() {
+function AchievementsContent({ achievementsList = [] }: { achievementsList: Achievement[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -33,8 +32,6 @@ function AchievementsContent() {
 
   const currentType = searchParams.get("type") || "";
   const currentSearch = searchParams.get("q") || "";
-
-  const achievementsList = achievementsData[locale];
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -75,7 +72,7 @@ function AchievementsContent() {
 
   return (
     <section className="space-y-6">
-      <motion.header
+      <m.header
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -93,18 +90,18 @@ function AchievementsContent() {
         <p className="text-zinc-600 dark:text-zinc-400">
           {t("achievementsDesc")}
         </p>
-      </motion.header>
+      </m.header>
 
       <hr className="border-zinc-200 dark:border-zinc-700" />
 
-      <motion.div
+      <m.div
         className="space-y-4"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
         variants={staggerContainer}
       >
-        <motion.div
+        <m.div
           variants={fadeInUp}
           className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
         >
@@ -126,17 +123,17 @@ function AchievementsContent() {
               onSelect={handleTypeSelect}
             />
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           variants={fadeInUp}
           className="ml-1 text-sm text-zinc-500 dark:text-zinc-400"
         >
           <AchievementSummary total={filteredAchievements.length} />
-        </motion.div>
+        </m.div>
 
         {filteredAchievements.length > 0 ? (
-          <motion.div
+          <m.div
             key={`${currentType}-${currentSearch}-${locale}`}
             className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
             variants={staggerContainer}
@@ -145,14 +142,14 @@ function AchievementsContent() {
           >
             <AnimatePresence mode="popLayout">
               {filteredAchievements.map((achievement) => (
-                <motion.div key={achievement.id} variants={fadeInUp} layout>
+                <m.div key={achievement.id} variants={fadeInUp} layout>
                   <AchievementCard {...achievement} />
-                </motion.div>
+                </m.div>
               ))}
             </AnimatePresence>
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.div
+          <m.div
             key="empty"
             variants={fadeInUp}
             initial="hidden"
@@ -160,22 +157,27 @@ function AchievementsContent() {
             className="py-10 text-center text-zinc-500 dark:text-zinc-400"
           >
             <p>{commonT("noAchievements")}</p> {/* ✅ */}
-          </motion.div>
+          </m.div>
         )}
-      </motion.div>
+      </m.div>
     </section>
   );
 }
 
-export default function AchievementsSection() {
+interface AchievementsSectionProps {
+  achievements?: Achievement[];
+}
+
+export default function AchievementsSection({ achievements = [] }: AchievementsSectionProps) {
+  const commonT = useTranslations("Common");
   return (
     <section id="achievements" aria-labelledby="achievements-heading">
       <Suspense
         fallback={
-          <div className="py-20 text-center">Loading achievements...</div>
+          <div className="py-20 text-center">{commonT("loadingAchievements")}</div>
         }
       >
-        <AchievementsContent />
+        <AchievementsContent achievementsList={achievements} />
       </Suspense>
     </section>
   );

@@ -1,11 +1,11 @@
 "use client";
 
-import { educationData, careerData } from "@/data/about";
+import { Career, Education } from "@/types";
 import { Button } from "@/components/ui/button";
 import { FileText, Backpack, GraduationCap, ExternalLink } from "lucide-react";
 import CareerCard from "@/components/cards/CareerCard";
 import EducationCard from "@/components/cards/EducationCard";
-import { motion, Variants } from "framer-motion";
+import { m, Variants } from "framer-motion";
 import {
   Dialog,
   DialogContent,
@@ -15,7 +15,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useTranslations, useLocale } from "next-intl";
-import { Language } from "@/types";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -27,22 +26,25 @@ const staggerContainer: Variants = {
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
-export default function AboutSection() {
-  const resumeUrl = "/pdf/Sophonwit_Thapseng-SoftwareENG_Internship.pdf";
+interface AboutSectionProps {
+  careers?: Career[];
+  educations?: Education[];
+}
+
+export default function AboutSection({
+  careers = [],
+  educations = [],
+}: AboutSectionProps) {
+  const resumeUrl = "/pdf/Sophonwit_Thapseng_Software-Engineer.pdf";
 
   const t = useTranslations("Section"); // Namespace: Section
   const aboutT = useTranslations("About"); // Namespace: About (เพิ่มใหม่)
   const actionT = useTranslations("Action"); // Namespace: Action
-
-  const locale = useLocale() as Language;
-
-  // เลือกข้อมูลตามภาษา
-  const careers = careerData[locale];
-  const educations = educationData[locale];
+  const locale = useLocale();
 
   return (
     <section id="about" aria-labelledby="about-heading" className="space-y-6">
-      <motion.header
+      <m.header
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -113,26 +115,26 @@ export default function AboutSection() {
             </DialogContent>
           </Dialog>
         </div>
-      </motion.header>
+      </m.header>
 
       <hr className="my-6 border-zinc-200 dark:border-zinc-700" />
-      <motion.section
+      <m.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
       >
-        <div className="space-y-4 leading-relaxed text-zinc-600 dark:text-zinc-300">
+        <div className={`space-y-4 text-zinc-600 dark:text-zinc-300 ${locale === 'th' ? 'leading-loose' : 'leading-relaxed'}`}>
           {/* ✅ ใช้คำแปลจากไฟล์ JSON แทน Hardcoded Text */}
           <p>{aboutT("bio1")}</p>
           <p>{aboutT("bio2")}</p>
           <p>{aboutT("bio3")}</p>
         </div>
-      </motion.section>
+      </m.section>
 
       {/* --- CAREER SECTION --- */}
       <hr className="my-6 border-zinc-200 dark:border-zinc-700" />
-      <motion.section
+      <m.section
         aria-labelledby="career-heading"
         className="space-y-5"
         initial="hidden"
@@ -140,7 +142,7 @@ export default function AboutSection() {
         viewport={{ once: true, margin: "-50px" }}
         variants={staggerContainer}
       >
-        <motion.div variants={fadeInUp} className="space-y-1">
+        <m.div variants={fadeInUp} className="space-y-1">
           <div className="flex items-center gap-2">
             <Backpack className="text-xl text-zinc-800 dark:text-zinc-200" />
             <h2
@@ -151,28 +153,28 @@ export default function AboutSection() {
             </h2>
           </div>
           <p className="text-zinc-600 dark:text-zinc-400">
-            {t("experienceDesc")} {/* ✅ "My professional career journey" */}
+            {t("experienceDesc")} {/* โ… "My professional career journey" */}
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid grid-cols-1 gap-4">
           {careers.length > 0 ? (
             careers.map((career) => (
-              <motion.div key={career.id} variants={fadeInUp}>
+              <m.div key={career.id} variants={fadeInUp}>
                 <CareerCard career={career} />
-              </motion.div>
+              </m.div>
             ))
           ) : (
-            <motion.p variants={fadeInUp} className="text-zinc-500">
-              {aboutT("noExperience")} {/* ✅ "No experience." */}
-            </motion.p>
+            <m.p variants={fadeInUp} className="text-zinc-500">
+              {aboutT("noExperience")} {/* โ… "No experience." */}
+            </m.p>
           )}
         </div>
-      </motion.section>
+      </m.section>
 
       {/* --- EDUCATION SECTION --- */}
       <hr className="my-6 border-zinc-200 dark:border-zinc-700" />
-      <motion.section
+      <m.section
         aria-labelledby="education-heading"
         className="space-y-5"
         initial="hidden"
@@ -180,7 +182,7 @@ export default function AboutSection() {
         viewport={{ once: true, margin: "-50px" }}
         variants={staggerContainer}
       >
-        <motion.div variants={fadeInUp} className="space-y-1">
+        <m.div variants={fadeInUp} className="space-y-1">
           <div className="flex items-center gap-2">
             <GraduationCap className="text-xl text-zinc-800 dark:text-zinc-200" />
             <h2
@@ -191,24 +193,24 @@ export default function AboutSection() {
             </h2>
           </div>
           <p className="text-zinc-600 dark:text-zinc-400">
-            {t("educationDesc")} {/* ✅ "My educational background" */}
+            {t("educationDesc")} {/* โ… "My educational background" */}
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid grid-cols-1 gap-4">
           {educations.length > 0 ? (
             educations.map((education) => (
-              <motion.div key={education.id} variants={fadeInUp}>
+              <m.div key={education.id} variants={fadeInUp}>
                 <EducationCard education={education} />
-              </motion.div>
+              </m.div>
             ))
           ) : (
-            <motion.p variants={fadeInUp} className="text-zinc-500">
-              {aboutT("noEducation")} {/* ✅ "No education data." */}
-            </motion.p>
+            <m.p variants={fadeInUp} className="text-zinc-500">
+              {aboutT("noEducation")} {/* โ… "No education data." */}
+            </m.p>
           )}
         </div>
-      </motion.section>
+      </m.section>
     </section>
   );
 }

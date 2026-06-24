@@ -32,8 +32,9 @@ import { Badge } from "@/components/ui/badge";
 import { Project } from "@/types";
 import { toast } from "sonner";
 import { UniversalImage } from "../universal-image";
-import { useTranslations } from "next-intl"; // ✅ Import
+import { useTranslations, useLocale } from "next-intl"; // ✅ Import
 import { TechIcon } from "../icons/TechIcons"; // ✅ Import
+import { cn } from "@/lib/utils";
 
 interface ProjectNode {
   slug: string;
@@ -44,14 +45,17 @@ interface ProjectDetailProps {
   project: Project;
   prevProject?: ProjectNode | null;
   nextProject?: ProjectNode | null;
+  mdxContent?: React.ReactNode;
 }
 
 export default function ProjectDetail({
   project,
   prevProject,
   nextProject,
+  mdxContent,
 }: ProjectDetailProps) {
   const t = useTranslations("ProjectDetail"); // ✅ เรียกใช้
+  const locale = useLocale();
 
   // --- STATE & REFS ---
   const [currentUrl, setCurrentUrl] = useState("");
@@ -153,7 +157,12 @@ export default function ProjectDetail({
                 {project.category}
               </Badge>
             </div>
-            <p className="max-w-2xl text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
+            <p
+              className={cn(
+                "max-w-2xl text-lg text-zinc-600 dark:text-zinc-300",
+                locale === "th" ? "leading-loose" : "leading-relaxed",
+              )}
+            >
               {project.description}
             </p>
           </div>
@@ -285,14 +294,26 @@ export default function ProjectDetail({
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[2fr_1fr]">
           {/* Left Column (Details) */}
           <div className="min-w-0 space-y-12">
-            {/* Overview */}
+            {/* MDX Content (If available) */}
+            {mdxContent && (
+              <section className="w-full">
+                {mdxContent}
+              </section>
+            )}
+
+            {/* Overview (Fallback) */}
             {project.overview && (
               <section className="space-y-4">
                 <h2 className="flex items-center gap-2 text-2xl font-bold text-zinc-900 dark:text-zinc-50">
                   <Layout className="h-6 w-6 text-cyan-500" />
                   {t("overview")} {/* ✅ Project Overview */}
                 </h2>
-                <div className="prose prose-zinc dark:prose-invert max-w-none leading-loose text-zinc-600 dark:text-zinc-300">
+                <div
+                  className={cn(
+                    "prose prose-zinc dark:prose-invert max-w-none text-zinc-600 dark:text-zinc-300",
+                    locale === "th" ? "leading-loose" : "leading-relaxed",
+                  )}
+                >
                   <p>{project.overview}</p>
                 </div>
               </section>

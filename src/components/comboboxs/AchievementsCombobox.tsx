@@ -5,6 +5,7 @@
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -20,13 +21,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const achievementTypes = [
-  { value: "", label: "All Achievements" },
-  { value: "certification", label: "Certification" },
-  { value: "badge", label: "Badge" },
-  { value: "awards", label: "Awards" },
-  { value: "hackathon", label: "Hackathon" },
-  { value: "talks", label: "Talks" },
+const ACHIEVEMENT_TYPES = [
+  { value: "certification", labelKey: "certification" },
+  { value: "badge", labelKey: "badge" },
+  { value: "awards", labelKey: "awards" },
+  { value: "hackathon", labelKey: "hackathon" },
+  { value: "talks", labelKey: "talks" },
 ];
 
 interface AchievementComboboxProps {
@@ -39,6 +39,16 @@ export function AchievementCombobox({
   onSelect,
 }: AchievementComboboxProps) {
   const [open, setOpen] = React.useState(false);
+  const commonT = useTranslations("Common");
+
+  const achievementTypes = [
+    { value: "", label: commonT("allAchievements") },
+    ...ACHIEVEMENT_TYPES.map((type) => ({
+      value: type.value,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      label: commonT(type.labelKey as any),
+    })),
+  ];
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -51,7 +61,7 @@ export function AchievementCombobox({
           className="w-full justify-between border-zinc-200 bg-zinc-50 text-zinc-900 hover:bg-zinc-100 md:w-[230px] dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100 dark:hover:bg-zinc-900"
         >
           {achievementTypes.find((type) => type.value === selectedType)
-            ?.label || "All Achievements"}
+            ?.label || commonT("allAchievements")}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -60,9 +70,9 @@ export function AchievementCombobox({
         align="end"
       >
         <Command className="bg-white dark:bg-zinc-950">
-          <CommandInput placeholder="Search type..." className="h-9" />
+          <CommandInput placeholder={commonT("searchType")} className="h-9" />
           <CommandList>
-            <CommandEmpty>No type found.</CommandEmpty>
+            <CommandEmpty>{commonT("noTypeFound")}</CommandEmpty>
             <CommandGroup>
               {achievementTypes.map((type) => (
                 <CommandItem

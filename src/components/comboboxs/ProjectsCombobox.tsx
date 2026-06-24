@@ -5,6 +5,7 @@
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -31,9 +32,10 @@ export function ProjectsCombobox({
   onSelect,
 }: ProjectsComboboxProps) {
   const [open, setOpen] = React.useState(false);
+  const commonT = useTranslations("Common");
 
   const categories = [
-    { value: "", label: "All Categories" },
+    { value: "", label: commonT("allCategories") },
     ...PROJECT_CATEGORIES.map((cat) => ({ value: cat, label: cat })),
   ];
 
@@ -48,7 +50,7 @@ export function ProjectsCombobox({
           className="w-full justify-between border-zinc-200 bg-zinc-50 text-zinc-900 hover:bg-zinc-100 md:w-[230px] dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-100 dark:hover:bg-zinc-900"
         >
           {categories.find((c) => c.value === selectedCategory)?.label ||
-            "All Categories"}
+            commonT("allCategories")}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -57,9 +59,9 @@ export function ProjectsCombobox({
         align="end"
       >
         <Command className="bg-white dark:bg-zinc-950">
-          <CommandInput placeholder="Search category..." className="h-9" />
+          <CommandInput placeholder={commonT("searchCategory")} className="h-9" />
           <CommandList>
-            <CommandEmpty>No category found.</CommandEmpty>
+            <CommandEmpty>{commonT("noCategoryFound")}</CommandEmpty>
             <CommandGroup>
               {categories.map((category) => (
                 <CommandItem

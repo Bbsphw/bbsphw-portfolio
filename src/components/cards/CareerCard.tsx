@@ -13,13 +13,40 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Career } from "@/types";
+import { useTranslations, useLocale } from "next-intl";
 
 interface CareerCardProps {
   career: Career;
 }
 
+const renderDesc = (text: string) => {
+  const boldParts = text.split(/(\*\*.*?\*\*)/g);
+  return boldParts.map((boldPart, i) => {
+    if (boldPart.startsWith("**") && boldPart.endsWith("**")) {
+      return (
+        <strong key={i} className="font-semibold text-zinc-900 dark:text-zinc-100">
+          {boldPart.slice(2, -2)}
+        </strong>
+      );
+    }
+    const italicParts = boldPart.split(/(\*.*?\*)/g);
+    return italicParts.map((italicPart, j) => {
+      if (italicPart.startsWith("*") && italicPart.endsWith("*") && italicPart.length > 2) {
+        return (
+          <em key={`${i}-${j}`} className="italic text-zinc-500 dark:text-zinc-400">
+            {italicPart.slice(1, -1)}
+          </em>
+        );
+      }
+      return <span key={`${i}-${j}`}>{italicPart}</span>;
+    });
+  });
+};
+
 export default function CareerCard({ career }: CareerCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const locale = useLocale();
+  const aboutT = useTranslations("About");
 
   return (
     <div className="transform-none opacity-100 will-change-auto">
@@ -64,7 +91,7 @@ export default function CareerCard({ career }: CareerCardProps) {
                 </h3>
                 {career.current && (
                   <span className="inline-flex w-fit items-center rounded-full border border-green-200 bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700 dark:border-green-900/30 dark:bg-green-900/20 dark:text-green-400">
-                    Current
+                    {aboutT("current")}
                   </span>
                 )}
               </div>
@@ -131,13 +158,18 @@ export default function CareerCard({ career }: CareerCardProps) {
             )}
           >
             <div className="overflow-hidden">
-              <div className="border-t border-zinc-200/60 bg-zinc-50/50 p-5 pt-4 text-sm leading-relaxed text-zinc-600 dark:border-zinc-800/60 dark:bg-black/20 dark:text-zinc-400">
+              <div
+                className={cn(
+                  "border-t border-zinc-200/60 bg-zinc-50/50 p-5 pt-4 text-sm text-zinc-600 dark:border-zinc-800/60 dark:bg-black/20 dark:text-zinc-400",
+                  locale === "th" ? "leading-loose" : "leading-relaxed"
+                )}
+              >
                 <p className="mb-2 font-semibold text-zinc-900 dark:text-zinc-200">
-                  Key Responsibilities:
+                  {aboutT("keyResponsibilities")}
                 </p>
                 <ul className="list-outside list-disc space-y-1 pl-4 marker:text-zinc-400">
                   {career.description.map((desc, index) => (
-                    <li key={index}>{desc}</li>
+                    <li key={index}>{renderDesc(desc)}</li>
                   ))}
                 </ul>
               </div>
