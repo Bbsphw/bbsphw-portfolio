@@ -22,6 +22,9 @@ interface UniversalImageProps extends Omit<ImageProps, "src"> {
   cldProps?: Partial<CldImageProps>;
 }
 
+// 1x1 gray pixel SVG base64 for placeholder
+const blurDataUrl = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiA5Ij48cmVjdCB3aWR0aD0iMTYiIGhlaWdodD0iOSIgZmlsbD0iI2U1ZTdlYiIvPjwvc3ZnPg==";
+
 export function UniversalImage({
   src,
   alt,
@@ -42,7 +45,9 @@ export function UniversalImage({
         // ✅ Performance Improvements:
         format="auto" // ให้ Cloudinary เลือกไฟล์ที่ดีที่สุด (AVIF/WebP)
         quality="auto" // บีบอัดภาพอัตโนมัติ (ลดขนาดไฟล์โดยตาเปล่าแยกไม่ออก)
-        dpr="auto" // ปรับความชัดตาม Device Pixel Ratio
+        // dpr="auto" // ปรับความชัดตาม Device Pixel Ratio
+        placeholder="blur"
+        blurDataURL={blurDataUrl}
         {...cldProps} // ยอมให้ override ค่าได้ถ้าส่ง cldProps มา
         {...props} // ส่ง props มาตรฐาน (fill, sizes, priority) ต่อไป
       />
@@ -50,5 +55,14 @@ export function UniversalImage({
   }
 
   // สำหรับรูป Local
-  return <Image src={safeSrc} alt={alt} className={className} {...props} />;
+  return (
+    <Image 
+      src={safeSrc} 
+      alt={alt} 
+      className={className} 
+      placeholder="blur"
+      blurDataURL={blurDataUrl}
+      {...props} 
+    />
+  );
 }

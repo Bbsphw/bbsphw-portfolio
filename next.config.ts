@@ -11,30 +11,30 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    // ✅ [เพิ่ม] เปิดใช้งาน Image Formats ล่าสุด (Performance)
+    // ✅ เปิดใช้งาน Image Formats ล่าสุด (Performance)
     // Next.js จะเลือกไฟล์ที่เล็กที่สุดให้ Browser อัตโนมัติ (AVIF > WebP > Original)
     formats: ["image/avif", "image/webp"],
 
-    // ✅ อนุญาตให้โหลด SVG (ถูกต้อง)
+    // ✅ อนุญาตให้โหลด SVG
     dangerouslyAllowSVG: true,
 
-    // ✅ Security Headers สำหรับ SVG (ถูกต้องและดีมากครับ เป็น Best Practice)
+    // ✅ Security Headers สำหรับ SVG
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 
-    // ✅ Remote Patterns
+    // ✅ Remote Patterns (บางส่วนยังจำเป็นสำหรับ fallback)
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "placehold.co", // สำหรับรูป Placeholder
+        hostname: "placehold.co",
       },
       {
         protocol: "https",
-        hostname: "res.cloudinary.com", // สำหรับรูปจาก Cloudinary
+        hostname: "res.cloudinary.com",
       },
       {
         protocol: "https",
-        hostname: "images.unsplash.com", // แนะนำเผื่อไว้ ถ้าใช้รูปจาก Unsplash
+        hostname: "images.unsplash.com",
       },
     ],
   },

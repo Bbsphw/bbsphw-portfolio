@@ -7,15 +7,15 @@ import { MessageSquare } from "lucide-react";
 import {
   SiGmail,
   SiInstagram,
-  SiLinkedin,
   SiTiktok,
   SiGithub,
 } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa";
 import { MdArrowOutward } from "react-icons/md";
 import { m, Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
-import { useTranslations } from "next-intl"; // ✅ Import
+import { useTranslations, useLocale } from "next-intl"; // ✅ Import
 
 // --- Animation Variants ---
 const fadeInUp: Variants = {
@@ -35,6 +35,7 @@ const staggerContainer: Variants = {
 
 export default function ContactSection() {
   const t = useTranslations("Contact"); // ✅ เรียกใช้
+  const locale = useLocale();
 
   return (
     <section
@@ -58,7 +59,12 @@ export default function ContactSection() {
             {t("title")} {/* ✅ Contact */}
           </h1>
         </div>
-        <p className="text-zinc-600 dark:text-zinc-400">
+        <p
+          className={cn(
+            "text-zinc-600 dark:text-zinc-400",
+            locale === "th" ? "leading-loose" : "leading-relaxed",
+          )}
+        >
           {t("subtitle")} {/* ✅ Have a question... */}
         </p>
       </m.header>
@@ -110,9 +116,9 @@ export default function ContactSection() {
           <SocialCard
             variant="sky"
             className="md:col-span-3 md:row-span-3"
-            icon={<SiLinkedin className="h-10 w-10" />}
+            icon={<FaLinkedin className="h-10 w-10" />}
             bgIcon={
-              <SiLinkedin className="h-[275px] w-[275px] text-white/10" />
+              <FaLinkedin className="h-[275px] w-[275px] text-white/10" />
             }
             title={t("social.liTitle")} // ✅
             description={t("social.liDesc")} // ✅
@@ -195,6 +201,7 @@ function SocialCard({
   buttonText,
   href,
 }: SocialCardProps) {
+  const locale = useLocale();
   const styles = {
     red: {
       bg: "bg-gradient-to-b from-red-700 to-red-900 border-red-300",
@@ -251,7 +258,13 @@ function SocialCard({
           >
             {title}
           </h4>
-          <p className={cn("pb-2 text-sm", currentStyle.textDesc)}>
+          <p
+            className={cn(
+              "pb-2 text-sm",
+              currentStyle.textDesc,
+              locale === "th" ? "leading-loose" : "leading-relaxed",
+            )}
+          >
             {description}
           </p>
           <Button

@@ -3,6 +3,7 @@
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
+import { getAllProjects } from "@/lib/mdx";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -29,9 +30,12 @@ export default async function ProjectsPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
+  const projectsList = getAllProjects(locale);
+
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <ProjectsSection />
+      <ProjectsSection projectsList={projectsList} />
     </div>
   );
 }
+

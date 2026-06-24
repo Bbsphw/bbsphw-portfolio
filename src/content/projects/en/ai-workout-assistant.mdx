@@ -1,0 +1,40 @@
+---
+id: proj-cv-workout
+title: AI Workout Assistant
+category: Others
+description: >-
+  Developed a desktop application leveraging Computer Vision to provide real-time exercise form correction and repetition counting.
+role: AI Developer
+date: May 2024 - June 2024
+technologies:
+  - Python
+  - OpenCV
+  - MediaPipe
+tags:
+  - Computer Vision
+  - AI
+  - Python
+  - MediaPipe
+  - OpenCV
+githubUrl: 'https://github.com/Bbsphw/cv-workout'
+featured: false
+order: 5
+image: >-
+  https://res.cloudinary.com/bbsphw/image/upload/v1768373176/ai-pose-detection-cover_gdqztn.jpg
+gallery:
+  - >-
+    https://res.cloudinary.com/bbsphw/image/upload/v1768374539/test-pose-detection_hmmodt.jpg
+overview: >-
+  Engineered an AI-powered fitness application using Python and MediaPipe's Pose Estimation. The system detects key body landmarks from a live webcam feed to analyze exercise mechanics in real-time. It accurately counts repetitions for exercises like Push-ups and Squats while simultaneously providing visual feedback to correct the user's form, showcasing the intersection of computer vision and fitness.
+features:
+  - "Real-time Pose Estimation: Utilizes MediaPipe to track and render human body landmarks instantly with high precision."
+  - "Automated Rep Counting: Employs an intelligent state machine to track exercise repetitions without manual input."
+  - "Form Correction Feedback: Delivers real-time visual prompts (e.g., 'Lower your hips') to ensure proper posture and prevent injuries."
+  - "Joint Angle Analysis: Calculates critical joint angles dynamically to evaluate the user's exercise state."
+  - "Custom GUI: Features a clean, user-friendly graphical interface built with CustomTkinter/PyQt for seamless interactions."
+challenges:
+  - problem: "Inaccurate detection and jittering during fast body movements."
+    solution: "Implemented a mathematical smoothing algorithm for landmark coordinates and optimized confidence thresholds, significantly reducing jitter and false detections."
+  - problem: "Calculating repetition states (UP/DOWN) reliably without false positives."
+    solution: "Designed a robust state machine based on continuous joint angle calculations to precisely distinguish between exercise states, ensuring accurate rep counting."
+---
